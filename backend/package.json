@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "lint": "eslint .",
     "dev": "nodemon index.js"
   },
@@ -22,5 +22,11 @@
   "devDependencies": {
     "eslint": "^8.6.0",
     "nodemon": "^2.0.15"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "fast-csv": "^4.3.6"
   }
 }
