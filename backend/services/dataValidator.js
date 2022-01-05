@@ -2,10 +2,10 @@ const fs = require('fs')
 const path = require('path')
 const csv = require('fast-csv')
 
-const validateCsvFile = (filename) => {
+const validateCsvFile = (filePath) => {
   return new Promise((resolve, reject) => {
     const validLines = []
-    fs.createReadStream(path.resolve(process.cwd(), 'data', filename), 'utf8')
+    fs.createReadStream(filePath, 'utf8')
       .pipe(csv.parse())
       .on('error', reject)
       .on('data', row => {

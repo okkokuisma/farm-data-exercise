@@ -4,4 +4,8 @@ const create = async (values) => {
   return await DataPoint.create(values)
 }
 
-module.exports = { create }
+const bulkCreate = async (instances) => {
+  return await DataPoint.bulkCreate(instances)
+}
+
+module.exports = { create, bulkCreate }
