@@ -22,6 +22,7 @@ const validateCsvFile = (filename) => {
 const validateCsvRow = (values) => {
   const metricType = values[2].toLowerCase()
   const metricValue = Number(values[3])
+
   switch (metricType) {
     case 'rainfall':
       return (metricValue >= 0 && metricValue <= 500)
