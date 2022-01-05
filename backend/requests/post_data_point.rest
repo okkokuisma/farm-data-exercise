@@ -1,0 +1,9 @@
+POST http://localhost:3000/api/data/
+content-type: application/json
+
+{
+  "farmId": 1,
+  "dateTime": "2019-01-04T01:58:16.034Z",
+  "metricType": "rainFall",
+  "metricValue": "25"
+}

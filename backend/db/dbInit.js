@@ -1,26 +1,28 @@
-const Sequelize = require("sequelize")
+const Sequelize = require('sequelize')
 const password = process.env.POSTGRES_PASSWORD
-const DB_CONNECTION_RETRY_LIMIT = 10;
+const DB_CONNECTION_RETRY_LIMIT = 10
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const username = process.env.POSTGRES_USERNAME
   ? process.env.POSTGRES_USERNAME
-  : "postgres"
+  : 'postgres'
 
-const sequelize = new Sequelize("postgres", username, password, {
-  dialect: "postgres",
-  host: process.env.DB_HOST || "localhost",
+const sequelize = new Sequelize('postgres', username, password, {
+  dialect: 'postgres',
+  host: process.env.DB_HOST || 'localhost',
   logging: false,
 })
 
-const DataPoint = require("./models/DataPoint")(sequelize, Sequelize.DataTypes)
-const Farm = require("./models/Farm")(sequelize, Sequelize.DataTypes)
+const DataPoint = require('./models/DataPoint')(sequelize, Sequelize.DataTypes)
+const Farm = require('./models/Farm')(sequelize, Sequelize.DataTypes)
+Farm.hasMany(DataPoint)
+DataPoint.belongsTo(Farm)
 
 const connectToDatabase = async (attempt = 0) => {
   try {
     await sequelize.authenticate()
     await sequelize.sync()
-    console.log("Connected to database")
+    console.log('Connected to database')
   }
   catch (e) {
     if (attempt === DB_CONNECTION_RETRY_LIMIT) {
@@ -32,7 +34,7 @@ const connectToDatabase = async (attempt = 0) => {
       `Connection to database failed! Attempt ${attempt} of ${DB_CONNECTION_RETRY_LIMIT}`,
     )
 
-    await sleep(3000);
+    await sleep(3000)
     connectToDatabase(attempt + 1)
   }
 }

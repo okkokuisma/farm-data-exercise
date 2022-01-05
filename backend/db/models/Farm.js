@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define("Farm", {
+  return sequelize.define('farm', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -7,6 +7,6 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     timestamps: true,
     updatedAt: false,
-    tableName: "farms",
+    tableName: 'farms',
   })
 }

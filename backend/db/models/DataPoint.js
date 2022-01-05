@@ -1,24 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define("DataPoint", {
-    farm_id: {
+  return sequelize.define('dataPoint', {
+    farmId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    date_time: {
+    dateTime: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    metric_type: {
+    metricType: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    metric_value: {
+    metricValue: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   }, {
     timestamps: true,
     updatedAt: false,
-    tableName: "data_points",
+    tableName: 'data_points',
   })
 }

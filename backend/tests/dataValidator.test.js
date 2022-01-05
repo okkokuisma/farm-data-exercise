@@ -1,4 +1,4 @@
-const validator = require('../services/dataValidator')
+const validator = require('../utils/dataValidator')
 
 test('only valid metric types are accepted', () => {
   const data = [
@@ -113,9 +113,4 @@ test('rainfall is validated correctly', () => {
   expect(validator.validateCsvRow(data[0])).toBe(false)
   expect(validator.validateCsvRow(data[1])).toBe(false)
   expect(validator.validateCsvRow(data[2])).toBe(true)
-})
-
-test('validateCsvFile returns only valid lines', async () => {
-  const output = await validator.validateCsvFile('data.csv')
-  expect(output).toHaveLength(3)
 })

@@ -1,6 +1,6 @@
 module.exports = {
   'env': {
-    'browser': true,
+    'node': true,
     'commonjs': true,
     'es2021': true,
     'jest': true
@@ -9,6 +9,7 @@ module.exports = {
   'parserOptions': {
     'ecmaVersion': 13
   },
+  'ignorePatterns': ['dataValidator.test.js'],
   'rules': {
     'indent': [
       'error',

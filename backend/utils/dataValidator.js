@@ -1,5 +1,4 @@
 const fs = require('fs')
-const path = require('path')
 const csv = require('fast-csv')
 
 const validateCsvFile = (filePath) => {
@@ -24,14 +23,14 @@ const validateCsvRow = (values) => {
   const metricValue = Number(values[3])
 
   switch (metricType) {
-    case 'rainfall':
-      return (metricValue >= 0 && metricValue <= 500)
-    case 'temperature':
-      return (metricValue >= -50 && metricValue <= 100)
-    case 'ph':
-      return (metricValue >= 0 && metricValue <= 14)
-    default:
-      return false;
+  case 'rainfall':
+    return (metricValue >= 0 && metricValue <= 500)
+  case 'temperature':
+    return (metricValue >= -50 && metricValue <= 100)
+  case 'ph':
+    return (metricValue >= 0 && metricValue <= 14)
+  default:
+    return false
   }
 }
 
