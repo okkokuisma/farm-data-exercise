@@ -1,13 +1,13 @@
-POST http://localhost:3000/api/files/upload
+POST http://localhost:3003/api/files/upload
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="farmName"
 
-Test farm
+Noora's Farm
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; filename="data.csv"
+Content-Disposition: form-data; name="file"; filename="Nooras_farm.csv"
 Content-Type: text/csv
 
-< ./data.csv
+< ./Nooras_farm.csv
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--

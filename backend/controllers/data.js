@@ -13,7 +13,6 @@ dataRouter.post('/', async (request, response) => {
   if (!farmInstance) {
     return response.status(404).send('No farms found with the given id.')
   }
-
   const body = request.body
   const dataPoint = await dataPointService.create({
     farmId: farmInstance.id,

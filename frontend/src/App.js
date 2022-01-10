@@ -1,26 +1,28 @@
-import React, { useEffect, useMemo } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { initData } from './reducers/dataReducer'
+import { initFarms } from './reducers/farmReducer'
+import FarmsView from './components/FarmsView'
+import NavigationBar from './components/NavigationBar'
 
-function App() {
+const App = () => {
   const dispatch = useDispatch()
-  const data = useSelector(state => state.data)
-  // const memoData = useMemo(() => data, [data])
 
   useEffect(() => {
     dispatch(initData())
   }, [])
 
+  useEffect(() => {
+    dispatch(initFarms())
+  }, [])
+
   return (
-    <div className="App">
-      <ul>
-        {data.map(dataPoint =>
-          <li key={ dataPoint.id }>
-            { `${dataPoint.metricType} ${dataPoint.metricValue}` }
-          </li>
-        )}
-      </ul>
-    </div>
+    <>
+      <NavigationBar />
+      <div className='body' style={{paddingTop: '60px'}}>
+        <FarmsView />
+      </div>
+    </>
   )
 }
 
