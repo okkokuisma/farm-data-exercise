@@ -1,39 +1,68 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
-import Farm from './Farm'
+import fileService from '../services/fileService'
+import { useSelector, useDispatch } from 'react-redux'
 import { List } from '../styles'
+import { addData } from '../reducers/dataReducer'
+import { createFarm } from '../reducers/farmReducer'
 
 const FarmsView = () => {
-  const [selectedFarm, setSelectedFarm] = useState(null)
+  const dispatch = useDispatch()
+  const [farmName, setFarmName] = useState('')
+  const [selectedFile, setSelectedFile] = useState(null)
   const farms = useSelector(state => state.farms)
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!farmName || /^\s*$/.test(farmName)) {
+      alert('Farm name is required.')
+      return
+    }
+
+    if (farms.some(farm => farm.name === farmName)) {
+      alert('Farm with the given name already exists.')
+      return
+    }
+
+    if (!selectedFile || !selectedFile.type || !selectedFile.type === 'text/csv') {
+      alert('Only csv type files allowed.')
+      return
+    }
+
+    const response = await fileService.upload({
+      file: selectedFile,
+      filename: selectedFile.name,
+      farmName: farmName,
+    })
+
+    dispatch(addData(response))
+    if (response[0].farm) dispatch(createFarm(response[0].farm))
+
+    setFarmName('')
+    setSelectedFile(null)
+  }
+
   return (
-    <div>
-      {/* <select
-        value={selectedFarm ? selectedFarm.name : 'Choose farm'}
-        onChange={e => {
-          setSelectedFarm(farms.find(farm => farm.name === e.target.value) || null)
-        }}
-      >
-        <option value="">Choose farm</option>
-        {farms.map(farm => (
-          <option key={farm.id} value={farm.name}>
-            {farm.name}
-          </option>
-        ))}
-      </select> */}
+    <>
       <List>
         {farms.map(farm => (
-          <li className='farm' key={farm.id}>
-            <button onClick={() => setSelectedFarm(farm)}>{farm.name}</button>
-          </li>
+          <li key={farm.id}>{farm.name}</li>
         ))}
       </List>
-      {selectedFarm
-        ? <Farm key={ selectedFarm.id } farm={ selectedFarm }/>
-        : null
-      }
-    </div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={farmName}
+          onChange={(e) => setFarmName(e.target.value)}
+        />
+
+        <input
+          type="file"
+          onChange={(e) => setSelectedFile(e.target.files[0])}
+        />
+        <button type="submit">Upload</button>
+      </form>
+    </>
   )
 }
 

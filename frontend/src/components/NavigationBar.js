@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavBar } from '../styles'
+import { Link } from "react-router-dom";
 
 const NavigationBar = () => {
   return (
@@ -7,8 +8,8 @@ const NavigationBar = () => {
       <NavBar>
         <div className='logo'>Farm App</div>
         <div className='links'>
-          <a href='www.google.fi'>linkki</a>
-          <a href='www.google.fi'>toinen</a>
+          <Link to='/'>data</Link>
+          <Link to='/farms'>farms</Link>
         </div>
       </NavBar>
     </>

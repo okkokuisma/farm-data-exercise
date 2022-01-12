@@ -4,10 +4,10 @@ Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0g
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="farmName"
 
-Noora's Farm
+Okko's Farm
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; filename="Nooras_farm.csv"
+Content-Disposition: form-data; name="file"; filename="data.csv"
 Content-Type: text/csv
 
-< ./Nooras_farm.csv
+< ./data.csv
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--

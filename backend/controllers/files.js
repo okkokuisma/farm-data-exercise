@@ -25,12 +25,15 @@ filesRouter.post('/upload', async (request, response) => {
       metricValue: line[3],
     }
   })
-  await dataPointService.bulkCreate(dataPoints)
+  const dataPointInstances = await dataPointService.bulkCreate(dataPoints)
 
-  response.status(200).send({
-    message:
-      'Uploaded the file successfully: ' + request.file.originalname,
+  const responseData = dataPointInstances.map(dp => {
+    const dataPointValues = dp.dataValues
+    const farmValues = farmInstance.dataValues
+    return { ...dataPointValues, farm: { ...farmValues } }
   })
+
+  response.json(responseData)
 })
 
 module.exports = filesRouter

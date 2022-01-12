@@ -36,17 +36,36 @@ export const Table = styled.div`
 export const List = styled.ul`
   list-style-type: none;
   padding: 0;
+  width: 100%;
 
-  .farm button {
-    width: 80%;
+  li {
+    padding: 7px 7px;
     border: none;
-    text-align: center;
     text-decoration: none;
     font-size: 20px;
-    padding: 15px 5px;
     :hover {
       background-color: sandybrown;
     }
+  }
+
+`
+
+export const Select = styled.select`
+  width: 200px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  :hover {
+    background-color: sandybrown;
+  }
+`
+
+export const Filters = styled.div`
+  display: flex;
+  align-items: center;
+  * {
+    padding: 5px 5px;
   }
 `
 
