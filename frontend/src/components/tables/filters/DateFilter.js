@@ -15,18 +15,18 @@ export const DateFilter = ({
   return (
     <div>
       <input
-          value={filterValue[0] || ''}
-          type='date'
-          min={minDate.toDate()}
-          onChange={e => {
-            const val = e.target.value
-            console.log(e.target.value)
-            setFilter((old = []) => [val ? (val) : undefined, old[1]])
-          }}
-          style={{
-            width: '170px',
-            marginRight: '0.5rem'
-          }}
+        value={filterValue[0] || ''}
+        type='date'
+        min={minDate.toDate()}
+        onChange={e => {
+          const val = e.target.value
+          console.log(e.target.value)
+          setFilter((old = []) => [val ? (val) : undefined, old[1]])
+        }}
+        style={{
+          width: '170px',
+          marginRight: '0.5rem'
+        }}
       />
       <input
         value={filterValue[1] || ''}

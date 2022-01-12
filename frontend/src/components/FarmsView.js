@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import fileService from '../services/fileService'
 import { useSelector, useDispatch } from 'react-redux'
 import { List } from '../styles'
@@ -9,6 +9,7 @@ const FarmsView = () => {
   const dispatch = useDispatch()
   const [farmName, setFarmName] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
+  const fileInputRef = useRef(null)
   const farms = useSelector(state => state.farms)
 
   const handleSubmit = async (e) => {
@@ -24,7 +25,7 @@ const FarmsView = () => {
       return
     }
 
-    if (!selectedFile || !selectedFile.type || !selectedFile.type === 'text/csv') {
+    if (!selectedFile || !selectedFile.type || !selectedFile.type === 'text/csv') {
       alert('Only csv type files allowed.')
       return
     }
@@ -40,6 +41,7 @@ const FarmsView = () => {
 
     setFarmName('')
     setSelectedFile(null)
+    fileInputRef.current.value = ''
   }
 
   return (
@@ -57,6 +59,7 @@ const FarmsView = () => {
         />
 
         <input
+          ref={fileInputRef}
           type="file"
           onChange={(e) => setSelectedFile(e.target.files[0])}
         />

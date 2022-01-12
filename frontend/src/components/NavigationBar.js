@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavBar } from '../styles'
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 const NavigationBar = () => {
   return (

@@ -27,7 +27,7 @@ const TableRow = ({values}) => {
 const StatsTable = ({ data }) => {
   if (!data) return null
   const stats = Object.keys(data)
-    .reduce((prev, metricType, index) => {
+    .reduce((prev, metricType) => {
       return !data[metricType].length
         ? prev
         : [ ...prev, [metricType, min(data[metricType]), max(data[metricType]), mean(data[metricType]), median(data[metricType])] ]

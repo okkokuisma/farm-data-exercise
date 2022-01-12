@@ -5,7 +5,7 @@ import { initFarms } from './reducers/farmReducer'
 import DataView from './components/DataView'
 import FarmsView from './components/FarmsView'
 import NavigationBar from './components/NavigationBar'
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom'
 
 const App = () => {
   const dispatch = useDispatch()

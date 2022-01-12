@@ -6,7 +6,7 @@ import StatsTable from './tables/StatsTable'
 const DataView = () => {
   const data = useSelector(state => state.data)
   const filteredRows = useSelector(state => state.filteredData)
-  if (!data.length || !filteredRows.length) {
+  if (!data.length || !filteredRows.length) {
     return null
   }
   console.log(filteredRows)

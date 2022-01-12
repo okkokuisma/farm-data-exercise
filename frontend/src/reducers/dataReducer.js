@@ -1,5 +1,4 @@
 import dataService from '../services/dataService'
-import filterData from '../reducers/filteredDataReducer'
 
 export const createDataPoint = (dataPoint) => {
   return async (dispatch) => {
