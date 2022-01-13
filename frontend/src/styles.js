@@ -33,21 +33,21 @@ export const Table = styled.div`
   }
 `
 
-export const List = styled.ul`
-  list-style-type: none;
-  padding: 0;
-  width: 100%;
+export const ListItem = styled.div`
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
+  font-size: 20px;
 
-  li {
-    padding: 7px 7px;
+  .delete {
     border: none;
-    text-decoration: none;
+    margin-left: auto;
+    height: 100%;
     font-size: 20px;
     :hover {
       background-color: sandybrown;
     }
   }
-
 `
 
 export const Select = styled.select`

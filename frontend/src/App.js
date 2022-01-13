@@ -5,7 +5,7 @@ import { initFarms } from './reducers/farmReducer'
 import DataView from './components/DataView'
 import FarmsView from './components/FarmsView'
 import NavigationBar from './components/NavigationBar'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -30,6 +30,7 @@ const App = () => {
               <DataView />
             </div> }
           />
+          <Route path='*' element={ <Navigate to='/' /> } />
         </Routes>
       </div>
     </>

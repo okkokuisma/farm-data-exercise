@@ -9,6 +9,15 @@ export const createFarm = (farm) => {
   }
 }
 
+export const deleteFarm = (farmId) => {
+  return async (dispatch) => {
+    dispatch({
+      type: 'DELETE_FARM',
+      data: farmId
+    })
+  }
+}
+
 export const initFarms = () => {
   return async (dispatch) => {
     const farms = await farmService.getAll()
@@ -25,6 +34,9 @@ const reducer = (state = [], action) => {
     return action.data
   case 'CREATE_FARM':
     return [ ...state, action.data ]
+  case 'DELETE_FARM':
+    const farmId = action.data
+    return state.filter(farm => farm.id !== farmId)
   default:
     return state
   }

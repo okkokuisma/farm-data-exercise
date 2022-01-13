@@ -6,6 +6,11 @@ export const getAll = async () => {
   return response.data
 }
 
-const exportedObject =  { getAll }
+export const deleteFarm = async (id) => {
+  const response = await axios.delete(`${baseUrl}/${id}`)
+  return response.data
+}
+
+const exportedObject =  { getAll, deleteFarm }
 
 export default exportedObject

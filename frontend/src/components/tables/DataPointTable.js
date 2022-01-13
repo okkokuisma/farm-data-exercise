@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useTable, useFilters, useSortBy, useBlockLayout } from 'react-table'
 import { FixedSizeList } from 'react-window'
 import { Table, Filters } from '../../styles'
-import { DateFilter, filterDateBetween} from './filters/DateFilter'
+import { DateFilter, filterDateBetween } from './filters/DateFilter'
 import SelectColumnFilter from './filters/SelectColumnFilter'
 import { filterData } from '../../reducers/filteredDataReducer'
 

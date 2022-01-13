@@ -10,8 +10,14 @@ const getById = async (id) => {
   })
 }
 
+const remove = async (id) => {
+  return await Farm.destroy({
+    where: { id: id }
+  })
+}
+
 const create = async (values) => {
   return await Farm.create(values)
 }
 
-module.exports = { create, getById, getAll }
+module.exports = { create, getById, getAll, remove }

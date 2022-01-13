@@ -20,6 +20,9 @@ const TableRow = ({values}) => {
       <TableCell as='td'>
         {values[4]}
       </TableCell>
+      <TableCell as='td'>
+        {values[5]}
+      </TableCell>
     </tr>
   )
 }
@@ -30,9 +33,8 @@ const StatsTable = ({ data }) => {
     .reduce((prev, metricType) => {
       return !data[metricType].length
         ? prev
-        : [ ...prev, [metricType, min(data[metricType]), max(data[metricType]), mean(data[metricType]), median(data[metricType])] ]
+        : [ ...prev, [metricType, data[metricType].length, min(data[metricType]), max(data[metricType]), mean(data[metricType]), median(data[metricType])] ]
     }, [])
-  console.log(stats)
 
   return (
     <>
@@ -41,6 +43,9 @@ const StatsTable = ({ data }) => {
           <tr>
             <TableCell as='th'>
               Metric type
+            </TableCell>
+            <TableCell as='th'>
+              Data points
             </TableCell>
             <TableCell as='th'>
               Min

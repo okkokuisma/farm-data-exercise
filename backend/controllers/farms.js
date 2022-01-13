@@ -6,4 +6,9 @@ farmRouter.get('/', async (request, response) => {
   response.json(farms)
 })
 
+farmRouter.delete('/:id', async (request, response) => {
+  const farm = await farmService.remove(request.params.id)
+  return response.status(204).end()
+})
+
 module.exports = farmRouter

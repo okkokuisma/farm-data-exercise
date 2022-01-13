@@ -41,6 +41,9 @@ const reducer = (state = [], action) => {
     return action.data
   case 'ADD_DATA':
     return [ ...state, ...action.data]
+  case 'DELETE_FARM':
+    const farmId = action.data
+    return state.filter(dp => dp.farm.id !== farmId)
   default:
     return state
   }
