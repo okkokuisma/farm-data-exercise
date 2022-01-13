@@ -1,21 +1,18 @@
 import React, { useState } from 'react'
+import { ToggleButton } from '../styles'
 
-const Togglable = ({ metricType, children }) => {
+const Togglable = ({ buttonLabel, children }) => {
   const [visible, setVisible] = useState(false)
-  const [buttonLabel, setButtonLabel] = useState(`Show ${metricType} statistics`)
 
   const showWhenVisible = { display: visible ? '' : 'none' }
 
   const handleClick = () => {
     setVisible(!visible)
-    setButtonLabel(
-      visible ? `Show ${metricType} statistics` : `Hide ${metricType} statistics`
-    )
   }
 
   return (
     <div>
-      <button onClick={handleClick}>{buttonLabel}</button>
+      <ToggleButton as='button' onClick={handleClick}>{buttonLabel}</ToggleButton>
       <div style={showWhenVisible}>
         {children}
       </div>

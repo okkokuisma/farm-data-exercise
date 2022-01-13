@@ -21,7 +21,7 @@ dataRouter.post('/', async (request, response) => {
     metricValue: body.metricValue
   })
 
-  response.status(201).json(dataPoint)
+  response.status(201).json({...dataPoint.dataValues, farm: {...farmInstance.dataValues}})
 })
 
 module.exports = dataRouter

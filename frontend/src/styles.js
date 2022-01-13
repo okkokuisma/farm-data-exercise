@@ -38,8 +38,9 @@ export const ListItem = styled.div`
   align-items: center;
   letter-spacing: 1px;
   font-size: 20px;
+  // border-left: 5pt solid sandybrown;
 
-  .delete {
+  .pushedRight {
     border: none;
     margin-left: auto;
     height: 100%;
@@ -59,6 +60,13 @@ export const Select = styled.select`
   :hover {
     background-color: sandybrown;
   }
+`
+
+export const ToggleButton = styled(Select)`
+  width: 100%;
+  font-size: 20px;
+  text-align: left;
+  padding: 7px 7px;
 `
 
 export const Filters = styled.div`

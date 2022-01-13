@@ -3,6 +3,7 @@ import dataService from '../services/dataService'
 export const createDataPoint = (dataPoint) => {
   return async (dispatch) => {
     const createdDataPoint = await dataService.create(dataPoint)
+    console.log(createDataPoint)
     dispatch({
       type: 'CREATE_DP',
       data: createdDataPoint
@@ -34,6 +35,7 @@ export const initData = () => {
 }
 
 const reducer = (state = [], action) => {
+  console.log(action)
   switch (action.type) {
   case 'CREATE_DP':
     return [ ...state, action.data ]
