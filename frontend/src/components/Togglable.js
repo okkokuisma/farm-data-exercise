@@ -14,7 +14,9 @@ const Togglable = ({ buttonLabel, children }) => {
     <div>
       <ToggleButton as='button' onClick={handleClick}>{buttonLabel}</ToggleButton>
       <div style={showWhenVisible}>
-        {children}
+        <div style={{ padding: '10px 20px' }}>
+          {children}
+        </div>
       </div>
     </div>
   )

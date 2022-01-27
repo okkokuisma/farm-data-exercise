@@ -1,8 +1,9 @@
 import React from 'react'
 import fileService from '../services/fileService'
 import { useSelector, useDispatch } from 'react-redux'
-// import { ListItem } from '../styles'
 import { addData } from '../reducers/dataReducer'
+import { createDataPoint } from '../reducers/dataReducer'
+import { createFarm } from '../reducers/farmReducer'
 import Togglable from './Togglable'
 import FileUploadForm from './forms/FileUploadForm'
 import FarmList from './lists/FarmList'
@@ -14,18 +15,27 @@ const FarmsView = () => {
   const farms = useSelector(state => state.farms)
 
   const handleUploadSubmit = async (file, farm) => {
-    if (!file || !file.type || file.type !== 'text/csv') {
-      alert('Only csv type files allowed.')
-      return
-    }
-
     const response = await fileService.upload({
       file: file,
       filename: file.name,
       farmId: farm.id,
     })
-
     dispatch(addData(response))
+  }
+
+  const handleDataPointCreateSubmit = (farm, date, type, value) => {
+    dispatch(createDataPoint({
+      farmId: farm.id,
+      dateTime: date,
+      metricType: type,
+      metricValue: value
+    }))
+  }
+
+  const handleFarmCreateSubmit = (farmName) => {
+    dispatch(createFarm({
+      name: farmName,
+    }))
   }
 
   return (
@@ -33,10 +43,16 @@ const FarmsView = () => {
       <h1>Farms</h1>
       <FarmList farms={farms} />
       <Togglable buttonLabel='Create a new farm'>
-        < CreateFarmForm farms={farms} />
+        < CreateFarmForm
+          farms={farms}
+          handler={handleFarmCreateSubmit}
+        />
       </Togglable>
       <Togglable buttonLabel='Add a single data point'>
-        <CreateDataPointForm farms={farms} />
+        <CreateDataPointForm
+          farms={farms}
+          handler={handleDataPointCreateSubmit}
+        />
       </Togglable>
       <Togglable buttonLabel='Upload a csv file'>
         <FileUploadForm

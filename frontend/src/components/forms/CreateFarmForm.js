@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { createFarm } from '../../reducers/farmReducer'
-import { Button } from '../../styles'
+import { Button, Field } from '../../styles'
 
-const CreateFarmForm = ({farms}) => {
-  const dispatch = useDispatch()
+const CreateFarmForm = ({farms, handler}) => {
   const [farmName, setFarmName] = useState('')
 
   const handleSubmit = async (e) => {
@@ -17,15 +14,13 @@ const CreateFarmForm = ({farms}) => {
       alert('Farm with the given name already exists.')
       return
     }
-    dispatch(createFarm({
-      name: farmName,
-    }))
+    handler(farmName)
   }
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input
+        <Field
           type="text"
           value={farmName}
           placeholder='Farm name'

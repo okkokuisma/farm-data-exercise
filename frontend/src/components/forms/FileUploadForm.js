@@ -7,13 +7,22 @@ const FileUploadForm = ({handler, farms}) => {
   const [selectedFile, setSelectedFile] = useState(null)
   const fileInputRef = useRef(null)
 
+  const validateValues = () => {
+    return (typeof selectedFarm !== 'undefined' && selectedFarm !== null)
+      && (typeof selectedFile !== 'undefined' && selectedFile !== null)
+      && (selectedFile.type === 'text/csv')
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    await handler(selectedFile, selectedFarm)
-
-    setSelectedFile(null)
-    fileInputRef.current.value = ''
+    if (validateValues()) {
+      await handler(selectedFile, selectedFarm)
+      setSelectedFile(null)
+      fileInputRef.current.value = ''
+    } else {
+      alert('Invalid values.')
+    }
   }
 
   return (
@@ -36,11 +45,6 @@ const FileUploadForm = ({handler, farms}) => {
           style={{display: 'none'}}
         />
         <span>{selectedFile?.name || 'No file selected'}</span>
-        {/* <input
-          ref={fileInputRef}
-          type="file"
-          onChange={(e) => setSelectedFile(e.target.files[0])}
-        /> */}
         <Button type="submit">Upload</Button>
       </form>
     </>

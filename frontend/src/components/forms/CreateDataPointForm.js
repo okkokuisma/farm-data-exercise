@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { createDataPoint } from '../../reducers/dataReducer'
 import FarmSelect from '../inputs/FarmSelect'
 import MetricTypeSelect from '../inputs/MetricTypeSelect'
 import { Button } from '../../styles'
 
-const CreateDataPointForm = ({farms}) => {
-  const dispatch = useDispatch()
+const CreateDataPointForm = ({farms, handler}) => {
   const [selectedFarm, setSelectedFarm] = useState(null)
   const [date, setDate] = useState('')
   const [metricType, setMetricType] = useState('rainFall')
@@ -25,19 +22,21 @@ const CreateDataPointForm = ({farms}) => {
     setMax(minMaxValues[metricType][1])
   }, [metricType])
 
+  const validateValues = () => {
+    return (metricValue >= min && metricValue <= max)
+      && !(/^\s*$/.test(date))
+      && (metricType && !(/^\s*$/.test(metricType)))
+      && (typeof selectedFarm !== 'undefined' && selectedFarm !== null)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // console.log(selectedFarm)
-    // console.log(date)
-    // console.log(metricType)
-    // console.log(metricValue)
 
-    dispatch(createDataPoint({
-      farmId: selectedFarm.id,
-      dateTime: date,
-      metricType: metricType,
-      metricValue: metricValue
-    }))
+    if (validateValues()) {
+      handler(selectedFarm, date, metricType, metricValue)
+    } else {
+      alert('Invalid values. Please check you have set a value to every input field and that the given values are within the valid min and max values.')
+    }
   }
 
   if (!farms) return null

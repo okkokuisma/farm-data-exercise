@@ -51,6 +51,14 @@ export const ListItem = styled.div`
   }
 `
 
+export const Field = styled.input`
+  border: 2pt solid white;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 15px;
+  padding: 5px 5px;
+`
+
 export const Button = styled.button`
   border: 2pt solid white;
   border-radius: 5px;
@@ -68,10 +76,10 @@ export const Select = styled.select`
   width: 200px;
   border: 2pt solid white;
   border-radius: 5px;
-  text-align: center;
+  // text-align: center;
   text-decoration: none;
   font-size: 15px;
-  padding: 5px 20px;
+  padding: 5px 0px;
   :hover {
     background-color: sandybrown;
   }
