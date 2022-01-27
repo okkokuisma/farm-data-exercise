@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { initData } from './reducers/dataReducer'
 import { initFarms } from './reducers/farmReducer'
 import DataView from './components/DataView'
@@ -9,8 +9,6 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 
 const App = () => {
   const dispatch = useDispatch()
-  const data = useSelector(state => state.data)
-  console.log(!data.length)
   useEffect(() => {
     dispatch(initData())
   }, [])

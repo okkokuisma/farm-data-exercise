@@ -3,8 +3,7 @@ import farmService from '../../services/farmService'
 import { useDispatch } from 'react-redux'
 import { ListItem } from '../../styles'
 import { deleteFarm } from '../../reducers/farmReducer'
-import { FixedSizeList } from 'react-window'
-
+import VirtualizedList from './VirtualizedList'
 
 const FarmList = ({farms}) => {
   const dispatch = useDispatch()
@@ -26,14 +25,13 @@ const FarmList = ({farms}) => {
 
   return (
     <>
-      <FixedSizeList
+      <VirtualizedList
+        row={Row}
         height={100}
         itemCount={farms.length}
         itemSize={35}
         width={1000}
-      >
-        {Row}
-      </FixedSizeList>
+      />
     </>
   )
 }

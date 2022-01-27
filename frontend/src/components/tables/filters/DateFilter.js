@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Table, Select } from '../../styles'
 import dayjs from 'dayjs'
 import minMax from 'dayjs/plugin/minMax'
 import isBetween from 'dayjs/plugin/isBetween'
@@ -19,8 +18,7 @@ export const DateFilter = ({
         type='date'
         min={minDate.toDate()}
         onChange={e => {
-          const val = e.target.value
-          console.log(e.target.value)
+          const val = e.target.value === '' ? minDate.format('YYYY-MM-DD') : e.target.value
           setFilter((old = []) => [val ? (val) : undefined, old[1]])
         }}
         style={{

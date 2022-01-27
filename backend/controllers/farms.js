@@ -6,6 +6,12 @@ farmRouter.get('/', async (request, response) => {
   response.json(farms)
 })
 
+farmRouter.post('/', async (request, response) => {
+  const body = request.body
+  const farm = await farmService.create({ name: body.name })
+  response.json(farm)
+})
+
 farmRouter.delete('/:id', async (request, response) => {
   const farm = await farmService.remove(request.params.id)
   return response.status(204).end()

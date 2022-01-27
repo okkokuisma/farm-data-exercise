@@ -9,14 +9,18 @@ filesRouter.post('/upload', async (request, response) => {
   }
 
   const filePath = process.cwd() + '/resources/uploads/' + request.file.filename
-  const farmName = request.body.farmName
+  const farmId = request.body.farmId
   const validLines = await validateCsvFile(filePath)
 
   if (!validLines || !validLines.length) {
     return response.status(400).send('Uploaded file contained invalid data.')
   }
 
-  const farmInstance = await farmService.create({ name: farmName })
+  const farmInstance = await farmService.getById(farmId)
+  if (!farmInstance) {
+    return response.status(404).send('No farms found with the given id.')
+  }
+
   const dataPoints = validLines.map(line => {
     return {
       farmId: farmInstance.id,

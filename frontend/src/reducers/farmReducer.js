@@ -2,9 +2,10 @@ import farmService from '../services/farmService'
 
 export const createFarm = (farm) => {
   return async (dispatch) => {
+    const createdFarm = await farmService.create(farm)
     dispatch({
       type: 'CREATE_FARM',
-      data: farm
+      data: createdFarm
     })
   }
 }
@@ -35,8 +36,7 @@ const reducer = (state = [], action) => {
   case 'CREATE_FARM':
     return [ ...state, action.data ]
   case 'DELETE_FARM':
-    const farmId = action.data
-    return state.filter(farm => farm.id !== farmId)
+    return state.filter(farm => farm.id !== action.data)
   default:
     return state
   }

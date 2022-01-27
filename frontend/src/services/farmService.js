@@ -6,11 +6,16 @@ export const getAll = async () => {
   return response.data
 }
 
+export const create = async (farm) => {
+  const response = await axios.post(baseUrl, farm)
+  return response.data
+}
+
 export const deleteFarm = async (id) => {
   const response = await axios.delete(`${baseUrl}/${id}`)
   return response.data
 }
 
-const exportedObject =  { getAll, deleteFarm }
+const exportedObject =  { getAll, deleteFarm, create }
 
 export default exportedObject

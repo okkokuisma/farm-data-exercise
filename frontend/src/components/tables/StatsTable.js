@@ -29,11 +29,26 @@ const TableRow = ({values}) => {
 
 const StatsTable = ({ data }) => {
   if (!data) return null
-  const stats = Object.keys(data)
+
+  const formattedData = data
+    .reduce((prev, next) => {
+      const type = next.metricType.toLowerCase()
+      prev[type].push(Number(next.metricValue))
+      return prev
+    }, {'rainfall': [], 'temperature': [], 'ph': []})
+
+  const stats = Object.keys(formattedData)
     .reduce((prev, metricType) => {
-      return !data[metricType].length
+      return !formattedData[metricType].length
         ? prev
-        : [ ...prev, [metricType, data[metricType].length, min(data[metricType]), max(data[metricType]), mean(data[metricType]), median(data[metricType])] ]
+        : [ ...prev, [
+          metricType,
+          formattedData[metricType].length,
+          min(formattedData[metricType]),
+          max(formattedData[metricType]),
+          mean(formattedData[metricType]),
+          median(formattedData[metricType])
+        ]]
     }, [])
 
   return (

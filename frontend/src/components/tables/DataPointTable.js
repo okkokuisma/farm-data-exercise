@@ -1,25 +1,15 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useTable, useFilters, useSortBy, useBlockLayout } from 'react-table'
-import { FixedSizeList } from 'react-window'
 import { Table, Filters } from '../../styles'
 import { DateFilter, filterDateBetween } from './filters/DateFilter'
 import SelectColumnFilter from './filters/SelectColumnFilter'
 import { filterData } from '../../reducers/filteredDataReducer'
-
-const scrollbarWidth = () => {
-  const scrollDiv = document.createElement('div')
-  scrollDiv.setAttribute('style', 'width: 100px; height: 100px; overflow: scroll; position:absolute; top:-9999px;')
-  document.body.appendChild(scrollDiv)
-  const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth
-  document.body.removeChild(scrollDiv)
-  return scrollbarWidth
-}
+import DataPointTableList from '../lists/DataPointTableList'
 
 const DataPointTable = ({ data }) => {
   const dispatch = useDispatch()
   const memoData = React.useMemo(() => data, [data])
-  const scrollBarSize = React.useMemo(() => scrollbarWidth(), [])
 
   const tableColumns = React.useMemo(
     () => [
@@ -76,30 +66,6 @@ const DataPointTable = ({ data }) => {
     dispatch(filterData(filteredData))
   }, [filteredRows])
 
-  const RenderRow = React.useCallback(
-    ({ index, style }) => {
-      const row = rows[index]
-      prepareRow(row)
-      return (
-        <div
-          {...row.getRowProps({
-            style,
-          })}
-          className="tr"
-        >
-          {row.cells.map(cell => {
-            return (
-              <div {...cell.getCellProps()} className="td">
-                {cell.render('Cell')}
-              </div>
-            )
-          })}
-        </div>
-      )
-    },
-    [prepareRow, rows]
-  )
-
   return (
     <>
       <Filters>
@@ -122,14 +88,11 @@ const DataPointTable = ({ data }) => {
           </div>
 
           <div {...getTableBodyProps()}>
-            <FixedSizeList
-              height={400}
-              itemCount={rows.length}
-              itemSize={35}
-              width={totalColumnsWidth+scrollBarSize}
-            >
-              {RenderRow}
-            </FixedSizeList>
+            <DataPointTableList
+              prepareRow={prepareRow}
+              rows={rows}
+              totalColumnsWidth={totalColumnsWidth}
+            />
           </div>
         </div>
       </Table>

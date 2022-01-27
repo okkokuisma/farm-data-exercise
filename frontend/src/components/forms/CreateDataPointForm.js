@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { Select } from '../../styles'
 import { createDataPoint } from '../../reducers/dataReducer'
+import FarmSelect from '../inputs/FarmSelect'
+import MetricTypeSelect from '../inputs/MetricTypeSelect'
+import { Button } from '../../styles'
 
 const CreateDataPointForm = ({farms}) => {
   const dispatch = useDispatch()
@@ -25,10 +27,10 @@ const CreateDataPointForm = ({farms}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(selectedFarm)
-    console.log(date)
-    console.log(metricType)
-    console.log(metricValue)
+    // console.log(selectedFarm)
+    // console.log(date)
+    // console.log(metricType)
+    // console.log(metricValue)
 
     dispatch(createDataPoint({
       farmId: selectedFarm.id,
@@ -43,35 +45,17 @@ const CreateDataPointForm = ({farms}) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Select
-          defaultValue=''
+        <FarmSelect
+          farms={farms}
           onChange={e => {
             setSelectedFarm(farms.find(farm => farm.name === e.target.value))
           }}
-        >
-          <option value=''>Select farm</option>
-          {farms.map((farm, i) => (
-            <option key={i} value={farm.name}>
-              {farm.name}
-            </option>
-          ))}
-        </Select>
-        <Select
-          value={metricType}
+        />
+        <MetricTypeSelect
           onChange={e => {
             setMetricType(e.target.value || undefined)
           }}
-        >
-          <option value='rainFall'>
-            Rain fall
-          </option>
-          <option value='temperature'>
-            Temperature
-          </option>
-          <option value='pH'>
-            pH
-          </option>
-        </Select>
+        />
         <input
           value={date || ''}
           type='datetime-local'
@@ -90,7 +74,7 @@ const CreateDataPointForm = ({farms}) => {
           onChange={e => setMetricValue(e.target.value)}
         />
 
-        <button type="submit">Send</button>
+        <Button type="submit">Send</Button>
       </form>
     </>
   )

@@ -3,26 +3,18 @@ import fileService from '../services/fileService'
 import { useSelector, useDispatch } from 'react-redux'
 // import { ListItem } from '../styles'
 import { addData } from '../reducers/dataReducer'
-import { createFarm } from '../reducers/farmReducer'
 import Togglable from './Togglable'
 import FileUploadForm from './forms/FileUploadForm'
 import FarmList from './lists/FarmList'
 import CreateDataPointForm from './forms/CreateDataPointForm'
+import CreateFarmForm from './forms/CreateFarmForm'
 
 const FarmsView = () => {
   const dispatch = useDispatch()
   const farms = useSelector(state => state.farms)
 
-  const handleUploadSubmit = async (file, farmName) => {
-    if (!farmName || /^\s*$/.test(farmName)) {
-      alert('Farm name is required.')
-      return
-    }
-    if (farms.some(farm => farm.name === farmName)) {
-      alert('Farm with the given name already exists.')
-      return
-    }
-    if (!file || !file.type || !file.type === 'text/csv') {
+  const handleUploadSubmit = async (file, farm) => {
+    if (!file || !file.type || file.type !== 'text/csv') {
       alert('Only csv type files allowed.')
       return
     }
@@ -30,22 +22,27 @@ const FarmsView = () => {
     const response = await fileService.upload({
       file: file,
       filename: file.name,
-      farmName: farmName,
+      farmId: farm.id,
     })
 
     dispatch(addData(response))
-    if (response[0].farm) dispatch(createFarm(response[0].farm))
   }
 
   return (
     <div style={{padding: '50px 0px'}}>
       <h1>Farms</h1>
       <FarmList farms={farms} />
-      <Togglable buttonLabel='Upload new farm data'>
-        <FileUploadForm handler={handleUploadSubmit} />
+      <Togglable buttonLabel='Create a new farm'>
+        < CreateFarmForm farms={farms} />
       </Togglable>
-      <Togglable buttonLabel='Add a data point'>
+      <Togglable buttonLabel='Add a single data point'>
         <CreateDataPointForm farms={farms} />
+      </Togglable>
+      <Togglable buttonLabel='Upload a csv file'>
+        <FileUploadForm
+          farms={farms}
+          handler={handleUploadSubmit}
+        />
       </Togglable>
     </div>
   )
