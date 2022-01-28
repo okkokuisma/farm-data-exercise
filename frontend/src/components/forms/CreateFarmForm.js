@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Field } from '../../styles'
+import {newNotification} from '../../services/notificationService'
 
 const CreateFarmForm = ({farms, handler}) => {
   const [farmName, setFarmName] = useState('')
@@ -7,11 +8,19 @@ const CreateFarmForm = ({farms, handler}) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     if (!farmName || /^\s*$/.test(farmName)) {
-      alert('Farm name is required.')
+      newNotification({
+        message: 'Farm name is required.',
+        type: 'error',
+        time: 3000
+      })
       return
     }
     if (farms.some(farm => farm.name === farmName)) {
-      alert('Farm with the given name already exists.')
+      newNotification({
+        message: 'Farm with the given name already exists.',
+        type: 'error',
+        time: 3000
+      })
       return
     }
     handler(farmName)

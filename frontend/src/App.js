@@ -5,6 +5,7 @@ import { initFarms } from './reducers/farmReducer'
 import DataView from './components/DataView'
 import FarmsView from './components/FarmsView'
 import NavigationBar from './components/NavigationBar'
+import Notifications from './components/containers/Notifications'
 import { Routes, Route, Navigate } from 'react-router-dom'
 
 const App = () => {
@@ -19,8 +20,13 @@ const App = () => {
 
   return (
     <>
-      <NavigationBar />
-      <div className='body' style={{paddingTop: '60px', margin: '0 auto', maxWidth: '1200px'}}>
+      <div>
+        <NavigationBar />
+      </div>
+      <div style={{padding: '0', marginLeft: '10%'}}>
+        <Notifications />
+      </div>
+      <div className='body' style={{padding: '30px 0px', marginLeft: '12%'}}>
         <Routes>
           <Route path='/farms' element={ <FarmsView /> } />
           <Route path= '/' element={

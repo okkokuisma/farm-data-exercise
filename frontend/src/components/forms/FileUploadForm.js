@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import FarmSelect from '../inputs/FarmSelect'
 import { Button } from '../../styles'
+import {newNotification} from '../../services/notificationService'
 
 const FileUploadForm = ({handler, farms}) => {
   const [selectedFarm, setSelectedFarm] = useState(null)
@@ -21,7 +22,11 @@ const FileUploadForm = ({handler, farms}) => {
       setSelectedFile(null)
       fileInputRef.current.value = ''
     } else {
-      alert('Invalid values.')
+      newNotification({
+        message: 'Invalid values.',
+        type: 'error',
+        time: 3000
+      })
     }
   }
 

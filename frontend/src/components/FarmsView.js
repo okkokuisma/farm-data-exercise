@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { addData } from '../reducers/dataReducer'
 import { createDataPoint } from '../reducers/dataReducer'
 import { createFarm } from '../reducers/farmReducer'
+import { newNotification } from '../services/notificationService'
 import Togglable from './Togglable'
 import FileUploadForm from './forms/FileUploadForm'
 import FarmList from './lists/FarmList'
@@ -21,6 +22,11 @@ const FarmsView = () => {
       farmId: farm.id,
     })
     dispatch(addData(response))
+    newNotification({
+      message: `File ${file.name} uploaded successfully.`,
+      type: 'success',
+      time: 3000
+    })
   }
 
   const handleDataPointCreateSubmit = (farm, date, type, value) => {
@@ -30,16 +36,26 @@ const FarmsView = () => {
       metricType: type,
       metricValue: value
     }))
+    newNotification({
+      message: 'New data point added successfully.',
+      type: 'success',
+      time: 3000
+    })
   }
 
   const handleFarmCreateSubmit = (farmName) => {
     dispatch(createFarm({
       name: farmName,
     }))
+    newNotification({
+      message: 'New farm created successfully.',
+      type: 'success',
+      time: 3000
+    })
   }
 
   return (
-    <div style={{padding: '50px 0px'}}>
+    <div>
       <h1>Farms</h1>
       <FarmList farms={farms} />
       <Togglable buttonLabel='Create a new farm'>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import FarmSelect from '../inputs/FarmSelect'
 import MetricTypeSelect from '../inputs/MetricTypeSelect'
 import { Button } from '../../styles'
+import {newNotification} from '../../services/notificationService'
 
 const CreateDataPointForm = ({farms, handler}) => {
   const [selectedFarm, setSelectedFarm] = useState(null)
@@ -35,14 +36,18 @@ const CreateDataPointForm = ({farms, handler}) => {
     if (validateValues()) {
       handler(selectedFarm, date, metricType, metricValue)
     } else {
-      alert('Invalid values. Please check you have set a value to every input field and that the given values are within the valid min and max values.')
+      newNotification({
+        message: 'Invalid values.',
+        type: 'error',
+        time: 3000
+      })
     }
   }
 
   if (!farms) return null
 
   return (
-    <>
+    <div className='formDiv'>
       <form onSubmit={handleSubmit}>
         <FarmSelect
           farms={farms}
@@ -75,7 +80,7 @@ const CreateDataPointForm = ({farms, handler}) => {
 
         <Button type="submit">Send</Button>
       </form>
-    </>
+    </div>
   )
 }
 

@@ -38,7 +38,6 @@ export const ListItem = styled.div`
   align-items: center;
   letter-spacing: 1px;
   font-size: 20px;
-  // border-left: 5pt solid sandybrown;
 
   .pushedRight {
     border: none;
@@ -100,34 +99,82 @@ export const Filters = styled.div`
   }
 `
 
-export const NavBar = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: #323233;
-  box-shadow: 1px 0 2px rgba(0,0,0,0.125);
-  display: flex;
-  align-items: center;
-
-  .logo {
-    width: 250px;
-    font-size: 25px;
-    font-weight: 700;
-    padding: 0 20px;
+export const StyledNotification = styled.div`
+  * {
+    position: fixed;
+    right: 30px;
+    width: 30%;
+    height: 60px;
     color: white;
+    text-align: center;
+    font-size: 20px;
+    padding: 0;
     letter-spacing: 2px;
-    text-transform: uppercase;
-    border-right: 1px solid #f5f5f5;
   }
 
+  .success {
+    background-color: #70CA69;
+  }
+
+  .error {
+    background-color: #EA5136;
+  }
+
+  .info {
+    background-color: #EEE559;
+  }
+`
+
+export const NavBar = styled.ul`
+  position: fixed;
+  list-style-type: none;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  width: 10%;
+  height: 100%;
+  background: #323233;
+  // box-shadow: 1px 0 2px rgba(0,0,0,0.125);
+
   .links a {
+    display: block;
+    text-decoration: none;
     font-size: 20px;
     color: white;
     letter-spacing: 2px;
     text-transform: uppercase;
-    padding: 0 20px;
-    flex: 1;
+    padding: 8px 20px;
   }
 `
+// export const NavBar = styled.div`
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 60px;
+//   background: #323233;
+//   box-shadow: 1px 0 2px rgba(0,0,0,0.125);
+//   display: flex;
+//   align-items: center;
+
+//   .logo {
+//     width: 250px;
+//     font-size: 25px;
+//     font-weight: 700;
+//     padding: 0 20px;
+//     color: white;
+//     letter-spacing: 2px;
+//     text-transform: uppercase;
+//     border-right: 1px solid #f5f5f5;
+//   }
+
+//   .links a {
+//     font-size: 20px;
+//     color: white;
+//     letter-spacing: 2px;
+//     text-transform: uppercase;
+//     padding: 0 20px;
+//     flex: 1;
+//   }
+// `
