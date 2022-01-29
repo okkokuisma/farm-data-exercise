@@ -1,10 +1,11 @@
 import React from 'react'
 import { Select } from '../../styles'
 
-const FarmSelect = ({farms, onChange}) => {
+const FarmSelect = ({farms, onChange, id}) => {
   return (
     <>
       <Select
+        id={id}
         defaultValue=''
         onChange={onChange}
       >

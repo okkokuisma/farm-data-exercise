@@ -1,10 +1,11 @@
 import React from 'react'
 import { Select } from '../../styles'
 
-const MetricTypeSelect = ({onChange}) => {
+const MetricTypeSelect = ({ onChange, id }) => {
   return (
     <>
       <Select
+        id={id}
         onChange={onChange}
       >
         <option value='rainFall'>

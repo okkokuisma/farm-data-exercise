@@ -99,6 +99,14 @@ export const Filters = styled.div`
   }
 `
 
+export const FormInput = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+  align-items: center;
+  margin: 10px;
+`
+
 export const StyledNotification = styled.div`
   * {
     position: fixed;

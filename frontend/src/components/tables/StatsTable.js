@@ -2,7 +2,7 @@ import React from 'react'
 import { StatTable, TableCell, TableHead } from '../../styles'
 import { min, max, mean, median } from 'simple-statistics'
 
-const TableRow = ({values}) => {
+const TableRow = ({ values }) => {
   return (
     <tr>
       <TableCell as='td'>
@@ -30,24 +30,24 @@ const TableRow = ({values}) => {
 const StatsTable = ({ data }) => {
   if (!data) return null
 
-  const formattedData = data
+  const dataByMetricType = data
     .reduce((prev, next) => {
       const type = next.metricType.toLowerCase()
       prev[type].push(Number(next.metricValue))
       return prev
     }, {'rainfall': [], 'temperature': [], 'ph': []})
 
-  const stats = Object.keys(formattedData)
+  const stats = Object.keys(dataByMetricType)
     .reduce((prev, metricType) => {
-      return !formattedData[metricType].length
+      return !dataByMetricType[metricType].length
         ? prev
         : [ ...prev, [
           metricType,
-          formattedData[metricType].length,
-          min(formattedData[metricType]),
-          max(formattedData[metricType]),
-          mean(formattedData[metricType]),
-          median(formattedData[metricType])
+          dataByMetricType[metricType].length,
+          min(dataByMetricType[metricType]),
+          max(dataByMetricType[metricType]),
+          mean(dataByMetricType[metricType]),
+          median(dataByMetricType[metricType])
         ]]
     }, [])
 

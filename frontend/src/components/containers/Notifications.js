@@ -26,8 +26,7 @@ const Notifications = () => {
         />
       ))}
     </>
-  )
-  : null
+  ) : null
 }
 
 export default Notifications

@@ -1,7 +1,7 @@
 module.exports = {
   'env': {
     'browser': true,
-    'es2021': true
+    'es2021': true,
   },
   'extends': [
     'eslint:recommended',
@@ -18,7 +18,7 @@ module.exports = {
     'react'
   ],
   'rules': {
-    "react/prop-types": "off",
+    'react/prop-types': 'off',
     'indent': [
       'error',
       2
