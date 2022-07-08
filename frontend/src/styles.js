@@ -138,56 +138,56 @@ export const StyledNotification = styled.div`
   }
 `
 
-export const NavBar = styled.ul`
-  position: fixed;
-  list-style-type: none;
-  left: 0;
-  top: 0;
-  margin: 0;
-  padding: 0;
-  width: 10%;
-  height: 100%;
-  background: #323233;
-  // box-shadow: 1px 0 2px rgba(0,0,0,0.125);
-
-  .links * {
-    display: block;
-    text-decoration: none;
-    font-size: 20px;
-    color: white;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 8px 20px;
-  }
-`
-// export const NavBar = styled.div`
+// export const NavBar = styled.ul`
 //   position: fixed;
-//   top: 0;
+//   list-style-type: none;
 //   left: 0;
-//   width: 100%;
-//   height: 60px;
+//   top: 0;
+//   margin: 0;
+//   padding: 0;
+//   width: 10%;
+//   height: 100%;
 //   background: #323233;
-//   box-shadow: 1px 0 2px rgba(0,0,0,0.125);
-//   display: flex;
-//   align-items: center;
+//   // box-shadow: 1px 0 2px rgba(0,0,0,0.125);
 
-//   .logo {
-//     width: 250px;
-//     font-size: 25px;
-//     font-weight: 700;
-//     padding: 0 20px;
-//     color: white;
-//     letter-spacing: 2px;
-//     text-transform: uppercase;
-//     border-right: 1px solid #f5f5f5;
-//   }
-
-//   .links a {
+//   .links * {
+//     display: block;
+//     text-decoration: none;
 //     font-size: 20px;
 //     color: white;
 //     letter-spacing: 2px;
 //     text-transform: uppercase;
-//     padding: 0 20px;
-//     flex: 1;
+//     padding: 8px 20px;
 //   }
 // `
+export const NavBar = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: #323233;
+  box-shadow: 1px 0 2px rgba(0,0,0,0.125);
+  display: flex;
+  align-items: center;
+
+  .logo {
+    width: 250px;
+    font-size: 25px;
+    font-weight: 700;
+    padding: 0 20px;
+    color: white;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-right: 1px solid #f5f5f5;
+  }
+
+  .links a {
+    font-size: 20px;
+    color: white;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0 20px;
+    flex: 1;
+  }
+`

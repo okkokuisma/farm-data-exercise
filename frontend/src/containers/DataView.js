@@ -6,14 +6,15 @@ import { initData } from '../reducers/dataReducer'
 
 const DataView = () => {
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    console.log('helou')
-    dispatch(initData())
-  }, [])
-
   const data = useSelector(state => state.data)
   const filteredRows = useSelector(state => state.filteredData)
+
+  useEffect(() => {
+    if (!data.length) {
+      console.log('helou')
+      dispatch(initData())
+    }
+  }, [])
 
   if (!data.length) {
     return null

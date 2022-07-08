@@ -23,8 +23,8 @@ const TableRow = ({ values }) => {
       <TableCell as='td'>
         {values[5]}
       </TableCell> */}
-      {values.map(value => (
-        <TableCell as='td'>
+      {values.map((value, i) => (
+        <TableCell key={i} as='td'>
           {value}
         </TableCell>
       ))}

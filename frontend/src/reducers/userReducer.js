@@ -12,10 +12,8 @@ export const login = (credentials) => {
 
 export const logout = () => {
   return async (dispatch) => {
-    dispatch({
-      type: 'SET_USER',
-      user: null
-    })
+    window.localStorage.removeItem('loggedUser')
+    dispatch(setUser(null))
   }
 }
 

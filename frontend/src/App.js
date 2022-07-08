@@ -32,7 +32,7 @@ const App = () => {
       <div>
         <NavigationBar />
       </div>
-      <div className='body' style={{padding: '30px 0px', marginLeft: '12%'}}>
+      <div className='body' style={{padding: '60px 0px', marginLeft: '12%'}}>
         <Routes>
           <Route path='/login' element={ <AuthView /> } />
           <Route path='/farms' element={

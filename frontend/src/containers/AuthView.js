@@ -2,7 +2,7 @@ import React from 'react'
 import LoginForm from '../components/forms/LoginForm'
 import { newNotification } from '../services/notificationService'
 import { useAuth } from '../contexts/AuthContext'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Navigate } from 'react-router-dom'
 
 const AuthView = () => {
   const navigate = useNavigate()
@@ -10,7 +10,7 @@ const AuthView = () => {
   const { login, user } = useAuth()
 
   if (user) {
-    navigate('/data')
+    return <Navigate to={'/data'}/>
   }
 
   const from = location.state?.from?.pathname || '/data'
