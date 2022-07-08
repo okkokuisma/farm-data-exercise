@@ -25,7 +25,6 @@ const DataPointTableList = ({prepareRow, rows, totalColumnsWidth}) => {
           className="tr"
         >
           {row.cells.map(cell => {
-            console.log(cell)
             return (
               <div {...cell.getCellProps()} className="td">
                 {cell.render('Cell')}

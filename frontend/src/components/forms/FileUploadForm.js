@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import FarmSelect from '../inputs/FarmSelect'
 import { Button } from '../../styles'
-import {newNotification} from '../../services/notificationService'
+import { newNotification } from '../../services/notificationService'
 
 const FileUploadForm = ({handler, farms}) => {
   const [selectedFarm, setSelectedFarm] = useState(null)

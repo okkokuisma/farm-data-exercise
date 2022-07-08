@@ -15,6 +15,7 @@ const sequelize = new Sequelize('postgres', username, password, {
 
 const DataPoint = require('./models/DataPoint')(sequelize, Sequelize.DataTypes)
 const Farm = require('./models/Farm')(sequelize, Sequelize.DataTypes)
+const User = require('./models/User')(sequelize, Sequelize.DataTypes)
 Farm.hasMany(DataPoint)
 DataPoint.belongsTo(Farm)
 
@@ -39,4 +40,4 @@ const connectToDatabase = async (attempt = 0) => {
   }
 }
 
-module.exports = { connectToDatabase, DataPoint, Farm }
+module.exports = { connectToDatabase, DataPoint, Farm, User }

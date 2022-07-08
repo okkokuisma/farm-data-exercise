@@ -38,6 +38,11 @@ export const ListItem = styled.div`
   align-items: center;
   letter-spacing: 1px;
   font-size: 20px;
+  :hover {
+    .itemName {
+      text-decoration: underline sandybrown;
+    }
+  }
 
   .pushedRight {
     border: none;
@@ -84,8 +89,8 @@ export const Select = styled.select`
   }
 `
 
-export const ToggleButton = styled(Select)`
-  width: 100%;
+export const ToggleButton = styled(Button)`
+  width: 30%;
   font-size: 20px;
   text-align: left;
   padding: 7px 7px;
@@ -145,7 +150,7 @@ export const NavBar = styled.ul`
   background: #323233;
   // box-shadow: 1px 0 2px rgba(0,0,0,0.125);
 
-  .links a {
+  .links * {
     display: block;
     text-decoration: none;
     font-size: 20px;

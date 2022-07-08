@@ -1,7 +1,7 @@
 import React from 'react'
 import { Select } from '../../styles'
 
-const FarmSelect = ({farms, onChange, id}) => {
+const FarmSelect = ({ farms, onChange, id }) => {
   return (
     <>
       <Select

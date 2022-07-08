@@ -1,19 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import fileService from '../services/fileService'
 import { useSelector, useDispatch } from 'react-redux'
 import { addData } from '../reducers/dataReducer'
 import { createDataPoint } from '../reducers/dataReducer'
-import { createFarm } from '../reducers/farmReducer'
+import { createFarm, deleteFarm, initFarms } from '../reducers/farmReducer'
 import { newNotification } from '../services/notificationService'
-import Togglable from './Togglable'
-import FileUploadForm from './forms/FileUploadForm'
-import FarmList from './lists/FarmList'
-import CreateDataPointForm from './forms/CreateDataPointForm'
-import CreateFarmForm from './forms/CreateFarmForm'
+import Togglable from '../components/Togglable'
+import FileUploadForm from '../components/forms/FileUploadForm'
+import FarmList from '../components/lists/FarmList'
+import CreateDataPointForm from '../components/forms/CreateDataPointForm'
+import CreateFarmForm from '../components/forms/CreateFarmForm'
 
 const FarmsView = () => {
   const dispatch = useDispatch()
   const farms = useSelector(state => state.farms)
+
+  useEffect(() => {
+    dispatch(initFarms())
+  }, [])
 
   const handleUploadSubmit = async (file, farm) => {
     const response = await fileService.upload({
@@ -43,21 +47,33 @@ const FarmsView = () => {
     })
   }
 
-  const handleFarmCreateSubmit = (farmName) => {
-    dispatch(createFarm({
-      name: farmName,
-    }))
-    newNotification({
-      message: 'New farm created successfully.',
-      type: 'success',
-      time: 3000
-    })
+  const handleFarmCreateSubmit = async (farmName) => {
+    try {
+      await dispatch(createFarm({
+        name: farmName,
+      }))
+      newNotification({
+        message: 'New farm created successfully.',
+        type: 'success',
+        time: 3000
+      })
+    } catch (error) {
+      newNotification({
+        message: 'Error while creating a new farm.',
+        type: 'error',
+        time: 3000
+      })
+    }
+  }
+
+  const handleFarmDelete = async (id) => {
+    dispatch(deleteFarm(id))
   }
 
   return (
     <div>
       <h1>Farms</h1>
-      <FarmList farms={farms} />
+      <FarmList farms={farms} handleDelete={handleFarmDelete} />
       <Togglable buttonLabel='Create a new farm'>
         < CreateFarmForm
           farms={farms}

@@ -1,4 +1,5 @@
 import axios from 'axios'
+axios.defaults.withCredentials = true
 const baseUrl = 'http://localhost:3003/api/data'
 
 const getAll = async () => {

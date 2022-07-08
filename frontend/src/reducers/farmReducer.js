@@ -1,6 +1,6 @@
 import farmService from '../services/farmService'
 
-export const createFarm = (farm) => {
+export const createFarm = async (farm) => {
   return async (dispatch) => {
     const createdFarm = await farmService.create(farm)
     dispatch({
@@ -10,7 +10,8 @@ export const createFarm = (farm) => {
   }
 }
 
-export const deleteFarm = (farmId) => {
+export const deleteFarm = async (farmId) => {
+  await farmService.deleteFarm(farmId)
   return async (dispatch) => {
     dispatch({
       type: 'DELETE_FARM',

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import Notification from '../Notification'
-import { deleteNotification } from '../../reducers/notificationReducer'
+import Notification from '../components/Notification'
+import { deleteNotification } from '../reducers/notificationReducer'
 
 const Notifications = () => {
   const dispatch = useDispatch()

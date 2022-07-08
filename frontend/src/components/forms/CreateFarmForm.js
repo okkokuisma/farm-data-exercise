@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Field } from '../../styles'
-import {newNotification} from '../../services/notificationService'
+import { newNotification } from '../../services/notificationService'
 
 const CreateFarmForm = ({farms, handler}) => {
   const [farmName, setFarmName] = useState('')
@@ -29,13 +29,17 @@ const CreateFarmForm = ({farms, handler}) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Field
-          type="text"
-          value={farmName}
-          placeholder='Farm name'
-          onChange={(e) => setFarmName(e.target.value)}
-        />
-        <Button type="submit">Send</Button>
+        <div>
+          <label htmlFor='farmName'></label>
+          <Field
+            id='farmName'
+            type="text"
+            value={farmName}
+            placeholder='Farm name'
+            onChange={(e) => setFarmName(e.target.value)}
+          />
+          <Button type="submit">Send</Button>
+        </div>
       </form>
     </>
   )
