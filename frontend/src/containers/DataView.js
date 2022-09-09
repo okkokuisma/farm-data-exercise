@@ -11,7 +11,6 @@ const DataView = () => {
 
   useEffect(() => {
     if (!data.length) {
-      console.log('helou')
       dispatch(initData())
     }
   }, [])

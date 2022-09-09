@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-// import { initData } from './reducers/dataReducer'
-// import { initFarms } from './reducers/farmReducer'
 import { setUser } from './reducers/userReducer'
 import DataView from './containers/DataView'
 import FarmsView from './containers/FarmsView'
 import NavigationBar from './components/NavigationBar'
 import Notifications from './containers/Notifications'
 import AuthView from './containers/AuthView'
+import IndexView from './containers/IndexView'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { RequireAuth } from './containers/RequireAuth'
@@ -34,6 +33,7 @@ const App = () => {
       </div>
       <div className='body' style={{padding: '60px 0px', marginLeft: '12%'}}>
         <Routes>
+          <Route path='/' element={ <IndexView /> } />
           <Route path='/login' element={ <AuthView /> } />
           <Route path='/farms' element={
             <RequireAuth>
@@ -47,7 +47,7 @@ const App = () => {
             </RequireAuth>
           }
           />
-          <Route path='*' element={ <Navigate to='/login' /> } />
+          <Route path='*' element={ <Navigate to='/' /> } />
         </Routes>
       </div>
     </AuthProvider>

@@ -10,11 +10,12 @@ const NavigationBar = () => {
     <>
       <NavBar>
         <div className='links'>
+          <Link to='/'>home</Link>
           <Link to='/data'>data</Link>
           <Link to='/farms'>farms</Link>
           {user
             ? <button onClick={() => logout()}>log out</button>
-            : null
+            : <Link to='/login'>login</Link>
           }
         </div>
       </NavBar>
