@@ -107,4 +107,6 @@ dist
 
 backend/resources/uploads/*
 
+backend/db/data
+
 .DS_Store

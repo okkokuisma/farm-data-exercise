@@ -1,8 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('dataPoint', {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     farmId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: { model: 'farms', key: 'id' },
     },
     dateTime: {
       type: DataTypes.STRING,
@@ -18,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     timestamps: true,
-    updatedAt: false,
     tableName: 'data_points',
+    underscored: true,
   })
 }
