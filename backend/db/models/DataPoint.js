@@ -1,5 +1,7 @@
+const { makePaginate } = require('sequelize-cursor-pagination')
+
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('dataPoint', {
+  const DataPoint =  sequelize.define('dataPoint', {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -27,4 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'data_points',
     underscored: true,
   })
+
+  DataPoint.paginate = makePaginate(DataPoint)
+
+  return DataPoint
 }
