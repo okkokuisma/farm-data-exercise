@@ -1,6 +1,8 @@
 const fs = require('fs')
 const csv = require('fast-csv')
 
+const passwordRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
+
 const validateCsvFile = (filePath) => {
   return new Promise((resolve, reject) => {
     const validLines = []
@@ -34,4 +36,8 @@ const validateCsvRow = (values) => {
   }
 }
 
-module.exports = { validateCsvFile, validateCsvRow }
+const validatePassword = (password) => {
+  return password && passwordRegex.test(password)
+}
+
+module.exports = { validateCsvFile, validateCsvRow, validatePassword }

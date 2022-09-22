@@ -2,12 +2,12 @@ POST http://localhost:3003/api/files/upload
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="farmName"
+Content-Disposition: form-data; name="farmId"
 
-Okko's Farm
+1
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="file"; filename="data.csv"
 Content-Type: text/csv
 
-< ./data.csv
+< ./ossi_farm.csv
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--

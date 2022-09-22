@@ -22,8 +22,8 @@ loginRouter.post('/login', async (request, response) => {
     id: user.id,
   }
 
-  const token = jwt.sign(userForToken, process.env.SECRET)
   const tokenExpiry = new Date(Date.now() + 1800000)
+  const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: 1800 })
 
   response
     .status(200)
@@ -31,8 +31,8 @@ loginRouter.post('/login', async (request, response) => {
       expires: tokenExpiry,
       httpOnly: true,
       path: '/api',
-      sameSite: "none",
-      secure: true
+      // sameSite: 'none',
+      // secure: true
     })
     .send({ tokenExpiry, username: user.username })
 })

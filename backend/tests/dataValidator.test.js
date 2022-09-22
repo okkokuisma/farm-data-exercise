@@ -114,3 +114,14 @@ test('rainfall is validated correctly', () => {
   expect(validator.validateCsvRow(data[1])).toBe(false)
   expect(validator.validateCsvRow(data[2])).toBe(true)
 })
+
+test('passwords are validated correctly', () => {
+  expect(validator.validatePassword('guatemala')).toBe(false)
+  expect(validator.validatePassword('Guatemala')).toBe(false)
+  expect(validator.validatePassword('Guatemal4')).toBe(false)
+  expect(validator.validatePassword('Guatemal!')).toBe(false)
+  expect(validator.validatePassword('guatemal4!')).toBe(false)
+  expect(validator.validatePassword('GUATEMALA4!')).toBe(false)
+  expect(validator.validatePassword('Guaal4!')).toBe(false)
+  expect(validator.validatePassword('Guatemal4!')).toBe(true)
+})

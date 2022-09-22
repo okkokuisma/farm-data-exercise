@@ -2,8 +2,8 @@ POST http://localhost:3003/api/data/
 content-type: application/json
 
 {
-  "farmId": 1,
+  "farmId": 4,
   "dateTime": "2019-01-04T01:58:16.034Z",
-  "metricType": "rainFall",
+  "metricType": "temperature",
   "metricValue": "25"
 }

@@ -13,7 +13,7 @@ farmRouter.post('/', async (request, response) => {
 })
 
 farmRouter.delete('/:id', async (request, response) => {
-  const farm = await farmService.remove(request.params.id)
+  await farmService.remove(request.params.id)
   return response.status(204).end()
 })
 

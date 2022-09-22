@@ -1,13 +1,18 @@
 const bcrypt = require('bcrypt')
+
 const usersRouter = require('express').Router()
 const userService = require('../db/services/userService')
+const { validatePassword } = require('../utils/dataValidator')
 
-usersRouter.post('/', async (request, response, next) => {
+usersRouter.post('/', async (request, response) => {
   const body = request.body
 
-  if (!body.password || body.password.length < 3) {
-    response.status(400).send({ error: 'malformatted password' })
+  if (!validatePassword(body.password)) {
+    const error = new Error()
+    error.name = 'MalformattedPasswordError'
+    throw error
   }
+
   const saltRounds = 10
   const hashed = await bcrypt.hash(body.password, saltRounds)
 

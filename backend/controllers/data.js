@@ -2,17 +2,17 @@ const dataRouter = require('express').Router()
 const dataPointService = require('../db/services/dataPointService')
 const farmService = require('../db/services/farmService')
 
-dataRouter.get('/', async (request, response) => {
-  const dataPoints = await dataPointService.getAll()
-  response.json(dataPoints)
+dataRouter.get('/', async (request, response, next) => {
+  try {
+    const dataPoints = await dataPointService.getAll(request.query)
+    return response.json(dataPoints)
+  } catch (error) {
+    next(error)
+  }
 })
 
 dataRouter.post('/', async (request, response) => {
   const farmInstance = await farmService.getById(request.body.farmId)
-
-  if (!farmInstance) {
-    return response.status(404).send('No farms found with the given id.')
-  }
   const body = request.body
   const dataPoint = await dataPointService.create({
     farmId: farmInstance.id,
@@ -21,7 +21,7 @@ dataRouter.post('/', async (request, response) => {
     metricValue: body.metricValue
   })
 
-  response.status(201).json({...dataPoint.dataValues, farm: {...farmInstance.dataValues}})
+  return response.status(201).json({...dataPoint.dataValues, farm: {...farmInstance.dataValues}})
 })
 
 module.exports = dataRouter
