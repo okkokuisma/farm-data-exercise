@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+
 const loginRouter = require('express').Router()
 const userService = require('../db/services/userService')
+const { SECRET } = require('../utils/config')
 
 loginRouter.post('/login', async (request, response) => {
   const body = request.body
@@ -23,7 +25,7 @@ loginRouter.post('/login', async (request, response) => {
   }
 
   const tokenExpiry = new Date(Date.now() + 1800000)
-  const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: 1800 })
+  const token = jwt.sign(userForToken, SECRET, { expiresIn: 1800 })
 
   response
     .status(200)

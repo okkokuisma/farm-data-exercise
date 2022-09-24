@@ -1,6 +1,8 @@
 const multer = require('multer')
 const jwt = require('jsonwebtoken')
+
 const userService = require('../db/services/userService')
+const { SECRET } = require('../utils/config')
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.includes('csv')) {
@@ -24,7 +26,7 @@ const uploadCsvFile = multer({ storage, fileFilter })
 
 const tokenValidator = (request, response, next) => {
   const token = request.cookies.access_token
-  request.token = jwt.verify(token, process.env.SECRET)
+  request.token = jwt.verify(token, SECRET)
 
   next()
 }

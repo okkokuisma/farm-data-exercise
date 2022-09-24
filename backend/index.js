@@ -1,8 +1,8 @@
-require('dotenv').config()
-const connectToDatabase = require('./db/dbInit').connectToDatabase
-const app = require('./app')
 const http = require('http')
-let SERVER_PORT = process.env.SERVER_PORT
+
+const { connectToDatabase } = require('./db/dbInit')
+const app = require('./app')
+const { SERVER_PORT } = require('./utils/config')
 
 const start = async () => {
   await connectToDatabase()

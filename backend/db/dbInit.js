@@ -1,22 +1,18 @@
 const Sequelize = require('sequelize')
 const { Umzug, SequelizeStorage } = require('umzug')
 
+const {
+  POSTGRES_USER,
+  POSTGRES_PASSWORD,
+  POSTGRES_DB,
+  DB_HOST,
+  DB_PORT } = require('../utils/config')
 const DB_CONNECTION_RETRY_LIMIT = 10
-const username = process.env.POSTGRES_USER
-const password = process.env.POSTGRES_PASSWORD
-const database = process.env.POSTGRES_DB
-const host = process.env.DB_HOST
-const port = process.env.DB_PORT
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-// const sequelize = new Sequelize('postgres', username, password, {
-//   dialect: 'postgres',
-//   host: process.env.DB_HOST || 'localhost',
-//   logging: false,
-// })
-console.log(`postgres://${username}:${password}@${host}:${port}/${database}`)
-const sequelize = new Sequelize(`postgres://${username}:${password}@${host}:${port}/${database}`)
+console.log(`postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}`)
+const sequelize = new Sequelize(`postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}`)
 
 const DataPoint = require('./models/DataPoint')(sequelize, Sequelize.DataTypes)
 const Farm = require('./models/Farm')(sequelize, Sequelize.DataTypes)
