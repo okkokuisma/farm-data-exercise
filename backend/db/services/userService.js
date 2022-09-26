@@ -1,4 +1,8 @@
-const User = require('../dbInit').User
+const bcrypt = require('bcrypt')
+
+const { User } = require('../dbInit')
+const { validatePassword } = require('../../utils/dataValidator')
+
 
 const getById = async (id) => {
   return await User.findOne({
@@ -18,8 +22,17 @@ const remove = async (id) => {
   })
 }
 
-const create = async (values) => {
-  return await User.create(values)
+const create = async ({ username, password }) => {
+  if (!validatePassword(password)) {
+    const error = new Error()
+    error.name = 'MalformattedPasswordError'
+    throw error
+  }
+
+  const saltRounds = 10
+  const passwordHash = await bcrypt.hash(password, saltRounds)
+
+  return await User.create({ username, passwordHash })
 }
 
 module.exports = { create, getById, getByUsername, remove }

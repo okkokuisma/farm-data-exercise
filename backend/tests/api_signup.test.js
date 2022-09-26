@@ -1,21 +1,18 @@
 const supertest = require('supertest')
 
 const app = require('../app')
-const userService = require('../db/services/userService')
 const { emptyDatabase } = require('../db/dbInit')
 
 const api = supertest(app)
 
-describe('login', () => {
+describe('signup', () => {
   beforeAll(async () => {
     await emptyDatabase()
   })
 
   test('succeeds with valid credentials', async () => {
-    await userService.create({ username: 'username', password: 'Guatemal4!' })
-
     await api
-      .post('/api/auth/login')
+      .post('/api/users')
       .set('Content-Type', 'application/json')
       .send({ username: 'username', password: 'Guatemal4!' })
       .expect(200)
@@ -25,13 +22,13 @@ describe('login', () => {
       })
   })
 
-  test('fails with invalid credentials', async () => {
+  test('fails with invalid credentials and prints the correct error message', async () => {
     await api
-      .post('/api/auth/login')
+      .post('/api/users')
       .set('Content-Type', 'application/json')
       .send({ username: 'nameuser', password: 'wordpass' })
-      .expect(401)
+      .expect(400)
       .expect('Content-Type', /application\/json/)
-      .expect({error: 'invalid username or password'})
+      .expect({ error: 'Password should contain minimum eight characters, at  least one uppercase letter, one lowercase letter, one number and one special character' })
   })
 })

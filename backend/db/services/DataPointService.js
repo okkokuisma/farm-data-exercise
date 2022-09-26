@@ -1,6 +1,8 @@
-const DataPoint = require('../dbInit').DataPoint
-const Farm = require('../dbInit').Farm
 const { Op } = require('sequelize')
+
+const { DataPoint } = require('../dbInit')
+const { Farm } = require('../dbInit')
+const { validateDataPointValues } = require('../../utils/dataValidator')
 
 const getAll = async (query) => {
   let where = {}
@@ -64,6 +66,14 @@ const getAll = async (query) => {
 }
 
 const create = async (values) => {
+  const { dateTime, metricType, metricValue } = values
+
+  if (!validateDataPointValues({ dateTime, metricType, metricValue })) {
+    const error = new Error()
+    error.name = 'InvalidDataPointValueError'
+    throw error
+  }
+
   return await DataPoint.create(values)
 }
 

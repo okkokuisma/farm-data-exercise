@@ -12,7 +12,11 @@ const DB_CONNECTION_RETRY_LIMIT = 10
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 console.log(`postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}`)
-const sequelize = new Sequelize(`postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}`)
+
+const sequelize = new Sequelize(
+  `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}`,
+  { logging: false }
+)
 
 const DataPoint = require('./models/DataPoint')(sequelize, Sequelize.DataTypes)
 const Farm = require('./models/Farm')(sequelize, Sequelize.DataTypes)
@@ -65,4 +69,15 @@ const rollbackMigration = async () => {
   await migrator.down()
 }
 
-module.exports = { connectToDatabase, rollbackMigration, DataPoint, Farm, User }
+const emptyDatabase = async () => {
+  await sequelize.sync({ force: true })
+}
+
+module.exports = {
+  connectToDatabase,
+  rollbackMigration,
+  emptyDatabase,
+  DataPoint,
+  Farm,
+  User
+}

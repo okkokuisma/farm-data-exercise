@@ -4,10 +4,10 @@
   "description": "Solita Dev Academy 2022 exercise",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "jest --verbose",
+    "start": "NODE_ENV=development node index.js",
+    "test": "NODE_ENV=test jest --verbose --detectOpenHandles",
     "lint": "eslint .",
-    "dev": "nodemon index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
     "migration:down": "node utils/rollbackMigration.js"
   },
   "repository": {
@@ -37,6 +37,7 @@
     "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "dayjs": "^1.11.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "express-async-errors": "^3.1.1",

@@ -1,7 +1,8 @@
 const validator = require('../utils/dataValidator')
+const { mapDataValueRows } = require('./testHelper')
 
 test('only valid metric types are accepted', () => {
-  const data = [
+  const data = mapDataValueRows([
     [
       "Too high temperature",
       '2019-01-04T21:23:59.766Z',
@@ -26,16 +27,16 @@ test('only valid metric types are accepted', () => {
       'snowFall',
       '15'
     ]
-  ]
+  ])
 
-  expect(validator.validateCsvRow(data[0])).toBe(true)
-  expect(validator.validateCsvRow(data[1])).toBe(true)
-  expect(validator.validateCsvRow(data[2])).toBe(true)
-  expect(validator.validateCsvRow(data[3])).toBe(false)
+  expect(validator.validateDataPointValues(data[0])).toBe(true)
+  expect(validator.validateDataPointValues(data[1])).toBe(true)
+  expect(validator.validateDataPointValues(data[2])).toBe(true)
+  expect(validator.validateDataPointValues(data[3])).toBe(false)
 })
 
 test('temperature is validated correctly', () => {
-  const data = [
+  const data = mapDataValueRows([
     [
       "Too high temperature",
       '2019-01-04T21:23:59.766Z',
@@ -54,15 +55,15 @@ test('temperature is validated correctly', () => {
       'temperature',
       '-13.0'
     ]
-  ]
+  ])
 
-  expect(validator.validateCsvRow(data[0])).toBe(false)
-  expect(validator.validateCsvRow(data[1])).toBe(false)
-  expect(validator.validateCsvRow(data[2])).toBe(true)
+  expect(validator.validateDataPointValues(data[0])).toBe(false)
+  expect(validator.validateDataPointValues(data[1])).toBe(false)
+  expect(validator.validateDataPointValues(data[2])).toBe(true)
 })
 
 test('pH is validated correctly', () => {
-  const data = [
+  const data = mapDataValueRows([
     [
       "Organic Ossi's Impact That Lasts plantase",
       '2019-01-03T23:02:48.926Z',
@@ -81,15 +82,15 @@ test('pH is validated correctly', () => {
       'pH',
       '6.56'
     ]
-  ]
+  ])
 
-  expect(validator.validateCsvRow(data[0])).toBe(false)
-  expect(validator.validateCsvRow(data[1])).toBe(false)
-  expect(validator.validateCsvRow(data[2])).toBe(true)
+  expect(validator.validateDataPointValues(data[0])).toBe(false)
+  expect(validator.validateDataPointValues(data[1])).toBe(false)
+  expect(validator.validateDataPointValues(data[2])).toBe(true)
 })
 
 test('rainfall is validated correctly', () => {
-  const data = [
+  const data = mapDataValueRows([
     [
       "Organic Ossi's Impact That Lasts plantase",
       '2019-01-05T01:58:16.034Z',
@@ -108,11 +109,11 @@ test('rainfall is validated correctly', () => {
       'rainFall',
       '3.5'
     ]
-  ]
-
-  expect(validator.validateCsvRow(data[0])).toBe(false)
-  expect(validator.validateCsvRow(data[1])).toBe(false)
-  expect(validator.validateCsvRow(data[2])).toBe(true)
+  ])
+  console.log(data[2])
+  expect(validator.validateDataPointValues(data[0])).toBe(false)
+  expect(validator.validateDataPointValues(data[1])).toBe(false)
+  expect(validator.validateDataPointValues(data[2])).toBe(true)
 })
 
 test('passwords are validated correctly', () => {

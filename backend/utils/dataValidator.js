@@ -1,30 +1,37 @@
 const fs = require('fs')
 const csv = require('fast-csv')
+const dayjs = require('dayjs')
+const customParseFormat = require('dayjs/plugin/customParseFormat')
+dayjs.extend(customParseFormat)
 
 const passwordRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
 
 const validateCsvFile = (filePath) => {
   return new Promise((resolve, reject) => {
-    const validLines = []
+    const validRows = []
     fs.createReadStream(filePath, 'utf8')
       .pipe(csv.parse())
       .on('error', reject)
       .on('data', row => {
-        if (validateCsvRow(row)) {
-          validLines.push(row)
+        const [, dateTime, metricType, metricValue] = row
+        if (validateDataPointValues({ dateTime, metricType, metricValue })) {
+          validRows.push({ dateTime, metricType, metricValue })
         }
       })
       .on('end', () => {
-        resolve(validLines)
+        resolve(validRows)
       })
   })
 }
 
-const validateCsvRow = (values) => {
-  const metricType = values[2].toLowerCase()
-  const metricValue = Number(values[3])
+const validateDataPointValues = ({ dateTime, metricType, metricValue }) => {
+  return validateMetricType(metricType)
+    && validateMetricValue(metricType, metricValue)
+    && validateDateTime(dateTime)
+}
 
-  switch (metricType) {
+const validateMetricValue = (metricType, metricValue) => {
+  switch (metricType.toLowerCase()) {
   case 'rainfall':
     return (metricValue >= 0 && metricValue <= 500)
   case 'temperature':
@@ -36,8 +43,16 @@ const validateCsvRow = (values) => {
   }
 }
 
+const validateMetricType = (value) => {
+  return (typeof value === 'string' || value instanceof String)
+}
+
+const validateDateTime = (value) => {
+  return dayjs(value, 'YYYY-MM-DDTHH:mm:ss.SSS', true).isValid()
+}
+
 const validatePassword = (password) => {
   return password && passwordRegex.test(password)
 }
 
-module.exports = { validateCsvFile, validateCsvRow, validatePassword }
+module.exports = { validateCsvFile, validateDataPointValues, validatePassword }

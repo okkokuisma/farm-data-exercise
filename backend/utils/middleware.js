@@ -54,6 +54,8 @@ const errorHandler = (error, request, response, next) => {
   } else if (error.name === 'MalformattedPasswordError') {
     return response.status(400).json({ error: 'Password should contain minimum eight characters, at  least one uppercase letter, one lowercase letter, one number and one special character'
     })
+  } else if (error.name === 'InvalidDataPointValueError') {
+    return response.status(400).json({ error: 'added data point contained invalid values' })
   }
 
   next(error)
