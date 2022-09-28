@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import fileService from '../services/fileService'
 import { useSelector, useDispatch } from 'react-redux'
 import { addData } from '../reducers/dataReducer'
 import { createDataPoint } from '../reducers/dataReducer'
-import { createFarm, deleteFarm, initFarms } from '../reducers/farmReducer'
+import { createFarm, deleteFarm } from '../reducers/farmReducer'
 import { newNotification } from '../services/notificationService'
 import Togglable from '../components/Togglable'
 import FileUploadForm from '../components/forms/FileUploadForm'
@@ -14,10 +14,6 @@ import CreateFarmForm from '../components/forms/CreateFarmForm'
 const FarmsView = () => {
   const dispatch = useDispatch()
   const farms = useSelector(state => state.farms)
-
-  useEffect(() => {
-    dispatch(initFarms())
-  }, [])
 
   const handleUploadSubmit = async (file, farm) => {
     const response = await fileService.upload({

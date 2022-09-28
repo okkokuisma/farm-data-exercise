@@ -10,6 +10,8 @@ import IndexView from './containers/IndexView'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { RequireAuth } from './containers/RequireAuth'
+import { initFarms } from './reducers/farmReducer'
+
 
 const App = () => {
   const dispatch = useDispatch()
@@ -21,6 +23,10 @@ const App = () => {
       const user = JSON.parse(loggedUserJSON)
       dispatch(setUser(user))
     }
+  }, [])
+
+  useEffect(() => {
+    dispatch(initFarms())
   }, [])
 
   return (

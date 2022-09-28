@@ -19,25 +19,21 @@ export const addData = (addedData) => {
   }
 }
 
-export const initData = () => {
+export const fetchData = (query) => {
   return async (dispatch) => {
-    const data = await dataService.getAll()
+    const data = await dataService.getAll(query)
     dispatch({
-      type: 'INIT_DATA',
-      data: data
-    })
-    dispatch({
-      type: 'FILTER',
-      data: data
+      type: 'FETCH_DATA',
+      data
     })
   }
 }
 
-const reducer = (state = [], action) => {
+const reducer = (state = {}, action) => {
   switch (action.type) {
   case 'CREATE_DP':
     return [ ...state, action.data ]
-  case 'INIT_DATA':
+  case 'FETCH_DATA':
     return action.data
   case 'ADD_DATA':
     return [ ...state, ...action.data]

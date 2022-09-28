@@ -10,6 +10,11 @@ export const TableCell = styled.td`
   padding: 10px;
   letter-spacing: 1px;
   text-align: center;
+  :focus-within {
+    .th {
+      text-decoration: underline;
+    }
+  }
 `
 
 export const TableHead = styled.thead`

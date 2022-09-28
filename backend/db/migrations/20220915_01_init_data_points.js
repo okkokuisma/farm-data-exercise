@@ -22,7 +22,7 @@ module.exports = {
         allowNull: false,
       },
       metric_value: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       created_at: {

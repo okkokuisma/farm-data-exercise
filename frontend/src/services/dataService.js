@@ -1,9 +1,11 @@
 import axios from 'axios'
+
 axios.defaults.withCredentials = true
 const baseUrl = 'http://localhost:3003/api/data'
 
-const getAll = async () => {
-  const response = await axios.get(baseUrl)
+const getAll = async (params) => {
+  const response = await axios.get(baseUrl, { params })
+  console.log(response.data)
   return response.data
 }
 

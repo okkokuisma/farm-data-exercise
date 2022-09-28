@@ -1,101 +1,103 @@
-import React, { useEffect } from 'react'
+import React, {useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux'
-import { useTable, useFilters, useSortBy, useBlockLayout } from 'react-table'
-import { Table, Filters } from '../../styles'
-import { DateFilter, filterDateBetween } from './filters/DateFilter'
+import { fetchData } from '../../reducers/dataReducer'
+
+import { StatTable, TableCell, TableHead } from '../../styles'
 import SelectColumnFilter from './filters/SelectColumnFilter'
-import { filterData } from '../../reducers/filteredDataReducer'
-import DataPointTableList from '../lists/DataPointTableList'
 
-const DataPointTable = ({ data }) => {
+const TableRow = ({ values }) => {
+  return (
+    <tr>
+      {values.map((value, i) => (
+        <TableCell key={i} as='td'>
+          {value}
+        </TableCell>
+      ))}
+    </tr>
+  )
+}
+
+const DataPointTable = ({ data, farms }) => {
+  const [ queryParams, setQueryParams ] = useState({})
+  const [ selectedFarm, setSelectedFarm ] = useState('all')
   const dispatch = useDispatch()
-  const memoData = React.useMemo(() => data, [data])
 
-  const tableColumns = React.useMemo(
-    () => [
-      {
-        Header: 'Farm',
-        accessor: 'farm.name',
-        width: 300,
-        Filter: SelectColumnFilter,
-        filter: 'includes',
-      },
-      {
-        Header: 'Date',
-        accessor: 'dateTime',
-        width: 300,
-        Filter: DateFilter,
-        filter: filterDateBetween,
-      },
-      {
-        Header: 'Metric type',
-        accessor: 'metricType',
-        width: 300,
-        Filter: SelectColumnFilter,
-        filter: 'includes',
-      },
-      {
-        Header: 'Metric value',
-        accessor: 'metricValue',
-        width: 300,
-      },
-    ],
-    []
-  )
+  const handleSort = (header) => {
+    const { sort_by, order_by, ...otherParams } = queryParams
+    let sortValues = {}
+    if (sort_by === header) {
+      sortValues = order_by === 'desc'
+        ? {order_by: 'asc', sort_by: header}
+        : {}
+    } else {
+      sortValues = {order_by: 'desc', sort_by: header}
+    }
+    console.log(sortValues)
+    setQueryParams({...otherParams, ...sortValues})
+  }
 
-  const defaultColumn = React.useMemo(
-    () => ({
-      Filter: () => null,
-    }),
-    []
-  )
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    totalColumnsWidth,
-    columns,
-    filteredRows
-  } = useTable({ columns: tableColumns, data: memoData, defaultColumn }, useFilters, useSortBy, useBlockLayout)
+  const handleFarmSelect = (selectedFarm) => {
+    // eslint-disable-next-line no-unused-vars
+    const {search, ...otherParams} = queryParams
+    if (selectedFarm === 'all') {
+      setQueryParams({...otherParams})
+    } else {
+      setQueryParams({search: selectedFarm, ...otherParams})
+    }
+    setSelectedFarm(selectedFarm)
+  }
 
   useEffect(() => {
-    const filteredData = filteredRows.map(row => row.original)
-    dispatch(filterData(filteredData))
-  }, [filteredRows])
+    dispatch(fetchData(queryParams))
+  }, [queryParams])
+
+  // useEffect(() => {
+  //   if (selectedFarm) {
+  //     dispatch(fetchData(sort))
+  //   }
+  // }, [selectedFarm])
+
+  if (!data.edges) return null
+
+  const nodes = data.edges.map(e => e.node)
 
   return (
     <>
-      <Filters>
-        {columns[0].render('Filter')}
-        {columns[2].render('Filter')}
-        {columns[1].render('Filter')}
-      </Filters>
-      <Table>
-        <div {...getTableProps()} className="table">
-          <div className="thead">
-            {headerGroups.map(headerGroup => (
-              <div {...headerGroup.getHeaderGroupProps()} className="tr">
-                {headerGroup.headers.map(column => (
-                  <div {...column.getHeaderProps(column.getSortByToggleProps())} className="th">
-                    {column.render('Header')}
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
+      <SelectColumnFilter setSelected={handleFarmSelect} selected={selectedFarm} options={farms} />
+      <StatTable>
+        <TableHead>
+          <tr>
+            <TableCell as='th'>
+              Farm
+            </TableCell>
+            <TableCell as='th'>
+              Metric Type
+            </TableCell>
+            <TableCell as='th' onClick={() => handleSort('metricValue')}>
+              Metric Value
+              {queryParams.sort_by !== 'metricValue' ? null : queryParams.order_by === 'desc' ? <span>&#9660;</span> : <span>&#9650;</span>}
+            </TableCell>
+            <TableCell as='th' onClick={() => handleSort('dateTime')}>
+              Date
+              {queryParams.sort_by !== 'dateTime' ? null : queryParams.order_by === 'desc' ? <span>&#9660;</span> : <span>&#9650;</span>}
+            </TableCell>
+          </tr>
+        </TableHead>
 
-          <div {...getTableBodyProps()}>
-            <DataPointTableList
-              prepareRow={prepareRow}
-              rows={rows}
-              totalColumnsWidth={totalColumnsWidth}
-            />
-          </div>
-        </div>
-      </Table>
+        <tbody>
+          {nodes.map((node) => {
+            const { farm, dateTime, metricType, metricValue } = node
+            return (
+              <TableRow key={node.id} values={[
+                farm.name,
+                metricType,
+                metricValue,
+                dateTime
+              ]} />
+            )
+          })}
+        </tbody>
+      </StatTable>
     </>
   )
 }

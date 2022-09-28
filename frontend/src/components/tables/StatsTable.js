@@ -5,24 +5,6 @@ import { min, max, mean, median } from 'simple-statistics'
 const TableRow = ({ values }) => {
   return (
     <tr>
-      {/* <TableCell as='td'>
-        {values[0]}
-      </TableCell>
-      <TableCell as='td'>
-        {values[1]}
-      </TableCell>
-      <TableCell as='td'>
-        {values[2]}
-      </TableCell>
-      <TableCell as='td'>
-        {values[3]}
-      </TableCell>
-      <TableCell as='td'>
-        {values[4]}
-      </TableCell>
-      <TableCell as='td'>
-        {values[5]}
-      </TableCell> */}
       {values.map((value, i) => (
         <TableCell key={i} as='td'>
           {value}
