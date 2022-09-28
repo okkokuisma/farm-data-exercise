@@ -110,7 +110,6 @@ test('rainfall is validated correctly', () => {
       '3.5'
     ]
   ])
-  console.log(data[2])
   expect(validator.validateDataPointValues(data[0])).toBe(false)
   expect(validator.validateDataPointValues(data[1])).toBe(false)
   expect(validator.validateDataPointValues(data[2])).toBe(true)

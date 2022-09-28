@@ -56,7 +56,7 @@ describe('data point', () => {
       .set('Content-Type', 'application/json')
       .send({
         farmId: farm.id,
-        dateTime: '2019-02-31T01:58:16.034Z',
+        dateTime: '1204-242-12',
         metricType: 'rainFall',
         metricValue: '25'
       })
@@ -89,5 +89,18 @@ describe('data point', () => {
       })
       .expect(400)
       .expect({error: 'No farms found with the given id.'})
+  })
+
+  test('is not created with missing data point value', async () => {
+    await agent
+      .post('/api/data')
+      .set('Content-Type', 'application/json')
+      .send({
+        farmId: farm.id,
+        dateTime: new Date(),
+        metricValue: '25'
+      })
+      .expect(400)
+      .expect({error: 'added data point contained invalid values'})
   })
 })

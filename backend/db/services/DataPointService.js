@@ -2,7 +2,7 @@ const { Op } = require('sequelize')
 
 const { DataPoint } = require('../dbInit')
 const { Farm } = require('../dbInit')
-const { validateDataPointValues } = require('../../utils/dataValidator')
+const { validateDataPointValues, formatDateTime } = require('../../utils/dataValidator')
 
 const getAll = async (query) => {
   let where = {}
@@ -49,7 +49,6 @@ const getAll = async (query) => {
         : 'DESC'
 
       order = [ query.sort_by, orderBy ]
-      console.log(order)
     }
   }
 
@@ -57,7 +56,8 @@ const getAll = async (query) => {
     return await DataPoint.paginate({
       include: [{ model: Farm, as: 'farm' }],
       where,
-      order: [order]
+      order: [order],
+      limit: 20
     })
   } catch (error) {
     console.log(error)
@@ -74,7 +74,9 @@ const create = async (values) => {
     throw error
   }
 
-  return await DataPoint.create(values)
+  const formattedDate = formatDateTime(dateTime)
+
+  return await DataPoint.create({ dateTime: formattedDate, ...values })
 }
 
 const bulkCreate = async (instances) => {

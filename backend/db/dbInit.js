@@ -70,7 +70,11 @@ const rollbackMigration = async () => {
 }
 
 const emptyDatabase = async () => {
-  await sequelize.sync({ force: true })
+  if (process.env.NODE_ENV === 'test') {
+    await sequelize.sync({ force: true })
+  } else {
+    throw new Error('function called to empty database while not in test mode')
+  }
 }
 
 module.exports = {

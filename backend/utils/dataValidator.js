@@ -15,7 +15,8 @@ const validateCsvFile = (filePath) => {
       .on('data', row => {
         const [, dateTime, metricType, metricValue] = row
         if (validateDataPointValues({ dateTime, metricType, metricValue })) {
-          validRows.push({ dateTime, metricType, metricValue })
+          const formattedDate = formatDateTime(dateTime)
+          validRows.push({ formattedDate, metricType, metricValue })
         }
       })
       .on('end', () => {
@@ -48,11 +49,15 @@ const validateMetricType = (value) => {
 }
 
 const validateDateTime = (value) => {
-  return dayjs(value, 'YYYY-MM-DDTHH:mm:ss.SSS', true).isValid()
+  return dayjs(value).isValid()
+}
+
+const formatDateTime = (date) => {
+  return dayjs(date).format('YYYY-MM-DDTHH:mm:ss.SSS[Z]')
 }
 
 const validatePassword = (password) => {
   return password && passwordRegex.test(password)
 }
 
-module.exports = { validateCsvFile, validateDataPointValues, validatePassword }
+module.exports = { validateCsvFile, validateDataPointValues, validatePassword, formatDateTime }
