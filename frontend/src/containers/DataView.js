@@ -7,7 +7,6 @@ const DataView = () => {
   const dispatch = useDispatch()
   const data = useSelector(state => state.data)
   const farms = useSelector(state => state.farms)
-  const farmNames = farms.map(f => f.name)
 
   useEffect(() => {
     dispatch(fetchData({}))
@@ -20,7 +19,7 @@ const DataView = () => {
 
   return (
     <div>
-      <DataPointTable data={data} farms={farmNames} />
+      <DataPointTable data={data} farms={farms} />
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { fetchData } from '../../reducers/dataReducer'
 
 import { StatTable, TableCell, TableHead } from '../../styles'
-import SelectColumnFilter from './filters/SelectColumnFilter'
+import SelectInput from '../inputs/SelectInput'
 
 const TableRow = ({ values }) => {
   return (
@@ -17,10 +17,16 @@ const TableRow = ({ values }) => {
   )
 }
 
-const DataPointTable = ({ data, farms }) => {
+const DataPointTable = ({ data }) => {
   const [ queryParams, setQueryParams ] = useState({})
-  const [ selectedFarm, setSelectedFarm ] = useState('all')
+  // const [ selectedFarm, setSelectedFarm ] = useState('all')
   const dispatch = useDispatch()
+
+  const metricTypeSelectOptions = [
+    {name: 'Rain fall', value: 'rainFall'},
+    {name: 'Temperature', value: 'temperature'},
+    {name: 'pH', value: 'pH'},
+  ]
 
   const handleSort = (header) => {
     const { sort_by, order_by, ...otherParams } = queryParams
@@ -36,15 +42,16 @@ const DataPointTable = ({ data, farms }) => {
     setQueryParams({...otherParams, ...sortValues})
   }
 
-  const handleFarmSelect = (selectedFarm) => {
+  const handleMetricTypeSelect = (e) => {
     // eslint-disable-next-line no-unused-vars
-    const {search, ...otherParams} = queryParams
-    if (selectedFarm === 'all') {
+    const {metricType, ...otherParams} = queryParams
+    const selectedMetricType = e.target.value
+    if (selectedMetricType === 'all') {
       setQueryParams({...otherParams})
     } else {
-      setQueryParams({search: selectedFarm, ...otherParams})
+      setQueryParams({metricType: selectedMetricType, ...otherParams})
     }
-    setSelectedFarm(selectedFarm)
+    // setSelectedFarm(selectedFarm)
   }
 
   useEffect(() => {
@@ -63,7 +70,8 @@ const DataPointTable = ({ data, farms }) => {
 
   return (
     <>
-      <SelectColumnFilter setSelected={handleFarmSelect} selected={selectedFarm} options={farms} />
+      {/* <SelectColumnFilter setSelected={handleFarmSelect} selected={selectedFarm} options={farms} /> */}
+      <SelectInput options={metricTypeSelectOptions} onChange={handleMetricTypeSelect} />
       <StatTable>
         <TableHead>
           <tr>

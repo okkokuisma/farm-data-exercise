@@ -1,102 +1,89 @@
-import React, { useState, useEffect } from 'react'
-import FarmSelect from '../inputs/FarmSelect'
-import MetricTypeSelect from '../inputs/MetricTypeSelect'
-import { Button, FormInput } from '../../styles'
-import {newNotification} from '../../services/notificationService'
+import React from 'react'
 import dayjs from 'dayjs'
+import { Formik, Form } from 'formik'
+import * as yup from 'yup'
+
+import FormikTextInput from '../inputs/FormikTextInput'
+import FormikSelectInput from '../inputs/FormikSelectInput'
+import { Button } from '../../styles'
 
 const CreateDataPointForm = ({farms, handler}) => {
-  const [selectedFarm, setSelectedFarm] = useState(null)
-  const [date, setDate] = useState(dayjs(Date()).format('YYYY-MM-DDTHH:mm'))
-  const [metricType, setMetricType] = useState('rainFall')
-  const [metricValue, setMetricValue] = useState(0)
-  const [min, setMin] = useState(0)
-  const [max, setMax] = useState(0)
+  const metricTypeSelectOptions = [
+    {name: 'Rain fall', value: 'rainFall'},
+    {name: 'Temperature', value: 'temperature'},
+    {name: 'pH', value: 'pH'},
+  ]
 
-  const minMaxValues = {
-    rainFall: [0, 500],
-    pH: [0, 14],
-    temperature: [-50, 100]
-  }
-
-  useEffect(() => {
-    setMin(minMaxValues[metricType][0])
-    setMax(minMaxValues[metricType][1])
-  }, [metricType])
-
-  const validateValues = () => {
-    return (metricValue >= min && metricValue <= max)
-      && !(/^\s*$/.test(date))
-      && (metricType && !(/^\s*$/.test(metricType)))
-      && (typeof selectedFarm !== 'undefined' && selectedFarm !== null)
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (validateValues()) {
-      handler(selectedFarm, date, metricType, metricValue)
-    } else {
-      newNotification({
-        message: 'Invalid values.',
-        type: 'error',
-        time: 3000
-      })
-    }
-  }
-
-  if (!farms) return null
+  const farmSelectObjects = farms.map(f => {
+    return {name: f.name, value: f.id}
+  })
+  const farmSelectOptions = farmSelectObjects.concat({name: 'Select farm', value: ''})
 
   return (
-    <div className='formDiv'>
-      <form onSubmit={handleSubmit}>
-        <FormInput>
-          <label htmlFor='farm'>Farm</label>
-          <FarmSelect
-            id='farm'
-            farms={farms}
-            onChange={e => {
-              setSelectedFarm(farms.find(farm => farm.name === e.target.value))
-            }}
+    <>
+      <Formik
+        initialValues={{
+          farmId: '',
+          dateTime: dayjs(Date()).format('YYYY-MM-DDTHH:mm'),
+          metricType: 'rainFall',
+          metricValue: 0,
+        }}
+        validationSchema={yup.object({
+          farmId: yup.string()
+            .required('Required'),
+          dateTime: yup.date()
+            .required('Required'),
+          metricType: yup.string()
+            .required('Required'),
+          metricValue: yup.number()
+            .when('metricType', {
+              is: (val) => val === 'rainFall',
+              then: yup.number().min(0).max(500),
+            })
+            .when('metricType', {
+              is: (val) => val === 'pH',
+              then: yup.number().min(0).max(14),
+            })
+            .when('metricType', {
+              is: (val) => val === 'temperature',
+              then: yup.number().min(-50).max(100),
+            })
+            .required('Required')
+        })}
+        onSubmit={async ({farmId, ...values}) => {
+          await handler({farmId: Number(farmId), ...values})
+        }}
+      >
+        <Form>
+          <FormikSelectInput
+            label='Farm'
+            name='farmId'
+            options={farmSelectOptions}
           />
-        </FormInput>
-        <FormInput>
-          <label htmlFor='metricType'>Metric type</label>
-          <MetricTypeSelect
-            id='metricType'
-            onChange={e => {
-              setMetricType(e.target.value || undefined)
-            }}
-          />
-        </FormInput>
-        <FormInput>
-          <label htmlFor='date'>Date and time</label>
-          <input
-            id='date'
-            value={date}
-            type='datetime-local'
-            onChange={e => setDate(e.target.value)}
-            style={{
-              width: '170px',
-              marginRight: '0.5rem'
-            }}
-          />
-        </FormInput>
-        <FormInput>
-          <label htmlFor='metricValue'>Metric value</label>
-          <input
-            id='metricValue'
-            value={metricValue}
-            type='number'
-            step='0.01'
-            min={min}
-            max={max}
-            onChange={e => setMetricValue(e.target.value)}
-          />
-        </FormInput>
 
-        <Button type="submit">Send</Button>
-      </form>
-    </div>
+          <FormikTextInput
+            label='Date'
+            name='dateTime'
+            type='datetime-local'
+            placeholder='Date and time'
+          />
+
+          <FormikTextInput
+            label='Metric Value'
+            name='metricValue'
+            type='number'
+          />
+
+          <FormikSelectInput
+            label='Metric type'
+            name='metricType'
+            options={metricTypeSelectOptions}
+          />
+
+          <Button type='submit'>Submit</Button>
+        </Form>
+      </Formik>
+    </>
   )
 }
 

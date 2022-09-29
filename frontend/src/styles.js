@@ -117,6 +117,10 @@ export const FormInput = styled.div`
   margin: 10px;
 `
 
+export const FormError = styled.div`
+  color: red;
+`
+
 export const StyledNotification = styled.div`
   * {
     position: fixed;

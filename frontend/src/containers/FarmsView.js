@@ -29,13 +29,9 @@ const FarmsView = () => {
     })
   }
 
-  const handleDataPointCreateSubmit = (farm, date, type, value) => {
-    dispatch(createDataPoint({
-      farmId: farm.id,
-      dateTime: date,
-      metricType: type,
-      metricValue: value
-    }))
+  const handleDataPointCreateSubmit = (values) => {
+    console.log(values)
+    dispatch(createDataPoint(values))
     newNotification({
       message: 'New data point added successfully.',
       type: 'success',

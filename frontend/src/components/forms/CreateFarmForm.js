@@ -1,47 +1,39 @@
-import React, { useState } from 'react'
-import { Button, Field } from '../../styles'
-import { newNotification } from '../../services/notificationService'
+import React from 'react'
+import { Formik, Form } from 'formik'
+import * as yup from 'yup'
+
+import FormikTextInput from '../inputs/FormikTextInput'
+import { Button } from '../../styles'
 
 const CreateFarmForm = ({farms, handler}) => {
-  const [farmName, setFarmName] = useState('')
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!farmName || /^\s*$/.test(farmName)) {
-      newNotification({
-        message: 'Farm name is required.',
-        type: 'error',
-        time: 3000
-      })
-      return
-    }
-    if (farms.some(farm => farm.name === farmName)) {
-      newNotification({
-        message: 'Farm with the given name already exists.',
-        type: 'error',
-        time: 3000
-      })
-      return
-    }
-    handler(farmName)
-  }
-
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='farmName'></label>
-          <Field
-            id='farmName'
-            type="text"
-            value={farmName}
-            placeholder='Farm name'
-            onChange={(e) => setFarmName(e.target.value)}
-          />
-          <Button type="submit">Send</Button>
-        </div>
-      </form>
-    </>
+    <Formik
+      initialValues={{
+        farmName: '',
+      }}
+      validationSchema={yup.object({
+        farmName: yup.string()
+          .required('Required')
+          .test(
+            'farmName',
+            'Farm with the given name already exists',
+            (value) => !farms.some(farm => farm.name === value)
+          )
+      })}
+      onSubmit={async ({farmName}) => {
+        await handler(farmName)
+      }}
+    >
+      <Form>
+        <FormikTextInput
+          label='Farm name'
+          name='farmName'
+          type='text'
+          placeholder='Name'
+        />
+        <Button type='submit'>Submit</Button>
+      </Form>
+    </Formik>
   )
 }
 

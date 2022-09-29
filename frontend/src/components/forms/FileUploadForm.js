@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import FarmSelect from '../inputs/FarmSelect'
+import SelectInput from '../inputs/SelectInput'
 import { Button } from '../../styles'
 import { newNotification } from '../../services/notificationService'
 
@@ -7,6 +7,10 @@ const FileUploadForm = ({handler, farms}) => {
   const [selectedFarm, setSelectedFarm] = useState(null)
   const [selectedFile, setSelectedFile] = useState(null)
   const fileInputRef = useRef(null)
+
+  const farmSelectOptions = farms.map(f => {
+    return {name: f.name, value: f.id}
+  })
 
   const validateValues = () => {
     return (typeof selectedFarm !== 'undefined' && selectedFarm !== null)
@@ -33,24 +37,24 @@ const FileUploadForm = ({handler, farms}) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <FarmSelect
-          farms={farms}
+        <SelectInput
+          options={farmSelectOptions}
           onChange={e => {
-            setSelectedFarm(farms.find(farm => farm.name === e.target.value))
+            setSelectedFarm(farms.find(farm => farm.id === Number(e.target.value)))
           }}
         />
-        <Button as='label' htmlFor="file-upload" className="custom-file-upload">
+        <Button as='label' htmlFor='file-upload' className='custom-file-upload'>
             Select file
         </Button>
         <input
-          id="file-upload"
-          type="file"
+          id='file-upload'
+          type='file'
           ref={fileInputRef}
           onChange={(e) => setSelectedFile(e.target.files[0])}
           style={{display: 'none'}}
         />
         <span>{selectedFile?.name || 'No file selected'}</span>
-        <Button type="submit">Upload</Button>
+        <Button type='submit'>Upload</Button>
       </form>
     </>
   )
