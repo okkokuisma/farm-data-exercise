@@ -2,7 +2,7 @@ const { Op } = require('sequelize')
 
 const { DataPoint } = require('../dbInit')
 const { Farm } = require('../dbInit')
-const { validateDataPointValues, formatDateTime } = require('../../utils/dataValidator')
+const { validateDataPointValues, formatDataPointValues } = require('../../utils/dataValidator')
 
 const getAll = async (query) => {
   let where = {}
@@ -57,7 +57,7 @@ const getAll = async (query) => {
       include: [{ model: Farm, as: 'farm' }],
       where,
       order: [order],
-      limit: 20
+      limit: 10
     })
   } catch (error) {
     console.log(error)
@@ -66,17 +66,13 @@ const getAll = async (query) => {
 }
 
 const create = async (values) => {
-  const { dateTime, metricType, metricValue } = values
-
-  if (!validateDataPointValues({ dateTime, metricType, metricValue })) {
+  const dataPoint = formatDataPointValues(values)
+  if (!validateDataPointValues(dataPoint)) {
     const error = new Error()
     error.name = 'InvalidDataPointValueError'
     throw error
   }
-
-  const formattedDate = formatDateTime(dateTime)
-
-  return await DataPoint.create({ dateTime: formattedDate, ...values })
+  return await DataPoint.create({ farmId: values.farmId, ...dataPoint })
 }
 
 const bulkCreate = async (instances) => {

@@ -14,15 +14,23 @@ const validateCsvFile = (filePath) => {
       .on('error', reject)
       .on('data', row => {
         const [, dateTime, metricType, metricValue] = row
-        if (validateDataPointValues({ dateTime, metricType, metricValue })) {
-          const formattedDate = formatDateTime(dateTime)
-          validRows.push({ formattedDate, metricType, metricValue })
+        const dataPoint = formatDataPointValues({ dateTime, metricType, metricValue })
+        if (validateDataPointValues(dataPoint)) {
+          validRows.push(dataPoint)
         }
       })
       .on('end', () => {
         resolve(validRows)
       })
   })
+}
+
+const formatDataPointValues = ({ dateTime, metricType, metricValue }) => {
+  return {
+    dateTime: formatDateTime(dateTime),
+    metricType,
+    metricValue: Number.parseInt(metricValue)
+  }
 }
 
 const validateDataPointValues = ({ dateTime, metricType, metricValue }) => {
@@ -32,6 +40,10 @@ const validateDataPointValues = ({ dateTime, metricType, metricValue }) => {
 }
 
 const validateMetricValue = (metricType, metricValue) => {
+  if (isNaN(metricValue)) {
+    return false
+  }
+
   switch (metricType.toLowerCase()) {
   case 'rainfall':
     return (metricValue >= 0 && metricValue <= 500)
@@ -60,4 +72,9 @@ const validatePassword = (password) => {
   return password && passwordRegex.test(password)
 }
 
-module.exports = { validateCsvFile, validateDataPointValues, validatePassword, formatDateTime }
+module.exports = {
+  validateCsvFile,
+  validateDataPointValues,
+  validatePassword,
+  formatDataPointValues
+}
