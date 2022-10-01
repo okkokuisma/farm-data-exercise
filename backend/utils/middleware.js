@@ -48,6 +48,7 @@ const errorHandler = (error, request, response, next) => {
   } else if (error.name === 'SequelizeValidationError') {
     return response.status(400).json({ error: `${error.errors[0].message}` })
   } else if (error.name === 'SequelizeDatabaseError') {
+    console.log(error)
     return response.status(400).json({ error: 'database query error' })
   } else if (error.name === 'NoFarmFoundError') {
     return response.status(400).json({ error: 'No farms found with the given id.' })

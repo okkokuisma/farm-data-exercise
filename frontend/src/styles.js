@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-export const StatTable = styled.table`
+export const StyledTable = styled.table`
   table-layout: fixed;
-  width: 1200px;
+  width: 80%;
   border-collapse: collapse;
 `
 
@@ -21,22 +21,22 @@ export const TableHead = styled.thead`
   border-bottom: 1pt solid black;
 `
 
-export const Table = styled.div`
-  .table {
-    display: inline-block;
-    border-spacing: 0;
-    width: 1200px;
-    .thead {
-      border-bottom: 1pt solid black;
-    }
-    .th,
-    .td {
-      padding: 10px;
-      letter-spacing: 1px;
-      text-align: center;
-    }
-  }
-`
+// export const Table = styled.div`
+//   .table {
+//     display: inline-block;
+//     border-spacing: 0;
+//     width: 1200px;
+//     .thead {
+//       border-bottom: 1pt solid black;
+//     }
+//     .th,
+//     .td {
+//       padding: 10px;
+//       letter-spacing: 1px;
+//       text-align: center;
+//     }
+//   }
+// `
 
 export const ListItem = styled.div`
   display: flex;
