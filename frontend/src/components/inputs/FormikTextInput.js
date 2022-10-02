@@ -1,7 +1,7 @@
 import React from 'react'
 import { useField } from 'formik'
 
-import { Field, FormError, FormInput } from '../../styles'
+import { StyledInput, FormError, FormInput } from '../../styles'
 
 const FormikTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props)
@@ -9,7 +9,7 @@ const FormikTextInput = ({ label, ...props }) => {
     <>
       <FormInput>
         <label htmlFor={props.id || props.name}>{label}</label>
-        <Field {...field} {...props} />
+        <StyledInput {...field} {...props} />
       </FormInput>
       {meta.touched && meta.error ? (
         <FormError>{meta.error}</FormError>

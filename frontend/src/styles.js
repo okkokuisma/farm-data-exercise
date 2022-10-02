@@ -60,7 +60,7 @@ export const ListItem = styled.div`
   }
 `
 
-export const Field = styled.input`
+export const StyledInput = styled.input`
   border: 2pt solid white;
   border-radius: 5px;
   background-color: white;

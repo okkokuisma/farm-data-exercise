@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux'
 import { fetchData } from '../../reducers/dataReducer'
 
+import { StyledInput } from '../../styles'
 import Table from './Table'
 import SelectInput from '../inputs/SelectInput'
 
 
 const DataPointTable = ({ data }) => {
   const [ queryParams, setQueryParams ] = useState({})
-  // const [ selectedFarm, setSelectedFarm ] = useState('all')
   const dispatch = useDispatch()
 
   const metricTypeSelectOptions = [
@@ -28,11 +28,10 @@ const DataPointTable = ({ data }) => {
     } else {
       sortValues = {order_by: 'desc', sort_by: header}
     }
-    console.log(sortValues)
     setQueryParams({...otherParams, ...sortValues})
   }
 
-  const handleMetricTypeSelect = (e) => {
+  const handleMetricTypeFilter = (e) => {
     // eslint-disable-next-line no-unused-vars
     const {metricType, ...otherParams} = queryParams
     const selectedMetricType = e.target.value
@@ -41,18 +40,22 @@ const DataPointTable = ({ data }) => {
     } else {
       setQueryParams({metricType: selectedMetricType, ...otherParams})
     }
-    // setSelectedFarm(selectedFarm)
+  }
+
+  const handleFarmFilter = (e) => {
+    // eslint-disable-next-line no-unused-vars
+    const {search, ...otherParams} = queryParams
+    const searchWord = e.target.value
+    if (searchWord === '') {
+      setQueryParams({...otherParams})
+    } else {
+      setQueryParams({search: searchWord, ...otherParams})
+    }
   }
 
   useEffect(() => {
     dispatch(fetchData(queryParams))
   }, [queryParams])
-
-  // useEffect(() => {
-  //   if (selectedFarm) {
-  //     dispatch(fetchData(sort))
-  //   }
-  // }, [selectedFarm])
 
   if (!data.edges) return null
 
@@ -78,8 +81,8 @@ const DataPointTable = ({ data }) => {
 
   return (
     <>
-      {/* <SelectColumnFilter setSelected={handleFarmSelect} selected={selectedFarm} options={farms} /> */}
-      <SelectInput options={metricTypeSelectOptions} onChange={handleMetricTypeSelect} />
+      <StyledInput type='text' onChange={handleFarmFilter} />
+      <SelectInput options={metricTypeSelectOptions} onChange={handleMetricTypeFilter} />
       <Table rows={tableRows} headers={tableHeaders} />
     </>
   )
