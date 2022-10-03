@@ -22,21 +22,21 @@ const getAll = async (query) => {
     if (!Number.isNaN(Date.parse(query.from) && !Number.isNaN(Date.parse(query.to)))) {
       const startDate = new Date(query.from)
       const endDate = new Date(query.to)
-      where.createdAt = {
+      where.dateTime = {
         [Op.between]:  [startDate, endDate]
       }
     }
   } else if (query && query.from) {
     if (!Number.isNaN(Date.parse(query.from))) {
       const startDate = new Date(query.from)
-      where.createdAt = {
+      where.dateTime = {
         [Op.gte]:  startDate
       }
     }
   } else if (query && query.to) {
     if (!Number.isNaN(Date.parse(query.to))) {
       const endDate = new Date(query.to)
-      where.createdAt = {
+      where.dateTime = {
         [Op.lte]:  endDate
       }
     }
@@ -57,7 +57,9 @@ const getAll = async (query) => {
       include: [{ model: Farm, as: 'farm' }],
       where,
       order: [order],
-      limit: 10
+      limit: 10,
+      after: query.after || '',
+      before: query.before || ''
     })
   } catch (error) {
     console.log(error)

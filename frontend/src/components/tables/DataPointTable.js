@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux'
 import { fetchData } from '../../reducers/dataReducer'
 
-import { StyledInput } from '../../styles'
+import { StyledInput, Button } from '../../styles'
 import Table from './Table'
 import SelectInput from '../inputs/SelectInput'
 
@@ -11,12 +11,10 @@ const DataPointTable = ({ data }) => {
   const [ queryParams, setQueryParams ] = useState({})
   const dispatch = useDispatch()
 
-  const metricTypeSelectOptions = [
-    {name: 'All', value: ''},
-    {name: 'Rain fall', value: 'rainFall'},
-    {name: 'Temperature', value: 'temperature'},
-    {name: 'pH', value: 'pH'},
-  ]
+  useEffect(() => {
+    console.log(queryParams)
+    dispatch(fetchData(queryParams))
+  }, [queryParams])
 
   const handleSort = (header) => {
     const { sort_by, order_by, ...otherParams } = queryParams
@@ -31,35 +29,28 @@ const DataPointTable = ({ data }) => {
     setQueryParams({...otherParams, ...sortValues})
   }
 
-  const handleMetricTypeFilter = (e) => {
+  const handleFilterChange = ({filter}, newValue) => {
     // eslint-disable-next-line no-unused-vars
-    const {metricType, ...otherParams} = queryParams
-    const selectedMetricType = e.target.value
-    if (selectedMetricType === 'all') {
+    const { [filter]: prevValue, ...otherParams } = queryParams
+
+    if (filter === 'after') {
+      delete otherParams.before
+    } else if (filter === 'before') {
+      delete otherParams.after
+    }
+
+    if (newValue === '') {
       setQueryParams({...otherParams})
     } else {
-      setQueryParams({metricType: selectedMetricType, ...otherParams})
+      setQueryParams({[filter]: newValue, ...otherParams})
     }
   }
-
-  const handleFarmFilter = (e) => {
-    // eslint-disable-next-line no-unused-vars
-    const {search, ...otherParams} = queryParams
-    const searchWord = e.target.value
-    if (searchWord === '') {
-      setQueryParams({...otherParams})
-    } else {
-      setQueryParams({search: searchWord, ...otherParams})
-    }
-  }
-
-  useEffect(() => {
-    dispatch(fetchData(queryParams))
-  }, [queryParams])
 
   if (!data.edges) return null
 
-  const nodes = data.edges.map(e => e.node)
+  const { pageInfo, edges } = data
+  const nodes = edges.map(e => e.node)
+
   const tableRows = nodes.map(node => {
     const { farm, dateTime, metricType, metricValue } = node
     return (
@@ -79,11 +70,45 @@ const DataPointTable = ({ data }) => {
     {title: 'Date', onClick: () => handleSort('dateTime')}
   ]
 
+  const metricTypeSelectOptions = [
+    {name: 'All', value: ''},
+    {name: 'Rain fall', value: 'rainFall'},
+    {name: 'Temperature', value: 'temperature'},
+    {name: 'pH', value: 'pH'},
+  ]
+
   return (
     <>
-      <StyledInput type='text' onChange={handleFarmFilter} />
-      <SelectInput options={metricTypeSelectOptions} onChange={handleMetricTypeFilter} />
+      <StyledInput
+        type='text'
+        placeholder='Filter by farm'
+        onChange={(e) => handleFilterChange({filter: 'search'}, e.target.value)}
+      />
+      <SelectInput
+        options={metricTypeSelectOptions}
+        onChange={(e) => handleFilterChange({filter: 'metricType'}, e.target.value)}
+      />
+      <StyledInput
+        type='date'
+        onChange={e => handleFilterChange({filter: 'from'}, e.target.value)}
+      />
+      <StyledInput
+        type='date'
+        onChange={e => handleFilterChange({filter: 'to'}, e.target.value)}
+      />
       <Table rows={tableRows} headers={tableHeaders} />
+      <Button
+        onClick={() => handleFilterChange({filter: 'before'}, pageInfo.startCursor)}
+        disabled={!pageInfo.hasPreviousPage}
+      >
+        Previous
+      </Button>
+      <Button
+        onClick={() => handleFilterChange({filter: 'after'}, pageInfo.endCursor)}
+        disabled={!pageInfo.hasNextPage}
+      >
+        Next
+      </Button>
     </>
   )
 }

@@ -14,7 +14,7 @@ module.exports = {
         references: { model: 'farms', key: 'id' },
       },
       date_time: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false,
       },
       metric_type: {

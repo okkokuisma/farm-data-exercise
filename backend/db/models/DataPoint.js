@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       references: { model: 'farms', key: 'id' },
     },
     dateTime: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: false,
     },
     metricType: {
