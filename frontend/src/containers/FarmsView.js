@@ -3,11 +3,11 @@ import fileService from '../services/fileService'
 import { useSelector, useDispatch } from 'react-redux'
 import { addData } from '../reducers/dataReducer'
 import { createDataPoint } from '../reducers/dataReducer'
-import { createFarm, deleteFarm } from '../reducers/farmReducer'
+import { createFarm } from '../reducers/farmReducer'
 import { newNotification } from '../services/notificationService'
 import Togglable from '../components/Togglable'
 import FileUploadForm from '../components/forms/FileUploadForm'
-import FarmList from '../components/lists/FarmList'
+// import FarmList from '../components/lists/FarmList'
 import CreateDataPointForm from '../components/forms/CreateDataPointForm'
 import CreateFarmForm from '../components/forms/CreateFarmForm'
 
@@ -58,14 +58,14 @@ const FarmsView = () => {
     }
   }
 
-  const handleFarmDelete = async (id) => {
-    dispatch(deleteFarm(id))
-  }
+  // const handleFarmDelete = async (id) => {
+  //   dispatch(deleteFarm(id))
+  // }
 
   return (
     <div>
       <h1>Farms</h1>
-      <FarmList farms={farms} handleDelete={handleFarmDelete} />
+      {/* <FarmList farms={farms} handleDelete={handleFarmDelete} /> */}
       <Togglable buttonLabel='Create a new farm'>
         < CreateFarmForm
           farms={farms}

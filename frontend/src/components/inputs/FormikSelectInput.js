@@ -2,18 +2,18 @@ import React from 'react'
 import { useField } from 'formik'
 
 import SelectInput from './SelectInput'
-import { FormError, FormInput } from '../../styles'
+import { StyledFormError, StyledFormInput } from '../../styles'
 
 const FormikSelectInput = ({ label, options, ...props }) => {
   const [field, meta] = useField(props)
   return (
     <>
-      <FormInput>
+      <StyledFormInput>
         <label htmlFor={props.id || props.name}>{label}</label>
         <SelectInput {...field} {...props} options={options} />
-      </FormInput>
+      </StyledFormInput>
       {meta.touched && meta.error ? (
-        <FormError>{meta.error}</FormError>
+        <StyledFormError>{meta.error}</StyledFormError>
       ) : null}
     </>
   )

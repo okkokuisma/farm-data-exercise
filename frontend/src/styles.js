@@ -1,12 +1,16 @@
 import styled from 'styled-components'
 
+export const StyledBodyDiv = styled.div`
+  margin: 100px 5%;
+`
+
 export const StyledTable = styled.table`
   table-layout: fixed;
-  width: 80%;
+  width: 100%;
   border-collapse: collapse;
 `
 
-export const TableCell = styled.td`
+export const StyledTableCell = styled.td`
   padding: 10px;
   letter-spacing: 1px;
   text-align: center;
@@ -17,28 +21,11 @@ export const TableCell = styled.td`
   }
 `
 
-export const TableHead = styled.thead`
+export const StyledTableHead = styled.thead`
   border-bottom: 1pt solid black;
 `
 
-// export const Table = styled.div`
-//   .table {
-//     display: inline-block;
-//     border-spacing: 0;
-//     width: 1200px;
-//     .thead {
-//       border-bottom: 1pt solid black;
-//     }
-//     .th,
-//     .td {
-//       padding: 10px;
-//       letter-spacing: 1px;
-//       text-align: center;
-//     }
-//   }
-// `
-
-export const ListItem = styled.div`
+export const StyledListItem = styled.div`
   display: flex;
   align-items: center;
   letter-spacing: 1px;
@@ -68,7 +55,7 @@ export const StyledInput = styled.input`
   padding: 5px 5px;
 `
 
-export const Button = styled.button`
+export const StyledButton = styled.button`
   border: 2pt solid white;
   border-radius: 5px;
   color: sandybrown;
@@ -81,7 +68,7 @@ export const Button = styled.button`
   }
 `
 
-export const Select = styled.select`
+export const StyledSelect = styled.select`
   width: 200px;
   border: 2pt solid white;
   border-radius: 5px;
@@ -94,7 +81,7 @@ export const Select = styled.select`
   }
 `
 
-export const ToggleButton = styled(Button)`
+export const StyledToggleButton = styled(StyledButton)`
   width: 30%;
   font-size: 20px;
   text-align: left;
@@ -109,7 +96,7 @@ export const Filters = styled.div`
   }
 `
 
-export const FormInput = styled.div`
+export const StyledFormInput = styled.div`
   display: flex;
   justify-content: space-between;
   width: 30%;
@@ -117,7 +104,7 @@ export const FormInput = styled.div`
   margin: 10px;
 `
 
-export const FormError = styled.div`
+export const StyledFormError = styled.div`
   color: red;
 `
 
@@ -146,30 +133,8 @@ export const StyledNotification = styled.div`
     background-color: #EEE559;
   }
 `
-
-// export const NavBar = styled.ul`
-//   position: fixed;
-//   list-style-type: none;
-//   left: 0;
-//   top: 0;
-//   margin: 0;
-//   padding: 0;
-//   width: 10%;
-//   height: 100%;
-//   background: #323233;
-//   // box-shadow: 1px 0 2px rgba(0,0,0,0.125);
-
-//   .links * {
-//     display: block;
-//     text-decoration: none;
-//     font-size: 20px;
-//     color: white;
-//     letter-spacing: 2px;
-//     text-transform: uppercase;
-//     padding: 8px 20px;
-//   }
-// `
-export const NavBar = styled.div`
+export const StyledNavBar = styled.div`
+  font-family: Arial;
   position: fixed;
   top: 0;
   left: 0;
@@ -191,12 +156,27 @@ export const NavBar = styled.div`
     border-right: 1px solid #f5f5f5;
   }
 
-  .links a {
-    font-size: 20px;
-    color: white;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 0 20px;
-    flex: 1;
+  .links {
+    * {
+      padding: 0 20px;
+    }
+
+    a {
+      font-size: 20px;
+      color: white;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      flex: 1;
+      text-decoration: none;
+    }
+
+    button {
+      background-color: #323233;
+      color: white;
+      border: none;
+      font-size: 20px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
   }
 `

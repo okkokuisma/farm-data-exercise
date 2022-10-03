@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ToggleButton } from '../styles'
+import { StyledToggleButton } from '../styles'
 
 const Togglable = ({ buttonLabel, children }) => {
   const [visible, setVisible] = useState(false)
@@ -14,13 +14,13 @@ const Togglable = ({ buttonLabel, children }) => {
 
   return (
     <div style={visible ? divStyleWhenVisible : {}}>
-      <ToggleButton
+      <StyledToggleButton
         as='button'
         style={visible ? buttonStyleWhenVisible : {}}
         onClick={handleClick}
       >
         {buttonLabel}
-      </ToggleButton>
+      </StyledToggleButton>
       <div style={showWhenVisible}>
         <div style={{ margin: '10px 5px' }}>
           {children}

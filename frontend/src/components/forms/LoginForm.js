@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 
 import FormikTextInput from '../inputs/FormikTextInput'
-import { Button } from '../../styles'
+import { StyledButton } from '../../styles'
 
 const LoginForm = ({ handler }) => {
   return (
@@ -37,7 +37,7 @@ const LoginForm = ({ handler }) => {
           placeholder='Password'
           label='Password'
         />
-        <Button type='submit'>Sign in</Button>
+        <StyledButton type='submit'>Sign in</StyledButton>
       </Form>
     </Formik>
   )

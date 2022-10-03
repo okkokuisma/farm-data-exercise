@@ -1,14 +1,14 @@
 import React from 'react'
-import { StyledTable, TableCell, TableHead } from '../../styles'
+import { StyledTable, StyledTableCell, StyledTableHead } from '../../styles'
 // import { min, max, mean, median } from 'simple-statistics'
 
 const TableRow = ({ values }) => {
   return (
     <tr>
       {values.map((value, i) => (
-        <TableCell key={i} as='td'>
+        <StyledTableCell key={i} as='td'>
           {value}
-        </TableCell>
+        </StyledTableCell>
       ))}
     </tr>
   )
@@ -26,21 +26,21 @@ const TableBody = ({ rows }) => {
 
 const Header = ({ title, ...props }) => {
   return (
-    <TableCell as='th' {...props}>
+    <StyledTableCell as='th' {...props}>
       {title}
-    </TableCell>
+    </StyledTableCell>
   )
 }
 
 const HeaderRow = ({ headers }) => {
   return (
-    <TableHead>
+    <StyledTableHead>
       <tr>
         {headers.map((header, i) => (
           <Header key={i} {...header} />
         ))}
       </tr>
-    </TableHead>
+    </StyledTableHead>
   )
 }
 

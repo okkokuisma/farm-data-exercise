@@ -42,9 +42,9 @@ const userExtractor = async (request, response, next) => {
 
 const errorHandler = (error, request, response, next) => {
   if (error.name === 'JsonWebTokenError') {
-    return response.status(400).json({ error: error.message })
+    return response.status(401).json({ error: error.message })
   } else if (error.name === 'TokenExpiredError') {
-    return response.status(400).json({ error: 'token expired' })
+    return response.status(401).json({ error: 'token expired' })
   } else if (error.name === 'SequelizeValidationError') {
     return response.status(400).json({ error: `${error.errors[0].message}` })
   } else if (error.name === 'SequelizeDatabaseError') {

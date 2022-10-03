@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux'
 import { fetchData } from '../../reducers/dataReducer'
 
-import { StyledInput, Button } from '../../styles'
+import { StyledInput, StyledButton } from '../../styles'
 import Table from './Table'
 import SelectInput from '../inputs/SelectInput'
 
@@ -97,18 +97,18 @@ const DataPointTable = ({ data }) => {
         onChange={e => handleFilterChange({filter: 'to'}, e.target.value)}
       />
       <Table rows={tableRows} headers={tableHeaders} />
-      <Button
+      <StyledButton
         onClick={() => handleFilterChange({filter: 'before'}, pageInfo.startCursor)}
         disabled={!pageInfo.hasPreviousPage}
       >
         Previous
-      </Button>
-      <Button
+      </StyledButton>
+      <StyledButton
         onClick={() => handleFilterChange({filter: 'after'}, pageInfo.endCursor)}
         disabled={!pageInfo.hasNextPage}
       >
         Next
-      </Button>
+      </StyledButton>
     </>
   )
 }

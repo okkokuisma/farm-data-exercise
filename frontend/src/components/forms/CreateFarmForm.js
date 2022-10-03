@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 
 import FormikTextInput from '../inputs/FormikTextInput'
-import { Button } from '../../styles'
+import { StyledButton } from '../../styles'
 
 const CreateFarmForm = ({farms, handler}) => {
   return (
@@ -31,7 +31,7 @@ const CreateFarmForm = ({farms, handler}) => {
           type='text'
           placeholder='Name'
         />
-        <Button type='submit'>Submit</Button>
+        <StyledButton type='submit'>Submit</StyledButton>
       </Form>
     </Formik>
   )

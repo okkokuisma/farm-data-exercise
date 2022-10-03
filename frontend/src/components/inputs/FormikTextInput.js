@@ -1,18 +1,18 @@
 import React from 'react'
 import { useField } from 'formik'
 
-import { StyledInput, FormError, FormInput } from '../../styles'
+import { StyledInput, StyledFormError, StyledFormInput } from '../../styles'
 
 const FormikTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props)
   return (
     <>
-      <FormInput>
+      <StyledFormInput>
         <label htmlFor={props.id || props.name}>{label}</label>
         <StyledInput {...field} {...props} />
-      </FormInput>
+      </StyledFormInput>
       {meta.touched && meta.error ? (
-        <FormError>{meta.error}</FormError>
+        <StyledFormError>{meta.error}</StyledFormError>
       ) : null}
     </>
   )

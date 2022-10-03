@@ -5,7 +5,7 @@ import * as yup from 'yup'
 
 import FormikTextInput from '../inputs/FormikTextInput'
 import FormikSelectInput from '../inputs/FormikSelectInput'
-import { Button } from '../../styles'
+import { StyledButton } from '../../styles'
 
 const CreateDataPointForm = ({farms, handler}) => {
   const metricTypeSelectOptions = [
@@ -80,7 +80,7 @@ const CreateDataPointForm = ({farms, handler}) => {
             options={metricTypeSelectOptions}
           />
 
-          <Button type='submit'>Submit</Button>
+          <StyledButton type='submit'>Submit</StyledButton>
         </Form>
       </Formik>
     </>

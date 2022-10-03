@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { Select } from '../../styles'
+import { StyledSelect } from '../../styles'
 
 const SelectInput = ({ options, onChange, id, ...props }) => {
   return (
-    <Select
+    <StyledSelect
       id={id}
       onChange={onChange}
       {...props}
@@ -14,7 +14,7 @@ const SelectInput = ({ options, onChange, id, ...props }) => {
           {option.name}
         </option>
       ))}
-    </Select>
+    </StyledSelect>
   )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ListItem } from '../../styles'
+import { StyledListItem } from '../../styles'
 import VirtualizedList from './VirtualizedList'
 
 const FarmList = ({farms, handleDelete}) => {
@@ -7,10 +7,10 @@ const FarmList = ({farms, handleDelete}) => {
   const Row = ({ index, style }) => {
     const farm = farms[index]
     return (
-      <ListItem style={style}>
+      <StyledListItem style={style}>
         <span className='itemName'>{farm.name}</span>
         <button onClick={() => handleDelete(farm.id)} className='pushedRight'>delete</button>
-      </ListItem>
+      </StyledListItem>
     )
   }
 

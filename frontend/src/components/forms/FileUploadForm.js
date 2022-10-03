@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import SelectInput from '../inputs/SelectInput'
-import { Button } from '../../styles'
+import { StyledButton } from '../../styles'
 import { newNotification } from '../../services/notificationService'
 
 const FileUploadForm = ({handler, farms}) => {
@@ -43,9 +43,9 @@ const FileUploadForm = ({handler, farms}) => {
             setSelectedFarm(farms.find(farm => farm.id === Number(e.target.value)))
           }}
         />
-        <Button as='label' htmlFor='file-upload' className='custom-file-upload'>
+        <StyledButton as='label' htmlFor='file-upload' className='custom-file-upload'>
             Select file
-        </Button>
+        </StyledButton>
         <input
           id='file-upload'
           type='file'
@@ -54,7 +54,7 @@ const FileUploadForm = ({handler, farms}) => {
           style={{display: 'none'}}
         />
         <span>{selectedFile?.name || 'No file selected'}</span>
-        <Button type='submit'>Upload</Button>
+        <StyledButton type='submit'>Upload</StyledButton>
       </form>
     </>
   )

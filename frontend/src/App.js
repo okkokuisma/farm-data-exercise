@@ -4,13 +4,14 @@ import { setUser } from './reducers/userReducer'
 import DataView from './containers/DataView'
 import FarmsView from './containers/FarmsView'
 import NavigationBar from './components/NavigationBar'
-import Notifications from './containers/Notifications'
+// import Notifications from './containers/Notifications'
 import AuthView from './containers/AuthView'
 import IndexView from './containers/IndexView'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { RequireAuth } from './containers/RequireAuth'
 import { initFarms } from './reducers/farmReducer'
+import { StyledBodyDiv } from './styles'
 
 
 const App = () => {
@@ -31,30 +32,29 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <div style={{padding: '0', marginLeft: '10%'}}>
-        <Notifications />
-      </div>
-      <div>
-        <NavigationBar />
-      </div>
-      <div className='body' style={{padding: '60px 0px', marginLeft: '12%'}}>
-        <Routes>
-          <Route path='/' element={ <IndexView /> } />
-          <Route path='/login' element={ <AuthView /> } />
-          <Route path='/farms' element={
-            <RequireAuth>
-              <FarmsView />
-            </RequireAuth>
-          }
-          />
-          <Route path= '/data' element={
-            <RequireAuth>
-              <DataView />
-            </RequireAuth>
-          }
-          />
-          <Route path='*' element={ <Navigate to='/' /> } />
-        </Routes>
+      <div style={{ fontFamily: 'Arial' }}>
+        <div>
+          <NavigationBar />
+        </div>
+        <StyledBodyDiv>
+          <Routes>
+            <Route path='/' element={ <IndexView /> } />
+            <Route path='/login' element={ <AuthView /> } />
+            <Route path='/farms' element={
+              <RequireAuth>
+                <FarmsView />
+              </RequireAuth>
+            }
+            />
+            <Route path= '/data' element={
+              <RequireAuth>
+                <DataView />
+              </RequireAuth>
+            }
+            />
+            <Route path='*' element={ <Navigate to='/' /> } />
+          </Routes>
+        </StyledBodyDiv>
       </div>
     </AuthProvider>
   )

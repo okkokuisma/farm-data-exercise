@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavBar } from '../styles'
+import { StyledNavBar } from '../styles'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -8,7 +8,7 @@ const NavigationBar = () => {
 
   return (
     <>
-      <NavBar>
+      <StyledNavBar>
         <div className='links'>
           <Link to='/'>home</Link>
           <Link to='/data'>data</Link>
@@ -18,7 +18,7 @@ const NavigationBar = () => {
             : <Link to='/login'>login</Link>
           }
         </div>
-      </NavBar>
+      </StyledNavBar>
     </>
   )
 }
