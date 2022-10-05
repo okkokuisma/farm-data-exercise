@@ -14,6 +14,9 @@ import CreateFarmForm from '../components/forms/CreateFarmForm'
 const FarmsView = () => {
   const dispatch = useDispatch()
   const farms = useSelector(state => state.farms)
+  const farmNodes = farms.edges
+    ? farms.edges.map(e => e.node)
+    : []
 
   const handleUploadSubmit = async (file, farm) => {
     const response = await fileService.upload({
@@ -68,19 +71,19 @@ const FarmsView = () => {
       {/* <FarmList farms={farms} handleDelete={handleFarmDelete} /> */}
       <Togglable buttonLabel='Create a new farm'>
         < CreateFarmForm
-          farms={farms}
+          farms={farmNodes}
           handler={handleFarmCreateSubmit}
         />
       </Togglable>
       <Togglable buttonLabel='Add a single data point'>
         <CreateDataPointForm
-          farms={farms}
+          farms={farmNodes}
           handler={handleDataPointCreateSubmit}
         />
       </Togglable>
       <Togglable buttonLabel='Upload a csv file'>
         <FileUploadForm
-          farms={farms}
+          farms={farmNodes}
           handler={handleUploadSubmit}
         />
       </Togglable>

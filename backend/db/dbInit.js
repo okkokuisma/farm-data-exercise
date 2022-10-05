@@ -22,6 +22,8 @@ const DataPoint = require('./models/DataPoint')(sequelize, Sequelize.DataTypes)
 const Farm = require('./models/Farm')(sequelize, Sequelize.DataTypes)
 const User = require('./models/User')(sequelize, Sequelize.DataTypes)
 
+User.hasMany(Farm)
+Farm.belongsTo(User)
 Farm.hasMany(DataPoint)
 DataPoint.belongsTo(Farm)
 

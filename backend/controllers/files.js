@@ -8,6 +8,12 @@ filesRouter.post('/upload', async (request, response) => {
     return response.status(400).send('Only CSV type files are supported.')
   }
 
+  const farmId = request.body.farmId
+  const { id: userId } = request.user
+  if (!await farmService.isOwnedByUser({ farmId, userId })) {
+    return response.status(401).json({ error: 'unauthorized' })
+  }
+
   const filePath = process.cwd() + '/resources/uploads/' + request.file.filename
   const validRows = await validateCsvFile(filePath)
 
@@ -15,9 +21,7 @@ filesRouter.post('/upload', async (request, response) => {
     return response.status(400).send('Uploaded file contained invalid data.')
   }
 
-  const farmId = request.body.farmId
   const farmInstance = await farmService.getById(farmId)
-
   const dataPoints = validRows.map(row => {
     return { farmId, ...row}
   })

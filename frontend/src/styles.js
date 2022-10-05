@@ -66,6 +66,13 @@ export const StyledButton = styled.button`
     color: white;
     background-color: sandybrown;
   }
+  :disabled {
+    :hover {
+      background-color: grey;
+      color: white;
+      cursor: not-allowed;
+    }
+  }
 `
 
 export const StyledSelect = styled.select`
@@ -109,16 +116,21 @@ export const StyledFormError = styled.div`
 `
 
 export const StyledNotification = styled.div`
+  position: fixed;
+  margin : 60px 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+
   * {
-    position: fixed;
-    right: 30px;
-    width: 30%;
-    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: white;
     text-align: center;
     font-size: 20px;
-    padding: 0;
     letter-spacing: 2px;
+    height: 40px;
   }
 
   .success {

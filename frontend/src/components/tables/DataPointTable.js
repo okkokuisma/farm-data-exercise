@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import { useDispatch } from 'react-redux'
-import { fetchData } from '../../reducers/dataReducer'
+import { Link } from 'react-router-dom'
+// import { useErrorHandler } from 'react-error-boundary'
 
+import { fetchData } from '../../reducers/dataReducer'
 import { StyledInput, StyledButton } from '../../styles'
 import Table from './Table'
 import SelectInput from '../inputs/SelectInput'
@@ -10,9 +12,9 @@ import SelectInput from '../inputs/SelectInput'
 const DataPointTable = ({ data }) => {
   const [ queryParams, setQueryParams ] = useState({})
   const dispatch = useDispatch()
+  // const handleError = useErrorHandler()
 
   useEffect(() => {
-    console.log(queryParams)
     dispatch(fetchData(queryParams))
   }, [queryParams])
 
@@ -55,7 +57,7 @@ const DataPointTable = ({ data }) => {
     const { farm, dateTime, metricType, metricValue } = node
     return (
       [
-        farm.name,
+        <Link key={farm.id} to={`/farms/${farm.id}`}>{farm.name}</Link>,
         metricType,
         metricValue,
         dateTime

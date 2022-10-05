@@ -1,7 +1,6 @@
 const { Op } = require('sequelize')
 
-const { DataPoint } = require('../dbInit')
-const { Farm } = require('../dbInit')
+const { DataPoint, Farm } = require('../dbInit')
 const { validateDataPointValues, formatDataPointValues } = require('../../utils/dataValidator')
 
 const getAll = async (query) => {
@@ -67,14 +66,14 @@ const getAll = async (query) => {
 
 }
 
-const create = async (values) => {
+const create = async ({ farmId, ...values}) => {
   const dataPoint = formatDataPointValues(values)
   if (!validateDataPointValues(dataPoint)) {
     const error = new Error()
     error.name = 'InvalidDataPointValueError'
     throw error
   }
-  return await DataPoint.create({ farmId: values.farmId, ...dataPoint })
+  return await DataPoint.create({ farmId, ...dataPoint })
 }
 
 const bulkCreate = async (instances) => {

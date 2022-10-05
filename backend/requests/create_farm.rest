@@ -2,5 +2,7 @@ POST http://localhost:3003/api/farms
 content-type: application/json
 
 {
-  "name": "juum"
+  "name": "Jees",
+  "city": "Helsinki",
+  "address": "Maatilankuja 5A7"
 }

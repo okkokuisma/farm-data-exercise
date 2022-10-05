@@ -8,13 +8,19 @@ dataRouter.get('/', async (request, response) => {
 })
 
 dataRouter.post('/', async (request, response) => {
+  const { farmId, dateTime, metricType, metricValue } = request.body
+  const { id: userId } = request.user
+
+  if (!await farmService.isOwnedByUser({ farmId, userId })) {
+    return response.status(401).json({ error: 'unauthorized' })
+  }
+
   const farmInstance = await farmService.getById(request.body.farmId)
-  const body = request.body
   const dataPoint = await dataPointService.create({
-    farmId: farmInstance.id,
-    dateTime: body.dateTime,
-    metricType: body.metricType,
-    metricValue: body.metricValue
+    farmId,
+    dateTime,
+    metricType,
+    metricValue
   })
 
   return response.status(201).json({...dataPoint.dataValues, farm: {...farmInstance.dataValues}})

@@ -45,6 +45,8 @@ const errorHandler = (error, request, response, next) => {
     return response.status(401).json({ error: error.message })
   } else if (error.name === 'TokenExpiredError') {
     return response.status(401).json({ error: 'token expired' })
+  } else if (error.name === 'UnauthorizedActionError') {
+    return response.status(401).json({ error: error.message })
   } else if (error.name === 'SequelizeValidationError') {
     return response.status(400).json({ error: `${error.errors[0].message}` })
   } else if (error.name === 'SequelizeDatabaseError') {

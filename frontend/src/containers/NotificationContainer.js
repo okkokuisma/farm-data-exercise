@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Notification from '../components/Notification'
 import { deleteNotification } from '../reducers/notificationReducer'
 
-const Notifications = () => {
+const NotificationContainer = () => {
   const dispatch = useDispatch()
   const [show, setShow] = useState(false)
   const notifications = useSelector(state => state.notifications)
@@ -29,4 +29,4 @@ const Notifications = () => {
   ) : null
 }
 
-export default Notifications
+export default NotificationContainer

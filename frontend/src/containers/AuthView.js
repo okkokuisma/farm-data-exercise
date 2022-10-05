@@ -8,12 +8,11 @@ const AuthView = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const { login, user } = useAuth()
-
-  if (user) {
-    return <Navigate to={'/data'}/>
-  }
-
   const from = location.state?.from?.pathname || '/data'
+  console.log(from)
+  if (user) {
+    return <Navigate to={from}/>
+  }
 
   const handleLogin = async (username, password) => {
     try {

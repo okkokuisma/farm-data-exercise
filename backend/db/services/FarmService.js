@@ -1,7 +1,21 @@
-const Farm = require('../dbInit').Farm
+const { Farm, User } = require('../dbInit')
 
-const getAll = async () => {
-  return await Farm.findAll()
+const getAll = async (query) => {
+  let where = {}
+
+  if (query && query.user_id) {
+    where.user_id = query.user_id
+  }
+
+  return await Farm.paginate(
+    {
+      include: [{ model: User, as: 'user', attributes: ['username', 'id'] }],
+      where,
+      limit: 10,
+      after: query.after || '',
+      before: query.before || ''
+    }
+  )
 }
 
 const getById = async (id) => {
@@ -16,9 +30,15 @@ const getById = async (id) => {
   return farm
 }
 
-const remove = async (id) => {
+const remove = async ({ farmId, userId }) => {
+  if (!await isOwnedByUser({ farmId, userId })) {
+    const error = new Error('unauthorized')
+    error.name = 'UnauthorizedActionError'
+    throw error
+  }
+
   return await Farm.destroy({
-    where: { id: id }
+    where: { id: farmId }
   })
 }
 
@@ -26,4 +46,9 @@ const create = async (values) => {
   return await Farm.create(values)
 }
 
-module.exports = { create, getById, getAll, remove }
+const isOwnedByUser = async ({ farmId, userId }) => {
+  const farm = await getById(farmId)
+  return (farm.toJSON().userId === userId)
+}
+
+module.exports = { create, getById, getAll, remove, isOwnedByUser }
