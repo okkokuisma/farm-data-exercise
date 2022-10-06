@@ -1,5 +1,6 @@
 import farmService from '../services/farmService'
 import { logout } from './userReducer'
+import { createNotification } from './notificationReducer'
 
 export const createFarm = (farm) => {
   return async (dispatch) => {
@@ -9,9 +10,25 @@ export const createFarm = (farm) => {
         type: 'CREATE_FARM',
         data: createdFarm
       })
+      dispatch(createNotification({
+        message: 'New farm created successfully.',
+        type: 'success',
+        time: 3000
+      }))
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error?.response?.status === 401) {
         dispatch(logout())
+        dispatch(createNotification({
+          message: 'Your session timed out. Please log in again.',
+          type: 'info',
+          time: 3000
+        }))
+      } else {
+        dispatch(createNotification({
+          message: 'Error while creating a new farm.',
+          type: 'error',
+          time: 3000
+        }))
       }
     }
   }
@@ -26,7 +43,7 @@ export const deleteFarm = (farmId) => {
         data: farmId
       })
     } catch (error) {
-      if (error.response.status === 401) {
+      if (error?.response?.status === 401) {
         dispatch(logout())
       }
     }
@@ -44,7 +61,7 @@ export const initFarms = (queryParams) => {
       })
     } catch (error) {
       console.log(error)
-      if (error.response.status === 401) {
+      if (error?.response?.status === 401) {
         dispatch(logout())
       }
     }

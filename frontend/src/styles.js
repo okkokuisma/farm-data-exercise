@@ -25,25 +25,32 @@ export const StyledTableHead = styled.thead`
   border-bottom: 1pt solid black;
 `
 
+export const StyledDivContainer = styled.div`
+  border-left: 5pt solid sandybrown;
+  padding: 0 0 10px 15px;
+  margin-bottom: 50px;
+`
+
 export const StyledListItem = styled.li`
   display: flex;
   align-items: center;
   letter-spacing: 1px;
   font-size: 20px;
-  :hover {
-    .itemName {
-      text-decoration: underline sandybrown;
-    }
+  justify-content: space-between;
+
+  a {
+    color: black;
+    text-decoration: none;
   }
 
-  .pushedRight {
-    border: none;
-    margin-left: auto;
-    height: 100%;
-    font-size: 20px;
-    :hover {
-      background-color: sandybrown;
-    }
+  // .pushedRight {
+  //   border: none;
+  //   margin-left: auto;
+  //   height: 100%;
+  //   font-size: 20px;
+  //   :hover {
+  //     background-color: sandybrown;
+  //   }
   }
 `
 

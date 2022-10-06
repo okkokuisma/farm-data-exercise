@@ -9,7 +9,9 @@ const getAll = async (query) => {
 
   return await Farm.paginate(
     {
-      include: [{ model: User, as: 'user', attributes: ['username', 'id'] }],
+      include: [
+        { model: User, as: 'user', attributes: ['username', 'id'] }
+      ],
       where,
       limit: 10,
       after: query.after || '',

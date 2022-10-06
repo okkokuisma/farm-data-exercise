@@ -11,6 +11,7 @@ import FarmList from '../components/lists/FarmList'
 import CreateFarmForm from '../components/forms/CreateFarmForm'
 import { useAuth } from '../contexts/AuthContext'
 import { selectFarmNodes, selectUserOwnedFarmNodes } from '../reducers/farmReducer'
+import { StyledDivContainer } from '../styles'
 
 const MyFarmsView = () => {
   const { user } = useAuth()
@@ -20,11 +21,16 @@ const MyFarmsView = () => {
   console.log(userOwnedFarms)
 
   return (
-    <div>
-      <h1>My farms</h1>
-      <FarmList farms={userOwnedFarms} />
-      <CreateFarmForm farms={farms} />
-    </div>
+    <>
+      <StyledDivContainer>
+        <h1>My farms</h1>
+        <FarmList farms={userOwnedFarms} />
+      </StyledDivContainer>
+      <StyledDivContainer>
+        <h1>Create a new farm</h1>
+        <CreateFarmForm farms={farms} />
+      </StyledDivContainer>
+    </>
   )
 }
 
