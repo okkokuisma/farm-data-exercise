@@ -2,35 +2,42 @@ import React from 'react'
 import dayjs from 'dayjs'
 import { Formik, Form } from 'formik'
 import * as yup from 'yup'
+import { useDispatch } from 'react-redux'
 
 import FormikTextInput from '../inputs/FormikTextInput'
 import FormikSelectInput from '../inputs/FormikSelectInput'
 import { StyledButton } from '../../styles'
+import { newNotification } from '../../services/notificationService'
+import { createDataPoint } from '../../reducers/dataReducer'
 
-const CreateDataPointForm = ({farms, handler}) => {
+const CreateDataPointForm = ({ farmId }) => {
+  const dispatch = useDispatch()
+
+  const handleDataPointCreateSubmit = (values) => {
+    console.log(values)
+    dispatch(createDataPoint(values))
+    newNotification({
+      message: 'New data point added successfully.',
+      type: 'success',
+      time: 3000
+    })
+  }
+
   const metricTypeSelectOptions = [
     {name: 'Rain fall', value: 'rainFall'},
     {name: 'Temperature', value: 'temperature'},
     {name: 'pH', value: 'pH'},
   ]
 
-  const farmSelectObjects = farms.map(f => {
-    return {name: f.name, value: f.id}
-  })
-  const farmSelectOptions = farmSelectObjects.concat({name: 'Select farm', value: ''})
-
   return (
     <>
       <Formik
         initialValues={{
-          farmId: '',
           dateTime: dayjs(Date()).format('YYYY-MM-DDTHH:mm'),
           metricType: 'rainFall',
           metricValue: 0,
         }}
         validationSchema={yup.object({
-          farmId: yup.string()
-            .required('Required'),
           dateTime: yup.date()
             .required('Required'),
           metricType: yup.string()
@@ -50,17 +57,11 @@ const CreateDataPointForm = ({farms, handler}) => {
             })
             .required('Required')
         })}
-        onSubmit={async ({farmId, ...values}) => {
-          await handler({farmId: Number(farmId), ...values})
+        onSubmit={async ({values}) => {
+          await handleDataPointCreateSubmit({farmId, ...values})
         }}
       >
         <Form>
-          <FormikSelectInput
-            label='Farm'
-            name='farmId'
-            options={farmSelectOptions}
-          />
-
           <FormikTextInput
             label='Date'
             name='dateTime'

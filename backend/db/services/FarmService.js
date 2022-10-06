@@ -19,7 +19,10 @@ const getAll = async (query) => {
 }
 
 const getById = async (id) => {
-  const farm = await Farm.findByPk(id)
+  const farm = await Farm.findByPk(id, {
+    attributes: { exclude: ['userId'] },
+    include: [{ model: User, as: 'user', attributes: ['username'] }]
+  })
 
   if (!farm) {
     const error = new Error('Error: no farm found with the given id')
@@ -47,7 +50,7 @@ const create = async (values) => {
 }
 
 const isOwnedByUser = async ({ farmId, userId }) => {
-  const farm = await getById(farmId)
+  const farm = await Farm.findByPk(farmId)
   return (farm.toJSON().userId === userId)
 }
 

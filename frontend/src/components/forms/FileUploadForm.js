@@ -1,20 +1,14 @@
 import React, { useState, useRef } from 'react'
-import SelectInput from '../inputs/SelectInput'
 import { StyledButton } from '../../styles'
 import { newNotification } from '../../services/notificationService'
+import fileService from '../../services/fileService'
 
-const FileUploadForm = ({handler, farms}) => {
-  const [selectedFarm, setSelectedFarm] = useState(null)
+const FileUploadForm = ({farmId}) => {
   const [selectedFile, setSelectedFile] = useState(null)
   const fileInputRef = useRef(null)
 
-  const farmSelectOptions = farms.map(f => {
-    return {name: f.name, value: f.id}
-  })
-
   const validateValues = () => {
-    return (typeof selectedFarm !== 'undefined' && selectedFarm !== null)
-      && (typeof selectedFile !== 'undefined' && selectedFile !== null)
+    return (typeof selectedFile !== 'undefined' && selectedFile !== null)
       && (selectedFile.type === 'text/csv')
   }
 
@@ -22,7 +16,16 @@ const FileUploadForm = ({handler, farms}) => {
     e.preventDefault()
 
     if (validateValues()) {
-      await handler(selectedFile, selectedFarm)
+      await fileService.upload({
+        file: selectedFile,
+        filename: selectedFile.name,
+        farmId
+      })
+      newNotification({
+        message: `File ${selectedFile.name} uploaded successfully.`,
+        type: 'success',
+        time: 3000
+      })
       setSelectedFile(null)
       fileInputRef.current.value = ''
     } else {
@@ -37,12 +40,6 @@ const FileUploadForm = ({handler, farms}) => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <SelectInput
-          options={farmSelectOptions}
-          onChange={e => {
-            setSelectedFarm(farms.find(farm => farm.id === Number(e.target.value)))
-          }}
-        />
         <StyledButton as='label' htmlFor='file-upload' className='custom-file-upload'>
             Select file
         </StyledButton>

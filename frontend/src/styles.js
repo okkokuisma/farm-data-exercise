@@ -25,7 +25,7 @@ export const StyledTableHead = styled.thead`
   border-bottom: 1pt solid black;
 `
 
-export const StyledListItem = styled.div`
+export const StyledListItem = styled.li`
   display: flex;
   align-items: center;
   letter-spacing: 1px;

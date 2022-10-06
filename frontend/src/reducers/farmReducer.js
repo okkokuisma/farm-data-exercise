@@ -51,7 +51,14 @@ export const initFarms = (queryParams) => {
   }
 }
 
-const reducer = (state = {}, action) => {
+export const selectFarmNodes = state => state.farms.edges.map(e => e.node)
+export const selectUserOwnedFarmNodes = (state, username) => {
+  return state.farms.edges
+    .map(e => e.node)
+    .filter(n => n.user.username === username)
+}
+
+const reducer = (state = { edges:[] }, action) => {
   switch (action.type) {
   case 'INIT_FARMS':
     return action.data

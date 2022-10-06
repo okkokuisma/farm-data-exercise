@@ -1,28 +1,25 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { StyledListItem } from '../../styles'
-import VirtualizedList from './VirtualizedList'
 
-const FarmList = ({farms, handleDelete}) => {
+const FarmList = ({farms}) => {
 
-  const Row = ({ index, style }) => {
-    const farm = farms[index]
+  const Row = ({ farm }) => {
     return (
-      <StyledListItem style={style}>
-        <span className='itemName'>{farm.name}</span>
-        <button onClick={() => handleDelete(farm.id)} className='pushedRight'>delete</button>
+      <StyledListItem>
+        <Link to={`/farms/${farm.id}`}>{farm.name}</Link>
+        <button className='pushedRight'>delete</button>
       </StyledListItem>
     )
   }
 
   return (
     <>
-      <VirtualizedList
-        row={Row}
-        height={200}
-        itemCount={farms.length}
-        itemSize={35}
-        width={'30%'}
-      />
+      <ul>
+        {farms.map(farm => (
+          <Row key={farm.id} farm={farm}/>
+        ))}
+      </ul>
     </>
   )
 }

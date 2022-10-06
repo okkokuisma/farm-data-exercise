@@ -12,7 +12,7 @@ const NavigationBar = () => {
         <div className='links'>
           <Link to='/'>home</Link>
           <Link to='/data'>data</Link>
-          <Link to='/farms'>farms</Link>
+          <Link to='/farms'>my farms</Link>
           {user
             ? <button onClick={() => logout()}>log out</button>
             : <Link to='/login'>login</Link>
