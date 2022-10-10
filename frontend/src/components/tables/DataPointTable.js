@@ -19,15 +19,16 @@ const DataPointTable = ({ data }) => {
   }, [queryParams])
 
   const handleSort = (header) => {
-    const { sort_by, order_by, ...otherParams } = queryParams
+    const { asc, order_by, ...otherParams } = queryParams
     let sortValues = {}
-    if (sort_by === header) {
-      sortValues = order_by === 'desc'
-        ? {order_by: 'asc', sort_by: header}
+    if (order_by === header) {
+      sortValues = asc === 'false'
+        ? {asc: 'true', order_by: header}
         : {}
     } else {
-      sortValues = {order_by: 'desc', sort_by: header}
+      sortValues = {asc: 'false', order_by: header}
     }
+    console.log(sortValues)
     setQueryParams({...otherParams, ...sortValues})
   }
 

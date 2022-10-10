@@ -1,61 +1,17 @@
-const { Op } = require('sequelize')
+const { fn, col } = require('sequelize')
 
 const { DataPoint, Farm } = require('../dbInit')
 const { validateDataPointValues, formatDataPointValues } = require('../../utils/dataValidator')
+const { parseQueryParams } = require('../../utils/parser')
 
 const getAll = async (query) => {
-  let where = {}
-  let order = ['id']
-
-  if (query && query.search) {
-    where['$farm.name$'] = {
-      [Op.iLike]:  `%${query.search}%`
-    }
-  }
-
-  if (query && query.metricType) {
-    where.metricType = query.metricType
-  }
-
-  if (query && query.from && query.to) {
-    if (!Number.isNaN(Date.parse(query.from) && !Number.isNaN(Date.parse(query.to)))) {
-      const startDate = new Date(query.from)
-      const endDate = new Date(query.to)
-      where.dateTime = {
-        [Op.between]:  [startDate, endDate]
-      }
-    }
-  } else if (query && query.from) {
-    if (!Number.isNaN(Date.parse(query.from))) {
-      const startDate = new Date(query.from)
-      where.dateTime = {
-        [Op.gte]:  startDate
-      }
-    }
-  } else if (query && query.to) {
-    if (!Number.isNaN(Date.parse(query.to))) {
-      const endDate = new Date(query.to)
-      where.dateTime = {
-        [Op.lte]:  endDate
-      }
-    }
-  }
-
-  if (query && query.sort_by) {
-    if ([ 'metricValue', 'dateTime' ].includes(query.sort_by)) {
-      const orderBy = query.order_by && query.order_by.toUpperCase() === 'ASC'
-        ? 'ASC'
-        : 'DESC'
-
-      order = [ query.sort_by, orderBy ]
-    }
-  }
+  const { where, order, orderDirection } = parseQueryParams({...query, type: 'all'})
 
   try {
     return await DataPoint.paginate({
       include: [{ model: Farm, as: 'farm' }],
       where,
-      order: [order],
+      order: [[order, orderDirection]],
       limit: 10,
       after: query.after || '',
       before: query.before || ''
@@ -63,7 +19,23 @@ const getAll = async (query) => {
   } catch (error) {
     console.log(error)
   }
+}
 
+const getStats = async (query) => {
+  const { where, groupBy, order, orderDirection } = parseQueryParams({...query, type: 'stat'})
+
+  return await DataPoint.findAll({
+    attributes: [
+      [fn('date_trunc', groupBy, col('date_time')), groupBy],
+      [fn('COUNT', col('id')), 'count'],
+      [fn('AVG', col('metric_value')), 'mean'],
+      [fn('MIN', col('metric_value')), 'min'],
+      [fn('MAX', col('metric_value')), 'max'],
+    ],
+    group: [groupBy],
+    order: [[order, orderDirection]],
+    where
+  })
 }
 
 const create = async ({ farmId, ...values}) => {
@@ -80,4 +52,4 @@ const bulkCreate = async (instances) => {
   return await DataPoint.bulkCreate(instances)
 }
 
-module.exports = { create, bulkCreate, getAll }
+module.exports = { create, bulkCreate, getAll, getStats }

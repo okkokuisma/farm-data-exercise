@@ -9,6 +9,7 @@ const dataRouter = require('./controllers/data')
 const farmRouter = require('./controllers/farms')
 const userRouter = require('./controllers/users')
 const authRouter = require('./controllers/login')
+const statsRouter = require('./controllers/stats')
 
 const app = express()
 
@@ -26,6 +27,7 @@ app.use('/api/data', tokenValidator, userExtractor, dataRouter)
 app.use('/api/farms', tokenValidator, userExtractor, farmRouter)
 app.use('/api/users', userRouter)
 app.use('/api/auth', authRouter)
+app.use('/api/stats', statsRouter)
 
 app.use(errorHandler)
 app.use((request, response) => {

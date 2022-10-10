@@ -76,5 +76,6 @@ module.exports = {
   validateCsvFile,
   validateDataPointValues,
   validatePassword,
-  formatDataPointValues
+  formatDataPointValues,
+  validateDateTime
 }
