@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import { useErrorHandler } from 'react-error-boundary'
@@ -7,47 +7,17 @@ import { fetchData } from '../../reducers/dataReducer'
 import { StyledInput, StyledButton } from '../../styles'
 import Table from './Table'
 import SelectInput from '../inputs/SelectInput'
-
+import useQueryParams from '../../hooks/useQueryParams'
+import { metricTypeSelectOptions } from '../../contants'
 
 const DataPointTable = ({ data }) => {
-  const [ queryParams, setQueryParams ] = useState({})
+  const [ queryParams, handleFilterChange, handleSort ] = useQueryParams()
   const dispatch = useDispatch()
   // const handleError = useErrorHandler()
 
   useEffect(() => {
     dispatch(fetchData(queryParams))
   }, [queryParams])
-
-  const handleSort = (header) => {
-    const { asc, order_by, ...otherParams } = queryParams
-    let sortValues = {}
-    if (order_by === header) {
-      sortValues = asc === 'false'
-        ? {asc: 'true', order_by: header}
-        : {}
-    } else {
-      sortValues = {asc: 'false', order_by: header}
-    }
-    console.log(sortValues)
-    setQueryParams({...otherParams, ...sortValues})
-  }
-
-  const handleFilterChange = ({filter}, newValue) => {
-    // eslint-disable-next-line no-unused-vars
-    const { [filter]: prevValue, ...otherParams } = queryParams
-
-    if (filter === 'after') {
-      delete otherParams.before
-    } else if (filter === 'before') {
-      delete otherParams.after
-    }
-
-    if (newValue === '') {
-      setQueryParams({...otherParams})
-    } else {
-      setQueryParams({[filter]: newValue, ...otherParams})
-    }
-  }
 
   if (!data.edges) return null
 
@@ -71,13 +41,6 @@ const DataPointTable = ({ data }) => {
     {title: 'Metric type'},
     {title: 'Metric value', onClick: () => handleSort('metricValue')},
     {title: 'Date', onClick: () => handleSort('dateTime')}
-  ]
-
-  const metricTypeSelectOptions = [
-    {name: 'All', value: ''},
-    {name: 'Rain fall', value: 'rainFall'},
-    {name: 'Temperature', value: 'temperature'},
-    {name: 'pH', value: 'pH'},
   ]
 
   return (

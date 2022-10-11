@@ -2,13 +2,48 @@ import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import CreateDataPointForm from './forms/CreateDataPointForm'
 import FileUploadForm from './forms/FileUploadForm'
-import { StyledDivContainer } from '../styles'
+import { StyledDivContainer, StyledInput } from '../styles'
+import SelectInput from './inputs/SelectInput'
+import { metricTypeSelectOptions } from '../contants'
+import LineChart from './charts/LineChart'
 
-const Farm = ({ farm }) => {
+const Farm = ({ farm, handleFilterChange, stats }) => {
   const { user } = useAuth()
   const isOwnedByUser = farm.user.username === user.username
-  console.log(farm)
-  console.log(isOwnedByUser)
+  const { labels, min, max, mean } = stats
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+    },
+  }
+
+  const chartData = {
+    labels,
+    datasets: [
+      {
+        label: 'Min',
+        data: min,
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+      {
+        label: 'Max',
+        data: max,
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+      {
+        label: 'Average',
+        data: mean,
+        borderColor: 'rgb(175, 63, 212)',
+        backgroundColor: 'rgba(175, 63, 212, 0.5)',
+      },
+    ],
+  }
 
   return (
     <>
@@ -20,16 +55,32 @@ const Farm = ({ farm }) => {
         ?
         <>
           <StyledDivContainer>
-            <h1>Add a data point</h1>
+            <h2>Add a data point</h2>
             <CreateDataPointForm farmId={farm.id}/>
           </StyledDivContainer>
           <StyledDivContainer>
-            <h1>Add data points by a csv file</h1>
+            <h2>Add data points by a csv file</h2>
             <FileUploadForm farmId={farm.id}/>
           </StyledDivContainer>
         </>
         : null
       }
+      <StyledDivContainer>
+        <h2>Statistics</h2>
+        <SelectInput
+          options={metricTypeSelectOptions}
+          onChange={(e) => handleFilterChange({filter: 'metricType'}, e.target.value)}
+        />
+        <StyledInput
+          type='date'
+          onChange={e => handleFilterChange({filter: 'from'}, e.target.value)}
+        />
+        <StyledInput
+          type='date'
+          onChange={e => handleFilterChange({filter: 'to'}, e.target.value)}
+        />
+        <LineChart options={chartOptions} data={chartData} />
+      </StyledDivContainer>
     </>
   )
 }

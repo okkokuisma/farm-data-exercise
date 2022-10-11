@@ -35,6 +35,13 @@ const parseQueryParamMetricType = (query, where) => {
   return where
 }
 
+const parseQueryParamFarmId = (query, where) => {
+  if (query.farmId) {
+    where.farmId = query.farmId
+  }
+  return where
+}
+
 const parseQueryParamFarmSearch = (query, where) => {
   if (query.search) {
     where['$farm.name$'] = {
@@ -47,17 +54,18 @@ const parseQueryParamFarmSearch = (query, where) => {
 const parseQueryParams = (query) => {
   let where = {}
   let queryParams = { where }
-  where = parseQueryParamFarmSearch(query, where)
   where = parseQueryParamMetricType(query, where)
   where = parseQueryParamDateTime(query, where)
 
   if (query.type === 'stat') {
+    where = parseQueryParamFarmId(query, where)
     queryParams = query.group_by && ['year', 'month', 'day'].includes(query.group_by)
       ? { ...queryParams, groupBy: query.group_by, order: query.group_by }
       : { ...queryParams, groupBy: 'month', order: 'month' }
   }
 
   if (query.type === 'all') {
+    where = parseQueryParamFarmSearch(query, where)
     queryParams = query.order_by && [ 'id', 'metricValue', 'dateTime' ].includes(query.order_by)
       ? { ...queryParams, order: query.order_by }
       : { ...queryParams, order: 'id' }

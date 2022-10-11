@@ -57,7 +57,7 @@ const CreateDataPointForm = ({ farmId }) => {
             })
             .required('Required')
         })}
-        onSubmit={async ({values}) => {
+        onSubmit={async (values) => {
           await handleDataPointCreateSubmit({farmId, ...values})
         }}
       >
