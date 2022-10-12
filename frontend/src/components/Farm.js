@@ -2,9 +2,9 @@ import React from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import CreateDataPointForm from './forms/CreateDataPointForm'
 import FileUploadForm from './forms/FileUploadForm'
-import { StyledDivContainer, StyledInput } from '../styles'
+import { StyledDivContainer, StyledInput, Filters } from '../styles'
 import SelectInput from './inputs/SelectInput'
-import { metricTypeSelectOptions } from '../contants'
+import { metricTypeSelectOptions, timeIntervalSelectOptions } from '../contants'
 import LineChart from './charts/LineChart'
 
 const Farm = ({ farm, handleFilterChange, stats }) => {
@@ -45,6 +45,8 @@ const Farm = ({ farm, handleFilterChange, stats }) => {
     ],
   }
 
+  if (!farm || !stats) return null
+
   return (
     <>
       <StyledDivContainer>
@@ -67,18 +69,28 @@ const Farm = ({ farm, handleFilterChange, stats }) => {
       }
       <StyledDivContainer>
         <h2>Statistics</h2>
-        <SelectInput
-          options={metricTypeSelectOptions}
-          onChange={(e) => handleFilterChange({filter: 'metricType'}, e.target.value)}
-        />
-        <StyledInput
-          type='date'
-          onChange={e => handleFilterChange({filter: 'from'}, e.target.value)}
-        />
-        <StyledInput
-          type='date'
-          onChange={e => handleFilterChange({filter: 'to'}, e.target.value)}
-        />
+        <Filters>
+          <SelectInput
+            options={metricTypeSelectOptions}
+            onChange={(e) => handleFilterChange({filter: 'metricType'}, e.target.value)}
+          />
+          <StyledInput
+            type='date'
+            onChange={e => handleFilterChange({filter: 'from'}, e.target.value)}
+            min={farm.earliestDataPoint || ''}
+            max={farm.latestDataPoint || ''}
+          />
+          <StyledInput
+            type='date'
+            onChange={e => handleFilterChange({filter: 'to'}, e.target.value)}
+            min={farm.earliestDataPoint || ''}
+            max={farm.latestDataPoint || ''}
+          />
+          <SelectInput
+            options={timeIntervalSelectOptions}
+            onChange={(e) => handleFilterChange({filter: 'group_by'}, e.target.value)}
+          />
+        </Filters>
         <LineChart options={chartOptions} data={chartData} />
       </StyledDivContainer>
     </>

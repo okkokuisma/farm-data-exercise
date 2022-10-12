@@ -15,7 +15,7 @@ console.log(`postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PO
 
 const sequelize = new Sequelize(
   `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}`,
-  { logging: false }
+  { logging: true }
 )
 
 const DataPoint = require('./models/DataPoint')(sequelize, Sequelize.DataTypes)

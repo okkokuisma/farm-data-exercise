@@ -13,9 +13,9 @@ import AuthView from './containers/AuthView'
 import IndexView from './containers/IndexView'
 import { AuthProvider } from './contexts/AuthContext'
 import { RequireAuth } from './containers/RequireAuth'
-import { StyledBodyDiv } from './styles'
 import NoDataFoundErrorBoundary from './components/errors/NoDataFoundErrorBoundary'
 import { initFarms } from './reducers/farmReducer'
+import { StyledBodyDiv, StyledCenteredBodyDiv } from './styles'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -41,8 +41,16 @@ const App = () => {
         </div>
         <StyledBodyDiv>
           <Routes>
-            <Route path='/' element={ <IndexView /> } />
-            <Route path='/login' element={ <AuthView /> } />
+            <Route path='/' element={
+              <StyledCenteredBodyDiv>
+                <IndexView />
+              </StyledCenteredBodyDiv>
+            } />
+            <Route path='/login' element={
+              <StyledCenteredBodyDiv>
+                <AuthView />
+              </StyledCenteredBodyDiv>
+            } />
             <Route path='/farms/:id' element={
               <RequireAuth>
                 <ErrorBoundary FallbackComponent={NoDataFoundErrorBoundary}>

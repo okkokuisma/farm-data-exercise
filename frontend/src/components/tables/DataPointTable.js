@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 // import { useErrorHandler } from 'react-error-boundary'
 
 import { fetchData } from '../../reducers/dataReducer'
-import { StyledInput, StyledButton } from '../../styles'
+import { StyledInput, StyledButton, Filters } from '../../styles'
 import Table from './Table'
 import SelectInput from '../inputs/SelectInput'
 import useQueryParams from '../../hooks/useQueryParams'
@@ -45,23 +45,25 @@ const DataPointTable = ({ data }) => {
 
   return (
     <>
-      <StyledInput
-        type='text'
-        placeholder='Filter by farm'
-        onChange={(e) => handleFilterChange({filter: 'search'}, e.target.value)}
-      />
-      <SelectInput
-        options={metricTypeSelectOptions}
-        onChange={(e) => handleFilterChange({filter: 'metricType'}, e.target.value)}
-      />
-      <StyledInput
-        type='date'
-        onChange={e => handleFilterChange({filter: 'from'}, e.target.value)}
-      />
-      <StyledInput
-        type='date'
-        onChange={e => handleFilterChange({filter: 'to'}, e.target.value)}
-      />
+      <Filters>
+        <StyledInput
+          type='text'
+          placeholder='Filter by farm'
+          onChange={(e) => handleFilterChange({filter: 'search'}, e.target.value)}
+        />
+        <SelectInput
+          options={metricTypeSelectOptions}
+          onChange={(e) => handleFilterChange({filter: 'metricType'}, e.target.value)}
+        />
+        <StyledInput
+          type='date'
+          onChange={e => handleFilterChange({filter: 'from'}, e.target.value)}
+        />
+        <StyledInput
+          type='date'
+          onChange={e => handleFilterChange({filter: 'to'}, e.target.value)}
+        />
+      </Filters>
       <Table rows={tableRows} headers={tableHeaders} />
       <StyledButton
         onClick={() => handleFilterChange({filter: 'before'}, pageInfo.startCursor)}

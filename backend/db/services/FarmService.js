@@ -1,4 +1,5 @@
 const { Farm, User } = require('../dbInit')
+const { literal } = require('sequelize')
 
 const getAll = async (query) => {
   let where = {}
@@ -22,8 +23,13 @@ const getAll = async (query) => {
 
 const getById = async (id) => {
   const farm = await Farm.findByPk(id, {
-    attributes: { exclude: ['userId'] },
-    include: [{ model: User, as: 'user', attributes: ['username'] }]
+    attributes: { exclude: ['userId'], include: [
+      [literal('(select MIN(dataPoint.date_time) from data_points as dataPoint where dataPoint.farm_id = farm.id)'), 'earliestDataPoint'],
+      [literal('(select MAX(dataPoint.date_time) from data_points as dataPoint where dataPoint.farm_id = farm.id)'), 'latestDataPoint'],
+    ] },
+    include: [
+      { model: User, as: 'user', attributes: ['username'] }
+    ],
   })
 
   if (!farm) {

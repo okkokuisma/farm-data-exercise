@@ -22,18 +22,17 @@ const getAll = async (query) => {
 }
 
 const getStats = async (query) => {
-  const { where, groupBy, order, orderDirection } = parseQueryParams({...query, type: 'stat'})
-
+  const { where, groupBy, orderDirection } = parseQueryParams({...query, type: 'stat'})
   return await DataPoint.findAll({
     attributes: [
-      [fn('date_trunc', groupBy, col('date_time')), groupBy],
+      [fn('date_trunc', groupBy, col('date_time')), 'time'],
       [fn('COUNT', col('id')), 'count'],
       [fn('AVG', col('metric_value')), 'mean'],
       [fn('MIN', col('metric_value')), 'min'],
       [fn('MAX', col('metric_value')), 'max'],
     ],
-    group: [groupBy],
-    order: [[order, orderDirection]],
+    group: ['time'],
+    order: [['time', orderDirection]],
     where
   })
 }

@@ -1,7 +1,15 @@
 import styled from 'styled-components'
 
 export const StyledBodyDiv = styled.div`
-  margin: 100px 5%;
+  padding: 100px 100px 0 100px;
+  height: 100%
+`
+
+export const StyledCenteredBodyDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
 `
 
 export const StyledTable = styled.table`
@@ -54,14 +62,6 @@ export const StyledListItem = styled.li`
   }
 `
 
-export const StyledInput = styled.input`
-  border: 2pt solid white;
-  border-radius: 5px;
-  background-color: white;
-  font-size: 15px;
-  padding: 5px 5px;
-`
-
 export const StyledButton = styled.button`
   border: 2pt solid white;
   border-radius: 5px;
@@ -82,19 +82,6 @@ export const StyledButton = styled.button`
   }
 `
 
-export const StyledSelect = styled.select`
-  width: 200px;
-  border: 2pt solid white;
-  border-radius: 5px;
-  // text-align: center;
-  text-decoration: none;
-  font-size: 15px;
-  padding: 5px 0px;
-  :hover {
-    background-color: sandybrown;
-  }
-`
-
 export const StyledToggleButton = styled(StyledButton)`
   width: 30%;
   font-size: 20px;
@@ -105,20 +92,54 @@ export const StyledToggleButton = styled(StyledButton)`
 export const Filters = styled.div`
   display: flex;
   align-items: center;
+  // justify-content: space-evenly;
+  margin: 10px 0;
+
   * {
-    padding: 5px 5px;
+    margin 0 10px 0 0;
   }
 `
 
 export const StyledFormInput = styled.div`
   display: flex;
-  justify-content: space-between;
-  width: 30%;
   align-items: center;
   margin: 10px;
+  width: 400px;
+
+  label {
+    width: 150px;
+    height: 20px;
+    line-height: 20px;
+    padding: 5px 5px;
+    font-size: 15px;
+  }
+`
+
+export const StyledInput = styled.input`
+  border: 1pt solid black;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 15px;
+  padding: 5px 5px;
+  height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+`
+
+export const StyledSelect = styled.select`
+  border: 1pt solid black;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px 5px;
+  height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 `
 
 export const StyledFormError = styled.div`
+  margin: 0 10px;
   color: red;
 `
 

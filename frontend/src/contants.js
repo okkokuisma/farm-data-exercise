@@ -4,3 +4,10 @@ export const metricTypeSelectOptions = [
   {name: 'Temperature', value: 'temperature'},
   {name: 'pH', value: 'pH'},
 ]
+
+export const timeIntervalSelectOptions = [
+  {name: 'Time interval', value: ''},
+  {name: 'Day', value: 'day'},
+  {name: 'Month', value: 'month'},
+  {name: 'Year', value: 'year'},
+]

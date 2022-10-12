@@ -60,8 +60,8 @@ const parseQueryParams = (query) => {
   if (query.type === 'stat') {
     where = parseQueryParamFarmId(query, where)
     queryParams = query.group_by && ['year', 'month', 'day'].includes(query.group_by)
-      ? { ...queryParams, groupBy: query.group_by, order: query.group_by }
-      : { ...queryParams, groupBy: 'month', order: 'month' }
+      ? { ...queryParams, groupBy: query.group_by }
+      : { ...queryParams, groupBy: 'month' }
   }
 
   if (query.type === 'all') {
