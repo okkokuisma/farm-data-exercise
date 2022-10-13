@@ -43,6 +43,22 @@ export const fetchData = (query) => {
     }
   }
 }
+// export const fetchData = (query) => {
+//   return (dispatch) => {
+//     return dataService.getAll(query)
+//       .then((data) => {
+//         dispatch({
+//           type: 'FETCH_DATA',
+//           data
+//         })
+//       },
+//       (error) => {
+//         if (error.response.status === 401) {
+//           dispatch(logout())
+//         }
+//       })
+//   }
+// }
 
 const reducer = (state = {}, action) => {
   switch (action.type) {

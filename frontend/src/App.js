@@ -67,7 +67,9 @@ const App = () => {
             />
             <Route path= '/data' element={
               <RequireAuth>
-                <DataView />
+                <ErrorBoundary FallbackComponent={NoDataFoundErrorBoundary}>
+                  <DataView />
+                </ErrorBoundary>
               </RequireAuth>
             }
             />

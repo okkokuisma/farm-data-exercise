@@ -3,7 +3,7 @@ import React from 'react'
 const NoDataFoundErrorBoundary = () => {
   return (
     <>
-      Requested content not found.
+      Requested content not found or no data has been added yet.
     </>
   )
 }

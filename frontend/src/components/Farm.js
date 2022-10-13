@@ -5,45 +5,11 @@ import FileUploadForm from './forms/FileUploadForm'
 import { StyledDivContainer, StyledInput, Filters } from '../styles'
 import SelectInput from './inputs/SelectInput'
 import { metricTypeSelectOptions, timeIntervalSelectOptions } from '../contants'
-import LineChart from './charts/LineChart'
+import MetricValueChart from './charts/MetricValueChart'
 
 const Farm = ({ farm, handleFilterChange, stats }) => {
   const { user } = useAuth()
   const isOwnedByUser = farm.user.username === user.username
-  const { labels, min, max, mean } = stats
-
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-    },
-  }
-
-  const chartData = {
-    labels,
-    datasets: [
-      {
-        label: 'Min',
-        data: min,
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Max',
-        data: max,
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      },
-      {
-        label: 'Average',
-        data: mean,
-        borderColor: 'rgb(175, 63, 212)',
-        backgroundColor: 'rgba(175, 63, 212, 0.5)',
-      },
-    ],
-  }
 
   if (!farm || !stats) return null
 
@@ -91,7 +57,7 @@ const Farm = ({ farm, handleFilterChange, stats }) => {
             onChange={(e) => handleFilterChange({filter: 'group_by'}, e.target.value)}
           />
         </Filters>
-        <LineChart options={chartOptions} data={chartData} />
+        <MetricValueChart stats={stats} />
       </StyledDivContainer>
     </>
   )

@@ -11,3 +11,12 @@ export const timeIntervalSelectOptions = [
   {name: 'Month', value: 'month'},
   {name: 'Year', value: 'year'},
 ]
+
+export const chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'top',
+    },
+  },
+}

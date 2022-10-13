@@ -26,11 +26,12 @@ const getStats = async (query) => {
   return await DataPoint.findAll({
     attributes: [
       [fn('date_trunc', groupBy, col('date_time')), 'time'],
-      [fn('COUNT', col('id')), 'count'],
+      [fn('COUNT', col('dataPoint.id')), 'count'],
       [fn('AVG', col('metric_value')), 'mean'],
       [fn('MIN', col('metric_value')), 'min'],
       [fn('MAX', col('metric_value')), 'max'],
     ],
+    include: [{ model: Farm, as: 'farm', attributes: [] }],
     group: ['time'],
     order: [['time', orderDirection]],
     where
