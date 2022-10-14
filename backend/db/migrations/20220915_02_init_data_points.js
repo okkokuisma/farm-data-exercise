@@ -12,6 +12,7 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: 'farms', key: 'id' },
+        onDelete: 'CASCADE'
       },
       date_time: {
         type: DataTypes.DATE,

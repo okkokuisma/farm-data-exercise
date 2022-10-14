@@ -5,7 +5,7 @@ import { StyledButton } from '../../styles'
 import Table from './Table'
 
 const DataPointTable = ({ data, handleFilterChange, handleSort }) => {
-  if (!data.edges) return null
+  if (!data.edges || data.edges.length === 0) return null
 
   const { pageInfo, edges } = data
   const nodes = edges.map(e => e.node)

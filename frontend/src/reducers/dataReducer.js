@@ -18,14 +18,6 @@ export const createDataPoint = (dataPoint) => {
   }
 }
 
-export const addData = (addedData) => {
-  return async (dispatch) => {
-    dispatch({
-      type: 'ADD_DATA',
-      data: addedData
-    })
-  }
-}
 
 export const fetchData = (query) => {
   return async (dispatch) => {
@@ -60,7 +52,7 @@ export const fetchData = (query) => {
 //   }
 // }
 
-const reducer = (state = {}, action) => {
+const reducer = (state = {edges: []}, action) => {
   switch (action.type) {
   // case 'CREATE_DP':
   //   console.log(state)
@@ -70,7 +62,7 @@ const reducer = (state = {}, action) => {
   case 'ADD_DATA':
     return [ ...state, ...action.data]
   case 'DELETE_FARM':
-    return state.filter(dp => dp.farm.id !== action.data)
+    return state.edges.filter(e => e.node.farm.id !== action.data)
   default:
     return state
   }

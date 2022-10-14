@@ -24,8 +24,12 @@ const User = require('./models/User')(sequelize, Sequelize.DataTypes)
 
 User.hasMany(Farm)
 Farm.belongsTo(User)
-Farm.hasMany(DataPoint)
-DataPoint.belongsTo(Farm)
+Farm.hasMany(DataPoint, {
+  onDelete: 'CASCADE',
+})
+DataPoint.belongsTo(Farm, {
+  onDelete: 'CASCADE',
+})
 
 const connectToDatabase = async (attempt = 0) => {
   try {

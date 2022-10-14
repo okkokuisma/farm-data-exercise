@@ -14,15 +14,10 @@ import IndexView from './containers/IndexView'
 import { AuthProvider } from './contexts/AuthContext'
 import { RequireAuth } from './containers/RequireAuth'
 import NoDataFoundErrorBoundary from './components/errors/NoDataFoundErrorBoundary'
-import { initFarms } from './reducers/farmReducer'
 import { StyledBodyDiv, StyledCenteredBodyDiv } from './styles'
 
 const App = () => {
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(initFarms({}))
-  }, [])
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')

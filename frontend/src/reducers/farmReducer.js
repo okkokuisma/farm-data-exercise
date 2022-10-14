@@ -35,19 +35,29 @@ export const createFarm = (farm) => {
 }
 
 export const deleteFarm = (farmId) => {
-  return async (dispatch) => {
-    try {
-      await farmService.deleteFarm(farmId)
-      dispatch({
-        type: 'DELETE_FARM',
-        data: farmId
+  return (dispatch) => {
+    return farmService.deleteFarm(farmId)
+      .then(() => {
+        return dispatch({
+          type: 'DELETE_FARM',
+          data: farmId
+        })
       })
-    } catch (error) {
-      if (error?.response?.status === 401) {
-        dispatch(logout())
-      }
-    }
   }
+
+  // return async (dispatch) => {
+  //   try {
+  //     await farmService.deleteFarm(farmId)
+  //     dispatch({
+  //       type: 'DELETE_FARM',
+  //       data: farmId
+  //     })
+  //   } catch (error) {
+  //     if (error?.response?.status === 401) {
+  //       dispatch(logout())
+  //     }
+  //   }
+  // }
 }
 
 export const initFarms = (queryParams) => {
@@ -68,20 +78,21 @@ export const initFarms = (queryParams) => {
   }
 }
 
-export const selectFarmNodes = state => state.farms.edges.map(e => e.node)
+export const selectFarmNodes = state => state.farms
 export const selectUserOwnedFarmNodes = (state, username) => {
-  return state.farms.edges
-    .map(e => e.node)
-    .filter(n => n.user.username === username)
+  return state.farms
+    .filter(f => f?.user?.username === username)
 }
 
-const reducer = (state = { edges:[] }, action) => {
+const reducer = (state = [], action) => {
   switch (action.type) {
   case 'INIT_FARMS':
     return action.data
   case 'CREATE_FARM':
+    console.log([ ...state, action.data ])
     return [ ...state, action.data ]
   case 'DELETE_FARM':
+    console.log(state)
     return state.filter(farm => farm.id !== action.data)
   default:
     return state

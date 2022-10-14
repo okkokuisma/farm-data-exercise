@@ -8,15 +8,13 @@ const getAll = async (query) => {
     where.user_id = query.user_id
   }
 
-  return await Farm.paginate(
+  return await Farm.findAll(
     {
+      attributes: { exclude: ['userId'] },
       include: [
-        { model: User, as: 'user', attributes: ['username', 'id'] }
+        { model: User, as: 'user', attributes: ['username'] }
       ],
-      where,
-      limit: 10,
-      after: query.after || '',
-      before: query.before || ''
+      where
     }
   )
 }
@@ -24,8 +22,8 @@ const getAll = async (query) => {
 const getById = async (id) => {
   const farm = await Farm.findByPk(id, {
     attributes: { exclude: ['userId'], include: [
-      [literal('(select MIN(dataPoint.date_time) from data_points as dataPoint where dataPoint.farm_id = farm.id)'), 'earliestDataPoint'],
-      [literal('(select MAX(dataPoint.date_time) from data_points as dataPoint where dataPoint.farm_id = farm.id)'), 'latestDataPoint'],
+      [literal('(SELECT MIN(dataPoint.date_time) FROM data_points AS dataPoint WHERE dataPoint.farm_id = farm.id)'), 'earliestDataPoint'],
+      [literal('(SELECT MAX(dataPoint.date_time) FROM data_points AS dataPoint WHERE dataPoint.farm_id = farm.id)'), 'latestDataPoint'],
     ] },
     include: [
       { model: User, as: 'user', attributes: ['username'] }
@@ -48,13 +46,18 @@ const remove = async ({ farmId, userId }) => {
     throw error
   }
 
-  return await Farm.destroy({
-    where: { id: farmId }
-  })
+  try {
+    return await Farm.destroy({
+      where: { id: farmId }
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 const create = async (values) => {
-  return await Farm.create(values)
+  const farm = await Farm.create(values)
+  return await getById(farm.toJSON().id)
 }
 
 const isOwnedByUser = async ({ farmId, userId }) => {
