@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { useErrorHandler } from 'react-error-boundary'
 import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { getOne } from '../services/farmService'
-import { getStats, formatStats } from '../services/statService'
+import { fetchStats, selectFormattedStats } from '../reducers/statReducer'
 import Farm from '../components/Farm'
 import useQueryParams from '../hooks/useQueryParams'
 import dayjs from 'dayjs'
+import { getMetricValueChartTimeInterval } from '../utils'
+import useErrorHandler from '../hooks/useErrorHandler'
 
 const SingleFarmView = () => {
+  const dispatch = useDispatch()
   const [ queryParams, handleFilterChange ] = useQueryParams()
+  const stats = useSelector((state) => selectFormattedStats(state, queryParams.group_by || 'month'))
   const [ farm, setFarm ] = useState(null)
-  const [ stats, setStats ] = useState(null)
   const handleError = useErrorHandler()
   let { id } = useParams()
 
@@ -29,22 +32,10 @@ const SingleFarmView = () => {
 
   useEffect(() => {
     if (farm) {
-      const { from, to } = queryParams
-      const validTo = to
-        ? to
-        : dayjs(farm.latestDataPoint)
-      const validFrom = from
-        ? from
-        : dayjs(farm.earliestDataPoint)
-
-      const params = dayjs(validTo).diff(dayjs(validFrom), 'month') < 2
-        ? { group_by: 'day', ...queryParams }
-        : dayjs(validTo).diff(dayjs(validFrom), 'month') < 24
-          ? { group_by: 'month', ...queryParams }
-          : { group_by: 'year', ...queryParams }
-      const labelGroup = queryParams.group_by || 'month'
-      getStats({ farmId: id, asc: 'true', ...params })
-        .then(stats => setStats(formatStats(stats), labelGroup))
+      const timeInterval = getMetricValueChartTimeInterval(queryParams, [farm])
+      dispatch(fetchStats({
+        farmId: id, asc: 'true', group_by: timeInterval, ...queryParams
+      }))
         .catch(error => handleError(error))
     }
   }, [queryParams, farm])

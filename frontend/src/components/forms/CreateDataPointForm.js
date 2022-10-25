@@ -7,20 +7,25 @@ import { useDispatch } from 'react-redux'
 import FormikTextInput from '../inputs/FormikTextInput'
 import FormikSelectInput from '../inputs/FormikSelectInput'
 import { StyledButton } from '../../styles'
-import { newNotification } from '../../services/notificationService'
+import { createNotification } from '../../reducers/notificationReducer'
 import { createDataPoint } from '../../reducers/dataReducer'
+import useErrorHandler from '../../hooks/useErrorHandler'
 
 const CreateDataPointForm = ({ farmId }) => {
   const dispatch = useDispatch()
+  const handleError = useErrorHandler()
 
   const handleDataPointCreateSubmit = (values) => {
     console.log(values)
     dispatch(createDataPoint(values))
-    newNotification({
-      message: 'New data point added successfully.',
-      type: 'success',
-      time: 3000
-    })
+      .then(() => {
+        dispatch(createNotification({
+          message: 'New data point added successfully.',
+          type: 'success',
+          time: 3000
+        }))
+      })
+      .catch((error) => handleError(error))
   }
 
   const metricTypeSelectOptions = [

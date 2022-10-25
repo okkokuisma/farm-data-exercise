@@ -25,9 +25,9 @@ app.use(cookieParser())
 app.use('/api/files', tokenValidator, userExtractor, uploadCsvFile.single('file'), filesRouter)
 app.use('/api/data', tokenValidator, userExtractor, dataRouter)
 app.use('/api/farms', tokenValidator, userExtractor, farmRouter)
+app.use('/api/stats', tokenValidator, userExtractor, statsRouter)
 app.use('/api/users', userRouter)
 app.use('/api/auth', authRouter)
-app.use('/api/stats', statsRouter)
 
 app.use(errorHandler)
 app.use((request, response) => {

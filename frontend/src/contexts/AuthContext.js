@@ -7,8 +7,8 @@ export const AuthProvider = ({ children }) => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
 
-  const login = async (credentials) => {
-    dispatch(loginDispatch(credentials))
+  const login = (credentials) => {
+    return dispatch(loginDispatch(credentials))
   }
 
   const logout = () => {

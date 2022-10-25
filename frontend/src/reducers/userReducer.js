@@ -1,12 +1,23 @@
 import userService from '../services/userService'
+import { createNotification } from './notificationReducer'
 
 export const login = (credentials) => {
-  return async (dispatch) => {
-    const user = await userService.login(credentials)
-    window.localStorage.setItem(
-      'loggedUser', JSON.stringify(user)
-    )
-    dispatch(setUser(user))
+  return (dispatch) => {
+    return userService.login(credentials)
+      .then((user) => {
+        window.localStorage.setItem('loggedUser', JSON.stringify(user))
+        dispatch(setUser(user))
+
+        const { tokenExpiry } = user
+        setTimeout(() => {
+          dispatch(logout())
+          dispatch(createNotification({
+            message: 'Your session timed out. Please log in again.',
+            type: 'info',
+            time: 3000
+          }))
+        }, new Date(tokenExpiry) - Date.now())
+      })
   }
 }
 

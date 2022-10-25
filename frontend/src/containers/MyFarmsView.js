@@ -7,16 +7,19 @@ import { useAuth } from '../contexts/AuthContext'
 import { selectFarmNodes, selectUserOwnedFarmNodes } from '../reducers/farmReducer'
 import { StyledDivContainer } from '../styles'
 import { initFarms, deleteFarm } from '../reducers/farmReducer'
+import useErrorHandler from '../hooks/useErrorHandler'
 
 const MyFarmsView = () => {
   const { user } = useAuth()
   const dispatch = useDispatch()
+  const handleError = useErrorHandler()
 
   const farms = useSelector(selectFarmNodes)
   const userOwnedFarms = useSelector((state) => selectUserOwnedFarmNodes(state, user.username))
   console.log(userOwnedFarms)
   useEffect(() => {
     dispatch(initFarms({}))
+      .catch(error => handleError(error))
   }, [])
 
   const handleFarmDelete = (id) => {

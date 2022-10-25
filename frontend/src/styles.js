@@ -1,15 +1,15 @@
 import styled from 'styled-components'
 
 export const StyledBodyDiv = styled.div`
-  padding: 100px 100px 0 100px;
-  height: 100%
+  margin: 100px 100px 0 100px;
+  height: 100vh
 `
 
 export const StyledCenteredBodyDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50vh;
+  height: 100%;
 `
 
 export const StyledTable = styled.table`
@@ -174,7 +174,6 @@ export const StyledNotification = styled.div`
   }
 `
 export const StyledNavBar = styled.div`
-  font-family: Arial;
   position: fixed;
   top: 0;
   left: 0;
@@ -184,17 +183,6 @@ export const StyledNavBar = styled.div`
   box-shadow: 1px 0 2px rgba(0,0,0,0.125);
   display: flex;
   align-items: center;
-
-  .logo {
-    width: 250px;
-    font-size: 25px;
-    font-weight: 700;
-    padding: 0 20px;
-    color: white;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    border-right: 1px solid #f5f5f5;
-  }
 
   .links {
     * {

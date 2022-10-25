@@ -6,14 +6,13 @@ const Togglable = ({ buttonLabel, children }) => {
 
   const showWhenVisible = { display: visible ? '' : 'none' }
   const buttonStyleWhenVisible = { backgroundColor: 'white', color: 'black' }
-  const divStyleWhenVisible = { margin: '0px 10px', borderLeft: '5pt solid sandybrown', borderRadius: '5px' }
 
   const handleClick = () => {
     setVisible(!visible)
   }
 
   return (
-    <div style={visible ? divStyleWhenVisible : {}}>
+    <div>
       <StyledToggleButton
         as='button'
         style={visible ? buttonStyleWhenVisible : {}}

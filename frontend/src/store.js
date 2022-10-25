@@ -4,13 +4,15 @@ import dataReducer from './reducers/dataReducer'
 import farmReducer from './reducers/farmReducer'
 import notificationReducer from './reducers/notificationReducer'
 import userReducer from './reducers/userReducer'
+import statReducer from './reducers/statReducer'
 import thunk from 'redux-thunk'
 
 const reducer = combineReducers({
   data: dataReducer,
   farms: farmReducer,
   notifications: notificationReducer,
-  user: userReducer
+  user: userReducer,
+  stats: statReducer
 })
 
 const store = createStore(
