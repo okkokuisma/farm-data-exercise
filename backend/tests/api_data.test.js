@@ -14,8 +14,14 @@ describe('data point', () => {
   beforeAll(async () => {
     await emptyDatabase()
 
-    await userService.create({ username: 'username', password: 'Guatemal4!' })
-    farm = await farmService.create({ name: 'testFarm' })
+    const user = await userService.create({ username: 'username', password: 'Guatemal4!' })
+    farm = await farmService.create({
+      name: 'Tester farm',
+      userId: user.toJSON().id,
+      address: 'Tester Street 99',
+      city: 'Testing City'
+    })
+    console.log(farm)
     await agent
       .post('/api/auth/login')
       .set('Content-Type', 'application/json')
@@ -30,7 +36,7 @@ describe('data point', () => {
         farmId: farm.id,
         dateTime: new Date(),
         metricType: 'temperature',
-        metricValue: '25'
+        metricValue: 25
       })
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -44,7 +50,7 @@ describe('data point', () => {
         farmId: farm.id,
         dateTime: new Date(),
         metricType: 'snowFall',
-        metricValue: '25'
+        metricValue: 25
       })
       .expect(400)
       .expect({error: 'added data point contained invalid values'})
@@ -58,13 +64,13 @@ describe('data point', () => {
         farmId: farm.id,
         dateTime: '1204-242-12',
         metricType: 'rainFall',
-        metricValue: '25'
+        metricValue: 25
       })
       .expect(400)
       .expect({error: 'added data point contained invalid values'})
   })
 
-  test('is not created with invalid metric type', async () => {
+  test('is not created with invalid metric value', async () => {
     await agent
       .post('/api/data')
       .set('Content-Type', 'application/json')
@@ -72,7 +78,7 @@ describe('data point', () => {
         farmId: farm.id,
         dateTime: new Date(),
         metricType: 'rainFall',
-        metricValue: '-0.1'
+        metricValue: -0.1
       })
       .expect(400)
       .expect({error: 'added data point contained invalid values'})
@@ -85,10 +91,10 @@ describe('data point', () => {
       .send({
         dateTime: new Date(),
         metricType: 'rainFall',
-        metricValue: '25'
+        metricValue: 25
       })
-      .expect(400)
-      .expect({error: 'No farms found with the given id.'})
+      .expect(401)
+      .expect({error: 'unauthorized'})
   })
 
   test('is not created with missing data point value', async () => {
@@ -98,7 +104,7 @@ describe('data point', () => {
       .send({
         farmId: farm.id,
         dateTime: new Date(),
-        metricValue: '25'
+        metricValue: 25
       })
       .expect(400)
       .expect({error: 'added data point contained invalid values'})

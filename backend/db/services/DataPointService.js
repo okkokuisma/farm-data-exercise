@@ -40,6 +40,7 @@ const getStats = async (query) => {
 
 const create = async ({ farmId, ...values}) => {
   const dataPoint = formatDataPointValues(values)
+  console.log(dataPoint)
   if (!validateDataPointValues(dataPoint)) {
     const error = new Error()
     error.name = 'InvalidDataPointValueError'

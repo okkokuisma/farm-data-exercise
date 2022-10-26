@@ -29,7 +29,7 @@ const formatDataPointValues = ({ dateTime, metricType, metricValue }) => {
   return {
     dateTime: formatDateTime(dateTime),
     metricType,
-    metricValue: Number.parseInt(metricValue)
+    metricValue: Number.parseFloat(metricValue)
   }
 }
 

@@ -13,7 +13,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const sequelize = new Sequelize(
   `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}`,
-  { logging: true }
+  { logging: process.env.NODE_ENV !== 'test' }
 )
 
 const DataPoint = require('./models/DataPoint')(sequelize, Sequelize.DataTypes)

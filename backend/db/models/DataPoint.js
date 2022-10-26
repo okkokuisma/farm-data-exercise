@@ -17,11 +17,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     metricType: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     metricValue: {
-      type: DataTypes.STRING,
+      type: DataTypes.REAL,
       allowNull: false,
     },
   }, {

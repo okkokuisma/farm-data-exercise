@@ -62,7 +62,7 @@ const create = async (values) => {
 
 const isOwnedByUser = async ({ farmId, userId }) => {
   const farm = await Farm.findByPk(farmId)
-  return (farm.toJSON().userId === userId)
+  return (farm && farm.toJSON().userId === userId)
 }
 
 module.exports = { create, getById, getAll, remove, isOwnedByUser }
