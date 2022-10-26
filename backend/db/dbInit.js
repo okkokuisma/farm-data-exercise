@@ -11,8 +11,6 @@ const DB_CONNECTION_RETRY_LIMIT = 10
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-console.log(`postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}`)
-
 const sequelize = new Sequelize(
   `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}`,
   { logging: true }

@@ -1,5 +1,4 @@
 import axiosInstance from './axiosConfig'
-// const baseUrl = 'http://localhost:3003/api/farms'
 
 export const getAll = async (queryParams) => {
   const response = await axiosInstance.get('/farms', { queryParams }, { withCredentials: true })

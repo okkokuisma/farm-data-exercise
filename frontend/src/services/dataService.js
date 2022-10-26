@@ -1,16 +1,15 @@
-import axios from 'axios'
+import axiosInstance from './axiosConfig'
 
-axios.defaults.withCredentials = true
-const baseUrl = 'http://localhost:3003/api/data'
+axiosInstance.defaults.withCredentials = true
 
 const getAll = async (params) => {
-  const response = await axios.get(baseUrl, { params })
+  const response = await axiosInstance.get('/data', { params })
   console.log(response.data)
   return response.data
 }
 
 const create = async (dataPoint) => {
-  const response = await axios.post(baseUrl, dataPoint)
+  const response = await axiosInstance.post('/data', dataPoint)
   return response.data
 }
 

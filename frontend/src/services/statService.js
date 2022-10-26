@@ -1,10 +1,8 @@
-import axios from 'axios'
-
-axios.defaults.withCredentials = true
-const baseUrl = 'http://localhost:3003/api/stats'
+import axiosInstance from './axiosConfig'
+axiosInstance.defaults.withCredentials = true
 
 export const getStats = async (params) => {
-  const response = await axios.get(baseUrl, { params })
+  const response = await axiosInstance.get('/stats', { params })
   return response.data
 }
 
