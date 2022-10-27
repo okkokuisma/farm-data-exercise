@@ -7,54 +7,47 @@ import { fetchData } from '../reducers/dataReducer'
 import { fetchStats, selectFormattedStats } from '../reducers/statReducer'
 import useQueryParams from '../hooks/useQueryParams'
 import { chartOptions } from '../contants'
-import { Filters, StyledDivContainer } from '../styles'
-import DateFilter from '../components/filters/DateFilter'
-import MetricTypeFilter from '../components/filters/MetricTypeFilter'
-import FarmSearchFilter from '../components/filters/FarmSearchFilter'
-import TimeIntervalFilter from '../components/filters/TimeIntervalFilter'
+import { StyledDivContainer } from '../styles'
+// import TimeIntervalFilter from '../components/filters/TimeIntervalFilter'
 import useErrorHandler from '../hooks/useErrorHandler'
 
 const DataView = () => {
   const dispatch = useDispatch()
   const handleError = useErrorHandler()
-  const [ queryParams, handleFilterChange, handleSort ] = useQueryParams()
+  const [ tableQueryParams, handleTableFilterChange, handleTableSort ] = useQueryParams()
+  const [ chartQueryParams, handleChartFilterChange ] = useQueryParams()
   const data = useSelector(state => state.data)
   const farms = useSelector(state => state.farms)
-  const stats = useSelector((state) => selectFormattedStats(state, queryParams.group_by || 'month'))
+  const stats = useSelector((state) => selectFormattedStats(state, chartQueryParams.group_by || 'month'))
 
   useEffect(() => {
-    dispatch(fetchData(queryParams))
+    dispatch(fetchData(tableQueryParams))
       .catch((error) => handleError(error))
-  }, [queryParams])
+  }, [tableQueryParams])
 
   useEffect(() => {
-    dispatch(fetchStats({ asc: 'true', ...queryParams }))
+    dispatch(fetchStats({ asc: 'true', ...chartQueryParams }))
       .catch((error) => handleError(error))
-  }, [queryParams, farms])
+  }, [chartQueryParams, farms])
 
   if (!stats) return null
 
   return (
     <>
       <StyledDivContainer>
-        <h2>Data points</h2>
-        <Filters>
-          <FarmSearchFilter handleFilterChange={handleFilterChange} />
-          <MetricTypeFilter handleFilterChange={handleFilterChange} />
-          <DateFilter handleFilterChange={handleFilterChange} />
-        </Filters>
+        <h1 className='header'>Data points</h1>
         <DataPointTable
           data={data}
-          handleFilterChange={handleFilterChange}
-          handleSort={handleSort}
+          handleFilterChange={handleTableFilterChange}
+          handleSort={handleTableSort}
         />
       </StyledDivContainer>
       <StyledDivContainer>
-        <h2>Stats</h2>
-        <Filters>
+        <h1 className='header'>Stats</h1>
+        {/* <Filters>
           <TimeIntervalFilter handleFilterChange={handleFilterChange} />
-        </Filters>
-        <MetricValueChart options={chartOptions} stats={stats} />
+        </Filters> */}
+        <MetricValueChart options={chartOptions} stats={stats} handleFilterChange={handleChartFilterChange} />
       </StyledDivContainer>
     </>
   )

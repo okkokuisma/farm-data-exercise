@@ -4,7 +4,7 @@ export const StyledBodyDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 100px 100px 0 100px;
+  margin: 100px 130px 0 100px;
   height: 100vh
 `
 
@@ -38,9 +38,17 @@ export const StyledTableHead = styled.thead`
 `
 
 export const StyledDivContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 0 0 10px 15px;
   margin-bottom: 50px;
-  width: 100%;
+
+  .header {
+    color: #403e3e;
+    font-weight: lighter;
+    margin: 0 0 30px 0;
+  }
 `
 
 export const StyledListItem = styled.li`
@@ -69,13 +77,14 @@ export const StyledListItem = styled.li`
 export const StyledButton = styled.button`
   border: 2pt solid white;
   border-radius: 5px;
-  color: sandybrown;
-  background-color: white;
+  color: white;
+  background-color: #f7c288;
   font-size: 17px;
   padding: 5px 20px;
   :hover {
-    color: white;
-    background-color: sandybrown;
+    color: #f7c288;
+    background-color: white;
+    cursor: pointer;
   }
   :disabled {
     :hover {
@@ -97,7 +106,8 @@ export const Filters = styled.div`
   display: flex;
   align-items: center;
   // justify-content: space-evenly;
-  margin: 10px 0;
+  margin: 20px 0;
+  width: 100%;
 
   * {
     margin 0 10px 0 0;
@@ -107,20 +117,22 @@ export const Filters = styled.div`
 export const StyledFormInput = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: 10px;
   width: 400px;
+  font-size: 15px;
 
   label {
     width: 150px;
     height: 20px;
     line-height: 20px;
     padding: 5px 5px;
-    font-size: 15px;
+    font-size: 17px;
   }
 `
 
 export const StyledInput = styled.input`
-  border: 1pt solid black;
+  border: 2pt solid #f7c288;
   border-radius: 5px;
   background-color: white;
   font-size: 15px;
@@ -131,8 +143,34 @@ export const StyledInput = styled.input`
   box-sizing: border-box;
 `
 
+export const StyledForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1pt solid #f7c288;
+  background: #f7c288;
+  color: white;
+  border-radius: 5px;
+  padding: 30px 100px;
+  margin: 10px 10px;
+
+  .header {
+    margin: 0 0 30px 0;
+    font-weight: normal;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .submit {
+    margin: 10px 0 0 0;
+    letter-spacing: 1px;
+  }
+`
+
 export const StyledSelect = styled.select`
-  border: 1pt solid black;
+  border: 2pt solid #f7c288;
   border-radius: 5px;
   font-size: 15px;
   padding: 5px 5px;
@@ -181,9 +219,10 @@ export const StyledNavBar = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
   width: 100%;
   height: 60px;
-  background: #323233;
+  background: #403e3e;
   box-shadow: 1px 0 2px rgba(0,0,0,0.125);
   display: flex;
   align-items: center;
@@ -203,7 +242,7 @@ export const StyledNavBar = styled.div`
     }
 
     button {
-      background-color: #323233;
+      background-color: #403e3e;
       color: white;
       border: none;
       font-size: 20px;

@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <div style={{ fontFamily: 'Arial', height: '100vh' }}>
+      <div style={{ fontFamily: 'Arial', fontSize: '20px', height: '100vh' }}>
         <NavigationBar />
         <NotificationContainer />
         <StyledBodyDiv>

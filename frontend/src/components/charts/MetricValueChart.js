@@ -2,8 +2,12 @@ import React from 'react'
 
 import LineChart from './LineChart'
 import { chartOptions } from '../../contants'
+import DateFilter from '../filters/DateFilter'
+import MetricTypeFilter from '../filters/MetricTypeFilter'
+import TimeIntervalFilter from '../filters/TimeIntervalFilter'
+import { Filters } from '../../styles'
 
-const MetricValueChart = ({stats}) => {
+const MetricValueChart = ({stats, handleFilterChange}) => {
   const { labels, min, max, mean } = stats
 
   const chartData = {
@@ -39,7 +43,14 @@ const MetricValueChart = ({stats}) => {
   }
 
   return (
-    <LineChart options={chartOptions} data={chartData} />
+    <>
+      <Filters>
+        <TimeIntervalFilter handleFilterChange={handleFilterChange} />
+        <MetricTypeFilter handleFilterChange={handleFilterChange} />
+        <DateFilter handleFilterChange={handleFilterChange} />
+      </Filters>
+      <LineChart options={chartOptions} data={chartData} />
+    </>
   )
 }
 

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 
 import FormikTextInput from '../inputs/FormikTextInput'
 import FormikSelectInput from '../inputs/FormikSelectInput'
-import { StyledButton } from '../../styles'
+import { StyledButton, StyledForm } from '../../styles'
 import { createNotification } from '../../reducers/notificationReducer'
 import { createDataPoint } from '../../reducers/dataReducer'
 import useErrorHandler from '../../hooks/useErrorHandler'
@@ -67,26 +67,29 @@ const CreateDataPointForm = ({ farmId }) => {
         }}
       >
         <Form>
-          <FormikTextInput
-            label='Date'
-            name='dateTime'
-            type='datetime-local'
-            placeholder='Date and time'
-          />
+          <StyledForm>
+            <h2 className='header'>Add a data point</h2>
+            <FormikTextInput
+              label='Date'
+              name='dateTime'
+              type='datetime-local'
+              placeholder='Date and time'
+            />
 
-          <FormikTextInput
-            label='Metric Value'
-            name='metricValue'
-            type='number'
-          />
+            <FormikTextInput
+              label='Metric Value'
+              name='metricValue'
+              type='number'
+            />
 
-          <FormikSelectInput
-            label='Metric type'
-            name='metricType'
-            options={metricTypeSelectOptions}
-          />
+            <FormikSelectInput
+              label='Metric type'
+              name='metricType'
+              options={metricTypeSelectOptions}
+            />
 
-          <StyledButton type='submit'>Submit</StyledButton>
+            <StyledButton type='submit'>Submit</StyledButton>
+          </StyledForm>
         </Form>
       </Formik>
     </>

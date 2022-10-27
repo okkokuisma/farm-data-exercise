@@ -44,9 +44,7 @@ const AuthView = () => {
 
   return (
     <>
-      <h2>Login</h2>
       <LoginForm handler={handleLogin}/>
-      <h2>...or sign up</h2>
       <SignUpForm handler={handleSignUp} />
     </>
   )

@@ -31,13 +31,10 @@ const MyFarmsView = () => {
   return (
     <>
       <StyledDivContainer>
-        <h1>My farms</h1>
+        <h1 className='header'>My farms</h1>
         <FarmList handleFarmDelete={handleFarmDelete} farms={userOwnedFarms} />
       </StyledDivContainer>
-      <StyledDivContainer>
-        <h1>Create a new farm</h1>
-        <CreateFarmForm farms={farms} />
-      </StyledDivContainer>
+      <CreateFarmForm farms={farms} />
     </>
   )
 }

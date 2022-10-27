@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik'
 import * as yup from 'yup'
 
 import FormikTextInput from '../inputs/FormikTextInput'
-import { StyledButton } from '../../styles'
+import { StyledButton, StyledForm } from '../../styles'
 
 const SignUpForm = ({ handler }) => {
   return (
@@ -28,19 +28,22 @@ const SignUpForm = ({ handler }) => {
       }}
     >
       <Form>
-        <FormikTextInput
-          name='username'
-          type='text'
-          placeholder='Username'
-          label='Username'
-        />
-        <FormikTextInput
-          name='password'
-          type='password'
-          placeholder='Password'
-          label='Password'
-        />
-        <StyledButton type='submit'>Sign up</StyledButton>
+        <StyledForm>
+          <h2 className='header'>...or sign up</h2>
+          <FormikTextInput
+            name='username'
+            type='text'
+            placeholder='Username'
+            label='Username'
+          />
+          <FormikTextInput
+            name='password'
+            type='password'
+            placeholder='Password'
+            label='Password'
+          />
+          <StyledButton className='submit' type='submit'>Sign up</StyledButton>
+        </StyledForm>
       </Form>
     </Formik>
   )

@@ -4,7 +4,7 @@ import * as yup from 'yup'
 import { useDispatch } from 'react-redux'
 
 import FormikTextInput from '../inputs/FormikTextInput'
-import { StyledButton } from '../../styles'
+import { StyledButton, StyledForm } from '../../styles'
 import { createFarm } from '../../reducers/farmReducer'
 import { createNotification } from '../../reducers/notificationReducer'
 import useErrorHandler from '../../hooks/useErrorHandler'
@@ -60,25 +60,28 @@ const CreateFarmForm = ({farms}) => {
       }}
     >
       <Form>
-        <FormikTextInput
-          label='Farm name'
-          name='name'
-          type='text'
-          placeholder='Name'
-        />
-        <FormikTextInput
-          label='City'
-          name='city'
-          type='text'
-          placeholder='City'
-        />
-        <FormikTextInput
-          label='Address'
-          name='address'
-          type='text'
-          placeholder='Address'
-        />
-        <StyledButton type='submit'>Submit</StyledButton>
+        <StyledForm>
+          <h2 className='header'>Create a new farm</h2>
+          <FormikTextInput
+            label='Farm name'
+            name='name'
+            type='text'
+            placeholder='Name'
+          />
+          <FormikTextInput
+            label='City'
+            name='city'
+            type='text'
+            placeholder='City'
+          />
+          <FormikTextInput
+            label='Address'
+            name='address'
+            type='text'
+            placeholder='Address'
+          />
+          <StyledButton className='submit' type='submit'>Submit</StyledButton>
+        </StyledForm>
       </Form>
     </Formik>
   )
