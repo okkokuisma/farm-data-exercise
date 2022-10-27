@@ -34,9 +34,9 @@ const App = () => {
         <NotificationContainer />
         <Routes>
           <Route path='/' element={
-            <StyledCenteredBodyDiv>
+            <StyledBodyDiv>
               <IndexView />
-            </StyledCenteredBodyDiv>
+            </StyledBodyDiv>
           } />
           <Route path='/login' element={
             <StyledCenteredBodyDiv>
