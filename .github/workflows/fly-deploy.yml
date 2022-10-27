@@ -25,4 +25,4 @@ jobs:
           uses: superfly/flyctl-actions/setup-flyctl@master
 
         - name: Deploy app
-          run: flyctl deploy
+          run: cd backend && flyctl deploy
