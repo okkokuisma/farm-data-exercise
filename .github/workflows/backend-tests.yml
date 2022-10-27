@@ -1,0 +1,34 @@
+name: Backend tests
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.8.0'
+
+    - name: Run tests
+      env:
+        POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+        SECRET: ${{ secrets.SECRET }}
+      run: cd backend && npm install && npm test
