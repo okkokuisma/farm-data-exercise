@@ -3,8 +3,10 @@ import { useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import LoginForm from '../components/forms/LoginForm'
+import SignUpForm from '../components/forms/SignUpForm'
 import { useAuth } from '../contexts/AuthContext'
 import { createNotification } from '../reducers/notificationReducer'
+import { signup } from '../services/userService'
 
 const AuthView = () => {
   const dispatch = useDispatch()
@@ -27,8 +29,26 @@ const AuthView = () => {
       })))
   }
 
+  const handleSignUp = async (credentials) => {
+    try {
+      const user = await signup(credentials)
+      dispatch(createNotification({
+        message: `User created successfully. Welcome ${user.username}!`,
+        type: 'success',
+        time: 3000
+      }))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
-    <LoginForm handler={handleLogin}/>
+    <>
+      <h2>Login</h2>
+      <LoginForm handler={handleLogin}/>
+      <h2>...or sign up</h2>
+      <SignUpForm handler={handleSignUp} />
+    </>
   )
 }
 

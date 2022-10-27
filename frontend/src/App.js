@@ -14,7 +14,7 @@ import IndexView from './containers/IndexView'
 import { AuthProvider } from './contexts/AuthContext'
 import { RequireAuth } from './containers/RequireAuth'
 import NoDataFoundErrorBoundary from './components/errors/NoDataFoundErrorBoundary'
-import { StyledBodyDiv, StyledCenteredBodyDiv } from './styles'
+import { StyledBodyDiv } from './styles'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -32,47 +32,39 @@ const App = () => {
       <div style={{ fontFamily: 'Arial', height: '100vh' }}>
         <NavigationBar />
         <NotificationContainer />
-        <Routes>
-          <Route path='/' element={
-            <StyledBodyDiv>
+        <StyledBodyDiv>
+          <Routes>
+            <Route path='/' element={
               <IndexView />
-            </StyledBodyDiv>
-          } />
-          <Route path='/login' element={
-            <StyledCenteredBodyDiv>
+            } />
+            <Route path='/login' element={
               <AuthView />
-            </StyledCenteredBodyDiv>
-          } />
-          <Route path='/farms/:id' element={
-            <RequireAuth>
-              <StyledBodyDiv>
+            } />
+            <Route path='/farms/:id' element={
+              <RequireAuth>
                 <ErrorBoundary FallbackComponent={NoDataFoundErrorBoundary}>
                   <SingleFarmView />
                 </ErrorBoundary>
-              </StyledBodyDiv>
-            </RequireAuth>
-          }
-          />
-          <Route path='/farms' element={
-            <RequireAuth>
-              <StyledBodyDiv>
+              </RequireAuth>
+            }
+            />
+            <Route path='/farms' element={
+              <RequireAuth>
                 <MyFarmsView />
-              </StyledBodyDiv>
-            </RequireAuth>
-          }
-          />
-          <Route path= '/data' element={
-            <RequireAuth>
-              <StyledBodyDiv>
+              </RequireAuth>
+            }
+            />
+            <Route path= '/data' element={
+              <RequireAuth>
                 <ErrorBoundary FallbackComponent={NoDataFoundErrorBoundary}>
                   <DataView />
                 </ErrorBoundary>
-              </StyledBodyDiv>
-            </RequireAuth>
-          }
-          />
-          <Route path='*' element={ <Navigate to='/' /> } />
-        </Routes>
+              </RequireAuth>
+            }
+            />
+            <Route path='*' element={ <Navigate to='/' /> } />
+          </Routes>
+        </StyledBodyDiv>
       </div>
     </AuthProvider>
   )

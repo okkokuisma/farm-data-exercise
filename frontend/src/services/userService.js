@@ -5,6 +5,11 @@ const login = async (credentials) => {
   return response.data
 }
 
-const exportedObject =  { login }
+export const signup = async (credentials) => {
+  const response = await axiosInstance.post('/users', credentials)
+  return response.data
+}
+
+const exportedObject =  { login, signup }
 
 export default exportedObject

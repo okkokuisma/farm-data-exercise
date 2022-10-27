@@ -25,7 +25,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "REACT_APP_NODE_ENV=development react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "react-error-overlay": "6.0.9",
     "@testing-library/dom": "^8.11.3",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",

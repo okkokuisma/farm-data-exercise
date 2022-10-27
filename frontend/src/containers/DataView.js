@@ -7,7 +7,7 @@ import { fetchData } from '../reducers/dataReducer'
 import { fetchStats, selectFormattedStats } from '../reducers/statReducer'
 import useQueryParams from '../hooks/useQueryParams'
 import { chartOptions } from '../contants'
-import { Filters } from '../styles'
+import { Filters, StyledDivContainer } from '../styles'
 import DateFilter from '../components/filters/DateFilter'
 import MetricTypeFilter from '../components/filters/MetricTypeFilter'
 import FarmSearchFilter from '../components/filters/FarmSearchFilter'
@@ -36,22 +36,26 @@ const DataView = () => {
 
   return (
     <>
-      <h2>Data points</h2>
-      <Filters>
-        <FarmSearchFilter handleFilterChange={handleFilterChange} />
-        <MetricTypeFilter handleFilterChange={handleFilterChange} />
-        <DateFilter handleFilterChange={handleFilterChange} />
-      </Filters>
-      <DataPointTable
-        data={data}
-        handleFilterChange={handleFilterChange}
-        handleSort={handleSort}
-      />
-      <h2>Stats</h2>
-      <Filters>
-        <TimeIntervalFilter handleFilterChange={handleFilterChange} />
-      </Filters>
-      <MetricValueChart options={chartOptions} stats={stats} />
+      <StyledDivContainer>
+        <h2>Data points</h2>
+        <Filters>
+          <FarmSearchFilter handleFilterChange={handleFilterChange} />
+          <MetricTypeFilter handleFilterChange={handleFilterChange} />
+          <DateFilter handleFilterChange={handleFilterChange} />
+        </Filters>
+        <DataPointTable
+          data={data}
+          handleFilterChange={handleFilterChange}
+          handleSort={handleSort}
+        />
+      </StyledDivContainer>
+      <StyledDivContainer>
+        <h2>Stats</h2>
+        <Filters>
+          <TimeIntervalFilter handleFilterChange={handleFilterChange} />
+        </Filters>
+        <MetricValueChart options={chartOptions} stats={stats} />
+      </StyledDivContainer>
     </>
   )
 }

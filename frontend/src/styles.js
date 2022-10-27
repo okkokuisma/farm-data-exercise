@@ -1,12 +1,16 @@
 import styled from 'styled-components'
 
 export const StyledBodyDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 100px 100px 0 100px;
   height: 100vh
 `
 
 export const StyledCenteredBodyDiv = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
@@ -34,9 +38,9 @@ export const StyledTableHead = styled.thead`
 `
 
 export const StyledDivContainer = styled.div`
-  border-left: 5pt solid sandybrown;
   padding: 0 0 10px 15px;
   margin-bottom: 50px;
+  width: 100%;
 `
 
 export const StyledListItem = styled.li`
