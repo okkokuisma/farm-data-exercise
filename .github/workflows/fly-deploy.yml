@@ -19,7 +19,7 @@ jobs:
             node-version: 16
 
         - name: Build frontend
-          run: cd frontend && npm install && npm run build && mv build ../backend
+          run: cd frontend && npm install && npm run build && rm -rf ../backend/build && mv build ../backend
 
         - name: Set up flyctl
           uses: superfly/flyctl-actions/setup-flyctl@master
