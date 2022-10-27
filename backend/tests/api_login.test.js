@@ -2,13 +2,17 @@ const supertest = require('supertest')
 
 const app = require('../app')
 const userService = require('../db/services/userService')
-const { emptyDatabase } = require('../db/dbInit')
+const { emptyDatabase, closeConnection } = require('../db/dbInit')
 
 const api = supertest(app)
 
 describe('login', () => {
   beforeAll(async () => {
     await emptyDatabase()
+  })
+
+  afterAll(async () => {
+    await closeConnection()
   })
 
   test('succeeds with valid credentials', async () => {

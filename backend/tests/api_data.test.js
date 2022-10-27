@@ -1,7 +1,7 @@
 const supertest = require('supertest')
 
 const app = require('../app')
-const { emptyDatabase } = require('../db/dbInit')
+const { emptyDatabase, closeConnection } = require('../db/dbInit')
 const farmService = require('../db/services/farmService')
 const userService = require('../db/services/userService')
 
@@ -21,11 +21,14 @@ describe('data point', () => {
       address: 'Tester Street 99',
       city: 'Testing City'
     })
-    console.log(farm)
     await agent
       .post('/api/auth/login')
       .set('Content-Type', 'application/json')
       .send({ username: 'username', password: 'Guatemal4!' })
+  })
+
+  afterAll(async () => {
+    await closeConnection()
   })
 
   test('can be added with valid values', async () => {
