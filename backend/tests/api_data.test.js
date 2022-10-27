@@ -41,7 +41,7 @@ describe('data point', () => {
         metricType: 'temperature',
         metricValue: 25
       })
-      .expect(201)
+      .expect(202)
       .expect('Content-Type', /application\/json/)
   })
 
