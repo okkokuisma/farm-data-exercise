@@ -1,9 +1,8 @@
 import React from 'react'
 import { Formik, Form } from 'formik'
-import * as yup from 'yup'
 
 import FormikTextInput from '../inputs/FormikTextInput'
-import { StyledButton, StyledForm } from '../../styles'
+import { StyledButton, StyledForm, StyledFormDiv } from '../../styles'
 
 const LoginForm = ({ handler }) => {
   return (
@@ -12,35 +11,27 @@ const LoginForm = ({ handler }) => {
         username: '',
         password: ''
       }}
-      validationSchema={yup.object({
-        password: yup.string()
-          .required('Required'),
-        // .matches(
-        //   '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
-        //   'Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character'
-        // ),
-        username: yup.string()
-          .required('Required')
-      })}
       onSubmit={async ({username, password}) => handler(username, password)}
     >
       <Form>
-        <StyledForm>
-          <h2 className='header'>Login</h2>
-          <FormikTextInput
-            name='username'
-            type='text'
-            placeholder='Username'
-            label='Username'
-          />
-          <FormikTextInput
-            name='password'
-            type='password'
-            placeholder='Password'
-            label='Password'
-          />
-          <StyledButton className='submit' type='submit'>Sign in</StyledButton>
-        </StyledForm>
+        <StyledFormDiv>
+          <StyledForm>
+            <h2 className='header'>Login</h2>
+            <FormikTextInput
+              name='username'
+              type='text'
+              placeholder='Username'
+              label='Username'
+            />
+            <FormikTextInput
+              name='password'
+              type='password'
+              placeholder='Password'
+              label='Password'
+            />
+            <StyledButton className='submit' type='submit'>Sign in</StyledButton>
+          </StyledForm>
+        </StyledFormDiv>
       </Form>
     </Formik>
   )

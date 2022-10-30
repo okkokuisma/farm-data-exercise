@@ -76,10 +76,8 @@ const reducer = (state = [], action) => {
   case 'INIT_FARMS':
     return action.data
   case 'CREATE_FARM':
-    console.log([ ...state, action.data ])
     return [ ...state, action.data ]
   case 'DELETE_FARM':
-    console.log(state)
     return state.filter(farm => farm.id !== action.data)
   default:
     return state

@@ -6,9 +6,7 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip,
 
 const LineChart = ({ data, options }) => {
   return (
-    <div style={{width: '60%'}}>
-      <Line options={options} data={data} />
-    </div>
+    <Line options={options} data={data} />
   )
 }
 

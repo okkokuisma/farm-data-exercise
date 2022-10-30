@@ -16,8 +16,10 @@ const Farm = ({ farm, handleFilterChange, stats }) => {
   return (
     <>
       <StyledDivContainer>
-        <h1>{farm.name}</h1>
-        <p>{farm.city}, {farm.address}</p>
+        <div className='header'>
+          <h1>{farm.name}</h1>
+          <p>{farm.city}, {farm.address}</p>
+        </div>
       </StyledDivContainer>
       { isOwnedByUser
         ?
@@ -28,29 +30,7 @@ const Farm = ({ farm, handleFilterChange, stats }) => {
         : null
       }
       <StyledDivContainer>
-        <h2>Statistics</h2>
-        {/* <Filters>
-          <SelectInput
-            options={metricTypeSelectOptions}
-            onChange={(e) => handleFilterChange({filter: 'metricType'}, e.target.value)}
-          />
-          <StyledInput
-            type='date'
-            onChange={e => handleFilterChange({filter: 'from'}, e.target.value)}
-            min={farm.earliestDataPoint || ''}
-            max={farm.latestDataPoint || ''}
-          />
-          <StyledInput
-            type='date'
-            onChange={e => handleFilterChange({filter: 'to'}, e.target.value)}
-            min={farm.earliestDataPoint || ''}
-            max={farm.latestDataPoint || ''}
-          />
-          <SelectInput
-            options={timeIntervalSelectOptions}
-            onChange={(e) => handleFilterChange({filter: 'group_by'}, e.target.value)}
-          />
-        </Filters> */}
+        <h1 className='header'>Statistics</h1>
         <MetricValueChart stats={stats} handleFilterChange={handleFilterChange} />
       </StyledDivContainer>
     </>

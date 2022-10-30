@@ -24,7 +24,6 @@ const reducer = (state = {edges: []}, action) => {
   case 'FETCH_DATA':
     return action.data
   case 'DELETE_FARM':
-    console.log(state)
     return { ...state, edges: state.edges.filter(e => e.node.farm.id !== action.data)}
   default:
     return state

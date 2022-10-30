@@ -19,10 +19,6 @@ export const getMetricValueChartTimeInterval = (params, farms) => {
     ? from
     : dayjs(earliestDataPoint)
 
-  console.log(validTo)
-  console.log(validFrom)
-  console.log(farms)
-
   return dayjs(validTo).diff(dayjs(validFrom), 'month') < 2
     ? 'day'
     : dayjs(validTo).diff(dayjs(validFrom), 'month') < 24

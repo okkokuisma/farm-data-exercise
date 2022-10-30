@@ -56,7 +56,10 @@ describe('data point', () => {
         metricValue: 25
       })
       .expect(400)
-      .expect({error: 'added data point contained invalid values'})
+      .expect({
+        type: 'InvalidDataPointValueError',
+        message: 'added data point contained invalid values'
+      })
   })
 
   test('is not created with invalid date', async () => {
@@ -70,7 +73,10 @@ describe('data point', () => {
         metricValue: 25
       })
       .expect(400)
-      .expect({error: 'added data point contained invalid values'})
+      .expect({
+        type: 'InvalidDataPointValueError',
+        message: 'added data point contained invalid values'
+      })
   })
 
   test('is not created with invalid metric value', async () => {
@@ -84,7 +90,10 @@ describe('data point', () => {
         metricValue: -0.1
       })
       .expect(400)
-      .expect({error: 'added data point contained invalid values'})
+      .expect({
+        type: 'InvalidDataPointValueError',
+        message: 'added data point contained invalid values'
+      })
   })
 
   test('is not created with missing farm id', async () => {
@@ -110,6 +119,9 @@ describe('data point', () => {
         metricValue: 25
       })
       .expect(400)
-      .expect({error: 'added data point contained invalid values'})
+      .expect({
+        type: 'InvalidDataPointValueError',
+        message: 'added data point contained invalid values'
+      })
   })
 })

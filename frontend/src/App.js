@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <div style={{ fontFamily: 'Arial', fontSize: '20px', height: '100vh' }}>
+      <>
         <NavigationBar />
         <NotificationContainer />
         <StyledBodyDiv>
@@ -65,7 +65,7 @@ const App = () => {
             <Route path='*' element={ <Navigate to='/' /> } />
           </Routes>
         </StyledBodyDiv>
-      </div>
+      </>
     </AuthProvider>
   )
 }

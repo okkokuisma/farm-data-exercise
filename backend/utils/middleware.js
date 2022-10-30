@@ -42,23 +42,41 @@ const userExtractor = async (request, response, next) => {
 
 const errorHandler = (error, request, response, next) => {
   if (error.name === 'JsonWebTokenError') {
-    return response.status(401).json({ error: error.message })
+    return response.status(401).json({ type: 'JsonWebTokenError', message: error.message })
   } else if (error.name === 'TokenExpiredError') {
-    return response.status(401).json({ error: 'token expired' })
+    return response.status(401).json({ type: 'TokenExpiredError', message: 'token expired' })
   } else if (error.name === 'UnauthorizedActionError') {
-    return response.status(401).json({ error: error.message })
+    return response.status(401).json({ type: 'UnauthorizedActionError', message: error.message })
   } else if (error.name === 'SequelizeValidationError') {
-    return response.status(400).json({ error: `${error.errors[0].message}` })
+    return response.status(400).json({
+      type: 'SequelizeValidationError',
+      message: `${error.errors[0].message}`
+    })
   } else if (error.name === 'SequelizeDatabaseError') {
-    console.log(error)
-    return response.status(400).json({ error: 'database query error' })
+    return response.status(400).json({
+      type: 'SequelizeDatabaseError',
+      message: 'database query error'
+    })
   } else if (error.name === 'NoFarmFoundError') {
-    return response.status(400).json({ error: 'No farms found with the given id.' })
+    return response.status(400).json({
+      type: 'NoFarmFoundError',
+      message: 'No farms found with the given id.'
+    })
   } else if (error.name === 'MalformattedPasswordError') {
-    return response.status(400).json({ error: 'Password should contain minimum eight characters, at  least one uppercase letter, one lowercase letter, one number and one special character'
+    return response.status(400).json({
+      type: 'MalformattedPasswordError',
+      message: 'Password should contain minimum eight characters, at  least one uppercase letter, one lowercase letter, one number and one special character'
+    })
+  } else if (error.name === 'UsernameTakenError') {
+    return response.status(400).json({
+      type: 'UsernameTakenError',
+      message: 'requested username already in use'
     })
   } else if (error.name === 'InvalidDataPointValueError') {
-    return response.status(400).json({ error: 'added data point contained invalid values' })
+    return response.status(400).json({
+      type: 'InvalidDataPointValueError',
+      message: 'added data point contained invalid values'
+    })
   }
 
   next(error)

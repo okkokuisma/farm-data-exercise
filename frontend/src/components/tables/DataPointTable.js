@@ -40,18 +40,20 @@ const DataPointTable = ({ data, handleFilterChange, handleSort }) => {
         <DateFilter handleFilterChange={handleFilterChange} />
       </Filters>
       <Table rows={tableRows} headers={tableHeaders} />
-      <StyledButton
-        onClick={() => handleFilterChange({filter: 'before'}, pageInfo.startCursor)}
-        disabled={!pageInfo.hasPreviousPage}
-      >
-        Previous
-      </StyledButton>
-      <StyledButton
-        onClick={() => handleFilterChange({filter: 'after'}, pageInfo.endCursor)}
-        disabled={!pageInfo.hasNextPage}
-      >
-        Next
-      </StyledButton>
+      <Filters>
+        <StyledButton
+          onClick={() => handleFilterChange({filter: 'before'}, pageInfo.startCursor)}
+          disabled={!pageInfo.hasPreviousPage}
+        >
+          Previous
+        </StyledButton>
+        <StyledButton
+          onClick={() => handleFilterChange({filter: 'after'}, pageInfo.endCursor)}
+          disabled={!pageInfo.hasNextPage}
+        >
+          Next
+        </StyledButton>
+      </Filters>
     </>
   )
 }

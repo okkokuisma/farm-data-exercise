@@ -6,7 +6,7 @@ const TableRow = ({ values }) => {
   return (
     <tr>
       {values.map((value, i) => (
-        <StyledTableCell key={i} as='td'>
+        <StyledTableCell key={i}>
           {value}
         </StyledTableCell>
       ))}

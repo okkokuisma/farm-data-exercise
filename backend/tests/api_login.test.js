@@ -36,6 +36,9 @@ describe('login', () => {
       .send({ username: 'nameuser', password: 'wordpass' })
       .expect(401)
       .expect('Content-Type', /application\/json/)
-      .expect({error: 'invalid username or password'})
+      .expect({
+        type: 'InvalidAuthenticationError',
+        message: 'invalid username or password'
+      })
   })
 })

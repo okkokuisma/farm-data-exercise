@@ -8,6 +8,7 @@ import { selectFarmNodes, selectUserOwnedFarmNodes } from '../reducers/farmReduc
 import { StyledDivContainer } from '../styles'
 import { initFarms, deleteFarm } from '../reducers/farmReducer'
 import useErrorHandler from '../hooks/useErrorHandler'
+import { createNotification } from '../reducers/notificationReducer'
 
 const MyFarmsView = () => {
   const { user } = useAuth()
@@ -16,7 +17,6 @@ const MyFarmsView = () => {
 
   const farms = useSelector(selectFarmNodes)
   const userOwnedFarms = useSelector((state) => selectUserOwnedFarmNodes(state, user.username))
-  console.log(userOwnedFarms)
   useEffect(() => {
     dispatch(initFarms({}))
       .catch(error => handleError(error))
@@ -24,8 +24,16 @@ const MyFarmsView = () => {
 
   const handleFarmDelete = (id) => {
     dispatch(deleteFarm(id))
-      .then(console.log('deleted'))
-      .catch(error => console.log(error))
+      .then(() => dispatch(createNotification({
+        message: 'Farm deleted successfully.',
+        type: 'success',
+        time: 3000
+      })))
+      .catch(() => dispatch(createNotification({
+        message: 'Something went wrong. Please try again later.',
+        type: 'error',
+        time: 3000
+      })))
   }
 
   return (

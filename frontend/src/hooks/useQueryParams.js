@@ -30,7 +30,6 @@ const useQueryParams = () => {
     } else {
       sortValues = {asc: 'false', order_by: header}
     }
-    console.log(sortValues)
     setQueryParams({...otherParams, ...sortValues})
   }
 

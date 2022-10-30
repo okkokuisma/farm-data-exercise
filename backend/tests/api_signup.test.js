@@ -33,6 +33,9 @@ describe('signup', () => {
       .send({ username: 'nameuser', password: 'wordpass' })
       .expect(400)
       .expect('Content-Type', /application\/json/)
-      .expect({ error: 'Password should contain minimum eight characters, at  least one uppercase letter, one lowercase letter, one number and one special character' })
+      .expect({
+        type: 'MalformattedPasswordError',
+        message: 'Password should contain minimum eight characters, at  least one uppercase letter, one lowercase letter, one number and one special character'
+      })
   })
 })

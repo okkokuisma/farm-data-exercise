@@ -29,6 +29,12 @@ const create = async ({ username, password }) => {
     throw error
   }
 
+  if (await getByUsername(username)) {
+    const error = new Error()
+    error.name = 'UsernameTakenError'
+    throw error
+  }
+
   const saltRounds = 10
   const passwordHash = await bcrypt.hash(password, saltRounds)
 

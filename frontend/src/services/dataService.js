@@ -4,7 +4,6 @@ axiosInstance.defaults.withCredentials = true
 
 const getAll = async (params) => {
   const response = await axiosInstance.get('/data', { params })
-  console.log(response.data)
   return response.data
 }
 

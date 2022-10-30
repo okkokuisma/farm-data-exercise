@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { StyledListItem, StyledButton } from '../../styles'
+import { StyledList, StyledListItem, StyledButton } from '../../styles'
 
 const Row = ({ farm, handleFarmDelete }) => {
   return (
@@ -21,11 +21,11 @@ const FarmList = ({ farms, handleFarmDelete }) => {
 
   return (
     <>
-      <ul style={{padding: '0 10px', width: '50%'}}>
+      <StyledList>
         {farms.map(farm => (
           <Row key={farm.id} farm={farm} handleFarmDelete={handleFarmDelete} />
         ))}
-      </ul>
+      </StyledList>
     </>
   )
 }
