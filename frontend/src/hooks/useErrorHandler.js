@@ -10,7 +10,7 @@ const useErrorHandler = () => {
   const { logout } = useAuth()
 
   const handleError = (error) => {
-    const errorType = error.response.data.type
+    const errorType = error?.response?.data?.type
     if (errorType === 'JsonWebTokenError' || errorType === 'TokenExpiredError') {
       logout()
     } else if (errorType === 'UsernameTakenError') {

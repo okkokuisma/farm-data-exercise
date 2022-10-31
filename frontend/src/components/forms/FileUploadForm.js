@@ -38,6 +38,11 @@ const FileUploadForm = ({farmId}) => {
     e.preventDefault()
 
     if (validateValues()) {
+      dispatch(createNotification({
+        message: `Uploading file ${selectedFile.name}...`,
+        type: 'info',
+        time: 3000
+      }))
       try {
         await fileService.upload({
           file: selectedFile,

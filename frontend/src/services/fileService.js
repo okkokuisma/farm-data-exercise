@@ -9,7 +9,8 @@ export const upload = async (attributes) => {
   const response = await axiosInstance.post('/files/upload', formData, {
     headers: {
       'Content-Type': 'multipart/form-data'
-    }
+    },
+    timeout: 5000
   })
   return response.data
 }
