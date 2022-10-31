@@ -77,6 +77,11 @@ const errorHandler = (error, request, response, next) => {
       type: 'InvalidDataPointValueError',
       message: 'added data point contained invalid values'
     })
+  } else if (error.name === 'InvalidFileUploadError') {
+    return response.status(400).json({
+      type: 'InvalidFileUploadError',
+      message: 'Uploaded file contained invalid data.'
+    })
   }
 
   next(error)

@@ -29,43 +29,41 @@ const App = () => {
 
   return (
     <AuthProvider>
-      <>
-        <NavigationBar />
-        <NotificationContainer />
-        <StyledBodyDiv>
-          <Routes>
-            <Route path='/' element={
-              <IndexView />
-            } />
-            <Route path='/login' element={
-              <AuthView />
-            } />
-            <Route path='/farms/:id' element={
-              <RequireAuth>
-                <ErrorBoundary FallbackComponent={NoDataFoundErrorBoundary}>
-                  <SingleFarmView />
-                </ErrorBoundary>
-              </RequireAuth>
-            }
-            />
-            <Route path='/farms' element={
-              <RequireAuth>
-                <MyFarmsView />
-              </RequireAuth>
-            }
-            />
-            <Route path= '/data' element={
-              <RequireAuth>
-                <ErrorBoundary FallbackComponent={NoDataFoundErrorBoundary}>
-                  <DataView />
-                </ErrorBoundary>
-              </RequireAuth>
-            }
-            />
-            <Route path='*' element={ <Navigate to='/' /> } />
-          </Routes>
-        </StyledBodyDiv>
-      </>
+      <NavigationBar />
+      <NotificationContainer />
+      <StyledBodyDiv>
+        <Routes>
+          <Route path='/' element={
+            <IndexView />
+          } />
+          <Route path='/login' element={
+            <AuthView />
+          } />
+          <Route path='/farms/:id' element={
+            <RequireAuth>
+              <ErrorBoundary FallbackComponent={NoDataFoundErrorBoundary}>
+                <SingleFarmView />
+              </ErrorBoundary>
+            </RequireAuth>
+          }
+          />
+          <Route path='/farms' element={
+            <RequireAuth>
+              <MyFarmsView />
+            </RequireAuth>
+          }
+          />
+          <Route path= '/data' element={
+            <RequireAuth>
+              <ErrorBoundary FallbackComponent={NoDataFoundErrorBoundary}>
+                <DataView />
+              </ErrorBoundary>
+            </RequireAuth>
+          }
+          />
+          <Route path='*' element={ <Navigate to='/' /> } />
+        </Routes>
+      </StyledBodyDiv>
     </AuthProvider>
   )
 }

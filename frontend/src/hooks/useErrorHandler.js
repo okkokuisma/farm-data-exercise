@@ -10,21 +10,29 @@ const useErrorHandler = () => {
   const { logout } = useAuth()
 
   const handleError = (error) => {
-    if (error.response.data.type === 'JsonWebTokenError' || error.response.data.type === 'TokenExpiredError') {
+    const errorType = error.response.data.type
+    if (errorType === 'JsonWebTokenError' || errorType === 'TokenExpiredError') {
       logout()
-    } else if (error.response.data.type === 'UsernameTakenError') {
+    } else if (errorType === 'UsernameTakenError') {
       dispatch(createNotification({
         message: 'Username already taken.',
         type: 'error',
         time: 3000
       }))
-    } else if (error.response.data.type === 'InvalidAuthenticationError') {
+    } else if (errorType === 'InvalidAuthenticationError') {
       dispatch(createNotification({
         message: 'Invalid username or password',
         type: 'error',
         time: 3000
       }))
-    } else {
+    } else if (errorType === 'InvalidFileUploadError') {
+      dispatch(createNotification({
+        message: 'Uploaded file contained invalid data',
+        type: 'error',
+        time: 3000
+      }))
+    }
+    else {
       renderErrorBoundary(error)
     }
   }

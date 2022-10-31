@@ -3,8 +3,6 @@ import { useAuth } from '../contexts/AuthContext'
 import CreateDataPointForm from './forms/CreateDataPointForm'
 import FileUploadForm from './forms/FileUploadForm'
 import { StyledDivContainer } from '../styles'
-// import SelectInput from './inputs/SelectInput'
-// import { metricTypeSelectOptions, timeIntervalSelectOptions } from '../contants'
 import MetricValueChart from './charts/MetricValueChart'
 
 const Farm = ({ farm, handleFilterChange, stats }) => {

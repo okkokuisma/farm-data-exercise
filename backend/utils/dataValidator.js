@@ -11,7 +11,11 @@ const validateCsvFile = (filePath) => {
     const validRows = []
     fs.createReadStream(filePath, 'utf8')
       .pipe(csv.parse())
-      .on('error', reject)
+      .on('error', () => {
+        const error = new Error()
+        error.name = 'InvalidFileUploadError'
+        reject(error)
+      })
       .on('data', row => {
         const [, dateTime, metricType, metricValue] = row
         const dataPoint = formatDataPointValues({ dateTime, metricType, metricValue })

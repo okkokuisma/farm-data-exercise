@@ -1,16 +1,33 @@
 import React, { useState, useRef } from 'react'
-import { newNotification } from '../../services/notificationService'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { createNotification } from '../../reducers/notificationReducer'
 import fileService from '../../services/fileService'
+import useErrorHandler from '../../hooks/useErrorHandler'
 import {
   StyledButton,
   StyledForm,
   StyledFormInput,
-  StyledFormDiv
+  StyledFormDiv,
+  StyledFormErrorDiv,
+  StyledFormError
 } from '../../styles'
 
 const FileUploadForm = ({farmId}) => {
+  const dispatch = useDispatch()
   const [selectedFile, setSelectedFile] = useState(null)
+  const [error, setError] = useState(null)
   const fileInputRef = useRef(null)
+  const handleError = useErrorHandler()
+
+  useEffect(() => {
+    if (selectedFile && selectedFile.type !== 'text/csv') {
+      setError('Selected file must be a CSV type file')
+    } else {
+      setError(null)
+    }
+  }, [selectedFile])
 
   const validateValues = () => {
     return (typeof selectedFile !== 'undefined' && selectedFile !== null)
@@ -21,24 +38,28 @@ const FileUploadForm = ({farmId}) => {
     e.preventDefault()
 
     if (validateValues()) {
-      await fileService.upload({
-        file: selectedFile,
-        filename: selectedFile.name,
-        farmId
-      })
-      newNotification({
-        message: `File ${selectedFile.name} uploaded successfully.`,
-        type: 'success',
-        time: 3000
-      })
+      try {
+        await fileService.upload({
+          file: selectedFile,
+          filename: selectedFile.name,
+          farmId
+        })
+        dispatch(createNotification({
+          message: `File ${selectedFile.name} uploaded successfully.`,
+          type: 'success',
+          time: 3000
+        }))
+      } catch (error) {
+        handleError(error)
+      }
       setSelectedFile(null)
       fileInputRef.current.value = ''
     } else {
-      newNotification({
+      dispatch(createNotification({
         message: 'Invalid values.',
         type: 'error',
         time: 3000
-      })
+      }))
     }
   }
 
@@ -63,6 +84,12 @@ const FileUploadForm = ({farmId}) => {
             </StyledFormInput>
             <StyledButton className='submit' type='submit'>Upload</StyledButton>
           </StyledForm>
+          <StyledFormErrorDiv>
+            {error
+              ? <StyledFormError>{error}</StyledFormError>
+              : null
+            }
+          </StyledFormErrorDiv>
         </StyledFormDiv>
       </form>
     </>

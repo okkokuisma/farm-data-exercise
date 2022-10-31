@@ -15,6 +15,7 @@ filesRouter.post('/upload', async (request, response) => {
   }
 
   const filePath = process.cwd() + '/resources/uploads/' + request.file.filename
+
   const validRows = await validateCsvFile(filePath)
 
   if (!validRows || !validRows.length) {

@@ -59,7 +59,7 @@ const CreateFarmForm = ({farms}) => {
         city: yup.string()
           .required('City required'),
         address: yup.string()
-          .required('Adress required')
+          .required('Address required')
       })}
       onSubmit={async (values) => {
         await handleFarmCreateSubmit(values)

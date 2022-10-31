@@ -6,6 +6,7 @@ export const StyledBodyDiv = styled.div`
   align-items: center;
   margin: 100px 10% 0 10%;
   height: 100vh;
+  position: relative;
 `
 export const StyledDivContainer = styled.div`
   display: flex;
@@ -99,17 +100,9 @@ export const StyledButton = styled.button`
   }
 `
 
-export const StyledToggleButton = styled(StyledButton)`
-  width: 30%;
-  font-size: 20px;
-  text-align: left;
-  padding: 7px 7px;
-`
-
-export const Filters = styled.div`
+export const StyledFilters = styled.div`
   display: flex;
   align-items: center;
-  // justify-content: space-evenly;
   margin: 20px 0;
   width: 100%;
 
@@ -127,7 +120,6 @@ export const StyledFormInput = styled.div`
   font-size: 15px;
 
   label {
-    // width: 150px;
     height: 20px;
     line-height: 20px;
     padding: 5px 5px;
@@ -185,7 +177,6 @@ export const StyledSelect = styled.select`
   border: 2pt solid #f7c288;
   border-radius: 5px;
   font-size: 15px;
-  // padding: 5px 5px;
   height: 30px;
 
   -webkit-box-sizing: border-box;
@@ -219,6 +210,7 @@ export const StyledNotification = styled.div`
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 999;
 
   * {
     display: flex;

@@ -5,7 +5,7 @@ import { chartOptions } from '../../contants'
 import DateFilter from '../filters/DateFilter'
 import MetricTypeFilter from '../filters/MetricTypeFilter'
 import TimeIntervalFilter from '../filters/TimeIntervalFilter'
-import { Filters, StyledChart } from '../../styles'
+import { StyledFilters, StyledChart } from '../../styles'
 
 const MetricValueChart = ({stats, handleFilterChange}) => {
   const { labels, min, max, mean } = stats
@@ -44,11 +44,11 @@ const MetricValueChart = ({stats, handleFilterChange}) => {
 
   return (
     <StyledChart>
-      <Filters>
+      <StyledFilters>
         <TimeIntervalFilter handleFilterChange={handleFilterChange} />
         <MetricTypeFilter handleFilterChange={handleFilterChange} />
         <DateFilter handleFilterChange={handleFilterChange} />
-      </Filters>
+      </StyledFilters>
       <LineChart options={chartOptions} data={chartData} />
     </StyledChart>
   )

@@ -44,9 +44,6 @@ const DataView = () => {
       </StyledDivContainer>
       <StyledDivContainer>
         <h1 className='header'>Stats</h1>
-        {/* <Filters>
-          <TimeIntervalFilter handleFilterChange={handleFilterChange} />
-        </Filters> */}
         <MetricValueChart options={chartOptions} stats={stats} handleFilterChange={handleChartFilterChange} />
       </StyledDivContainer>
     </>

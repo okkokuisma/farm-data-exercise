@@ -14,7 +14,7 @@ const SignUpForm = ({ handler }) => {
       }}
       validationSchema={yup.object({
         password: yup.string()
-          .required('Password equired')
+          .required('Password required')
           .matches(
             '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
             'Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, one number and one special character'
