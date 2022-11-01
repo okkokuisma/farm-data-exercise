@@ -14,25 +14,15 @@ filesRouter.post('/upload', async (request, response) => {
     return response.status(401).json({ error: 'unauthorized' })
   }
 
-  const filePath = process.cwd() + '/resources/uploads/' + request.file.filename
-
-  const validRows = await validateCsvFile(filePath)
-
+  const validRows = await validateCsvFile(request.file.buffer)
   if (!validRows || !validRows.length) {
     return response.status(400).send('Uploaded file contained invalid data.')
   }
 
-  // const farmInstance = await farmService.getById(farmId)
   const dataPoints = validRows.map(row => {
     return { farmId, ...row}
   })
   await dataPointService.bulkCreate(dataPoints)
-
-  // const responseData = dataPointInstances.map(dp => {
-  //   const dataPointValues = dp.dataValues
-  //   const farmValues = farmInstance.dataValues
-  //   return { ...dataPointValues, farm: { ...farmValues } }
-  // })
 
   return response.status(201).end()
 })

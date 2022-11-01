@@ -1,15 +1,16 @@
-const fs = require('fs')
 const csv = require('fast-csv')
 const dayjs = require('dayjs')
 const customParseFormat = require('dayjs/plugin/customParseFormat')
 dayjs.extend(customParseFormat)
+const { Readable } = require('stream')
 
 const passwordRegex = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
 
-const validateCsvFile = (filePath) => {
+const validateCsvFile = (buffer) => {
+  const stream = Readable.from(buffer)
   return new Promise((resolve, reject) => {
     const validRows = []
-    fs.createReadStream(filePath, 'utf8')
+    stream
       .pipe(csv.parse())
       .on('error', () => {
         const error = new Error()
