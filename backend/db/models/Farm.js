@@ -1,5 +1,3 @@
-const { makePaginate } = require('sequelize-cursor-pagination')
-
 module.exports = (sequelize, DataTypes) => {
   const Farm = sequelize.define('farm', {
     id: {
@@ -30,8 +28,6 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'farms',
     underscored: true
   })
-
-  Farm.paginate = makePaginate(Farm)
 
   return Farm
 }

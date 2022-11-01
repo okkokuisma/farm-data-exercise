@@ -224,15 +224,15 @@ export const StyledNotification = styled.div`
   }
 
   .success {
-    background-color: #70CA69;
+    background-color: #45ed72;
   }
 
   .error {
-    background-color: #EA5136;
+    background-color: #f56767;
   }
 
   .info {
-    background-color: #EEE559;
+    background-color: #f5f262;
   }
 `
 export const StyledNavBar = styled.div`
