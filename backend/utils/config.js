@@ -6,7 +6,6 @@ const POSTGRES_DB = process.env.POSTGRES_DB || 'postgres'
 const DB_HOST = process.env.DB_HOST || 'localhost'
 const JWT_SECRET = process.env.JWT_SECRET
 const SERVER_PORT = process.env.SERVER_PORT || 3003
-console.log(JWT_SECRET)
 
 const DB_PORT = process.env.NODE_ENV === 'test'
   ? process.env.TEST_DB_PORT || 5432
