@@ -1,4 +1,4 @@
-const validator = require('../utils/dataValidator')
+const validator = require('../src/utils/dataValidator')
 const { mapDataValueRows } = require('./testHelper')
 
 test('only valid metric types are accepted', () => {

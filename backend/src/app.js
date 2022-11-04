@@ -35,7 +35,7 @@ app.use('/api/auth', authRouter)
 app.use(express.static('build'))
 
 app.get('*', (request, response) => {
-  response.sendFile(path.join(__dirname + '/build/index.html'))
+  response.sendFile(path.join(__dirname, '..', '/build/index.html'))
 })
 
 app.use(errorHandler)

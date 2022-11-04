@@ -4,10 +4,10 @@
   "description": "Solita Dev Academy 2022 exercise",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development node index.js",
+    "start": "NODE_ENV=development node ./src/index.js",
     "test": "NODE_ENV=test jest --verbose --detectOpenHandles",
     "lint": "eslint .",
-    "dev": "NODE_ENV=development nodemon index.js",
+    "dev": "NODE_ENV=development nodemon ./src/index.js",
     "migration:down": "node utils/rollbackMigration.js"
   },
   "repository": {

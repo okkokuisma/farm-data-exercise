@@ -1,7 +1,7 @@
 const supertest = require('supertest')
 
-const app = require('../app')
-const { emptyDatabase, closeConnection } = require('../db/dbInit')
+const app = require('../src/app')
+const { emptyDatabase, closeConnection } = require('../src/db/dbInit')
 
 const api = supertest(app)
 

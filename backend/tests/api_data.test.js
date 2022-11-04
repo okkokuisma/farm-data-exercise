@@ -1,9 +1,9 @@
 const supertest = require('supertest')
 
-const app = require('../app')
-const { emptyDatabase, closeConnection } = require('../db/dbInit')
-const farmService = require('../db/services/farmService')
-const userService = require('../db/services/userService')
+const app = require('../src/app')
+const { emptyDatabase, closeConnection } = require('../src/db/dbInit')
+const farmService = require('../src/db/services/farmService')
+const userService = require('../src/db/services/userService')
 
 // const api = supertest(app)
 const agent = supertest.agent(app)

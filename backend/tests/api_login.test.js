@@ -1,8 +1,8 @@
 const supertest = require('supertest')
 
-const app = require('../app')
-const userService = require('../db/services/userService')
-const { emptyDatabase, closeConnection } = require('../db/dbInit')
+const app = require('../src/app')
+const userService = require('../src/db/services/userService')
+const { emptyDatabase, closeConnection } = require('../src/db/dbInit')
 
 const api = supertest(app)
 

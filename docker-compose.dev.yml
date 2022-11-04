@@ -10,9 +10,9 @@ services:
     volumes:
       - ./backend/db/data/postgres:/var/lib/postgresql/data
     ports:
-      - ${DB_PORT}:5432
+      - 5432:5432
     container_name: farm-app-db-dev
-  
+
   backend:
     image: farm-app-backend-dev
     build:
@@ -23,11 +23,10 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_DB=${POSTGRES_DB}
       - DB_HOST=farm-app-db-dev
-      - DB_PORT=${DB_PORT}
       - SERVER_PORT=${SERVER_PORT}
       - JWT_SECRET=${JWT_SECRET}
     volumes:
-      - ./backend/:/usr/src/app
+      - ./backend/src:/usr/src/app/src
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
     container_name: farm-app-backend-dev
