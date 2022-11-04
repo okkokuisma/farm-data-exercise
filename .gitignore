@@ -107,6 +107,6 @@ backend/requests/*.csv
 
 backend/resources/uploads/*
 
-db
+db_data
 
 .DS_Store

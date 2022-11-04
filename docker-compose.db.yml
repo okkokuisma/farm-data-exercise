@@ -8,7 +8,7 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_DB=${POSTGRES_DB}
     volumes:
-      - ./backend/db/data/postgres:/var/lib/postgresql/data
+      - ./backend/db_data/postgres:/var/lib/postgresql/data
     ports:
       - ${DB_PORT}:5432
     container_name: farm-app-db-dev
@@ -21,4 +21,4 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - ${TEST_DB_PORT}:5432
-    container_name: farm-app-test-db-dev 
+    container_name: farm-app-test-db-dev
