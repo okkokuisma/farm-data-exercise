@@ -43,5 +43,6 @@ Date | Hours | What I did
 30.10. | 2,5h | refactored forms, made form errors prettier, fixed tests
 31.10. | 1,5h | did some manual testing and fixed some bugs, made uploading files a bit more user-friendly
 1.11. | 2,5h | switched to memory storage for file uploads to make things work on fly.io, added a better catch-all for backend for it to serve the static frontend content more reliably, updated readme, added small fixes
-2.11. | 3 | added frontend and backend images to docker-compose.dev file for convenience, updated readme, made sure the config works out-of-the-box
+2.11. | 3h | added frontend and backend images to docker-compose.dev file for convenience, updated readme, made sure the config works out-of-the-box
+3.11. | 2h | debugging docker config
 sum | 176,5 |
