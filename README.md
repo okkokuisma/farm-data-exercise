@@ -9,4 +9,4 @@ The app is designed to store and display added farm data. Users can create farms
 3. You can use the provided docker-compose.dev.yml file to run a database and the backend and frontend processes in docker containers. To do so, run `docker-compose -f docker-compose.dev.yml up` in the project root directory.
 4. To run backend tests, define environment variable TEST_DB_PORT in the same .env file you just created and start a test database with `docker-compose -f docker-compose.db.yml up` in the project root directory. Next, navigate to /backend and install dependencies with `npm install`. Finally, run the tests with `npm test`.
 
-The app is also running on Fly.io for demoing purposes and can be accessed [here](https://farm-app.fly.dev/).
+The app is also running on Fly.io for demoing purposes and can be accessed [here](https://farm-app.fly.dev/). Working hour documentation can be found [here](https://github.com/okkokuisma/farm-data-exercise/blob/main/work_hours.md).
