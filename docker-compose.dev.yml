@@ -39,7 +39,7 @@ services:
       context: ./frontend
       dockerfile: dev.Dockerfile
     volumes:
-      - ./frontend/:/usr/src/app
+      - ./frontend/src:/usr/src/app/src
     ports:
       - 3000:3000
     environment:
